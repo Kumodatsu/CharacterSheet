@@ -19,7 +19,7 @@ M.roll_stat = function(name, lower, upper)
     end
     local v = M.Stats[name]
     if v == nil then
-        print(name .. " is not one of your stats. Did you misspell it or forget to set it using /set?")
+        print(name .. " is not one of your stats. Did you misspell it or forget to set it using /cs set?")
         return
     end
     lower = lower or 1
