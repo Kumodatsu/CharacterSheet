@@ -76,7 +76,8 @@ local list_help = function(name)
 end
 
 M.add_cmd("help", list_help, [[
-Shows the list of commands.
+"/cs help" shows the list of commands.
+"/cs help command" shows an explanation of the specified command.
 ]])
 
 cs.Commands = M
