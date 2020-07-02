@@ -28,8 +28,13 @@ M.roll_stat = function(name, lower, upper)
 end
 
 M.show_stats = function()
+    local n = 0
     for stat, value in pairs(M.Stats) do
         print(stat .. ": " .. value)
+        n = n + 1
+    end
+    if n == 0 then
+        print("Your stat block is empty.")
     end
 end
 
