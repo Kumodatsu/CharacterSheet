@@ -34,7 +34,20 @@ M.show_stats = function()
 end
 
 M.clear_stats = function(name)
-    Stats = {}
+    if name == nil then
+        for k, _ in pairs(M.Stats) do
+            M.Stats[k] = nil
+        end
+        print("Your stat block has been cleared.")
+        return
+    end
+    local v = M.Stats[name]
+    if v == nil then
+        print(name .. " is not one of your stats. Did you misspell it or forget to set it using /set?")
+        return
+    end
+    M.Stats[name] = nil
+    print(name .. " has been removed from your stats.")
 end
 
 cs.Commands.add_cmd("set", M.set_stat, [[
@@ -49,6 +62,11 @@ For example: "/cs roll atk"
 
 cs.Commands.add_cmd("stats", M.show_stats, [[
 "/cs stats" shows the stats you have and their values.
+]])
+
+cs.Commands.add_cmd("clear", M.clear_stats, [[
+"/cs clear" clears your entire stat block.
+"/cs clear name" clears the stat with the given name from your stat block.
 ]])
 
 -- Handle loading/saving of stats from/to file
