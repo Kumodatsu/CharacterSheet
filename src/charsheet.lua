@@ -74,28 +74,4 @@ cs.Commands.add_cmd("clear", M.clear_stats, [[
 "/cs clear name" clears the stat with the given name from your stat block.
 ]])
 
--- Handle loading/saving of stats from/to file
-M.frame_load_vars = CreateFrame("FRAME", "LoadStats")
-
-local on_addon_loaded = function()
-    M.Stats = Stats or {}
-end
-
-local on_addon_unloading = function()
-    Stats = M.Stats
-end
-
-M.frame_load_vars:RegisterEvent("ADDON_LOADED")
-M.frame_load_vars:RegisterEvent("PLAYER_LOGOUT")
-
-M.frame_load_vars.OnEvent = function(self, event, arg1)
-    if event == "ADDON_LOADED" and arg1 == addon_name then
-        on_addon_loaded()
-    elseif event == "PLAYER_LOGOUT" then
-        on_addon_unloading()
-    end
-end
-
-M.frame_load_vars:SetScript("OnEvent", M.frame_load_vars.OnEvent)
-
 cs.Charsheet = M
