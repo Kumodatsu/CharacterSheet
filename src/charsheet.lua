@@ -48,7 +48,7 @@ M.clear_stats = function(name)
     end
     local v = M.Stats[name]
     if v == nil then
-        print(name .. " is not one of your stats. Did you misspell it or forget to set it using /set?")
+        print(name .. " is not one of your stats. Did you misspell it or forget to set it using /cs set?")
         return
     end
     M.Stats[name] = nil
