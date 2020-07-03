@@ -1,15 +1,21 @@
 local addon_name, cs = ...
 
--- Handle loading/saving of stats from/to file
-local frame_load_vars = CreateFrame("FRAME", "LoadStats")
-
+-- Handle loading/saving of data from/to file
 local on_addon_loaded = function()
-    cs.Charsheet.Stats = Stats or {}
+    -- Account wide data
+    CS_DB      = CS_DB      or {}
+    -- Character specific data
+    CS_Char_DB = CS_Char_DB or {}
+    
+    -- Character stats
+    cs.Charsheet.Stats = CS_Char_DB.Stats or {}
 end
 
 local on_addon_unloading = function()
-    Stats = cs.Charsheet.Stats
+    CS_Char_DB.Stats = cs.Charsheet.Stats
 end
+
+local frame_load_vars = CreateFrame("FRAME", "LoadData")
 
 frame_load_vars:RegisterEvent("ADDON_LOADED")
 frame_load_vars:RegisterEvent("PLAYER_LOGOUT")
