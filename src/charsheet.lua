@@ -14,7 +14,7 @@ end
 
 M.roll_stat = function(name, lower, upper)
     if name == nil then
-        RandomRoll(1, 100)
+        RandomRoll(1, 20)
         return
     end
     local v = M.Stats[name]
@@ -23,7 +23,7 @@ M.roll_stat = function(name, lower, upper)
         return
     end
     lower = lower or 1
-    upper = upper or 100
+    upper = upper or 20
     RandomRoll(lower + v, upper + v)
 end
 
