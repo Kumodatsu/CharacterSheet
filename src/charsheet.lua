@@ -27,6 +27,10 @@ M.roll_stat = function(name, lower, upper)
     RandomRoll(lower + v, upper + v)
 end
 
+M.roll_heal = function()
+    RandomRoll(1, 14)
+end
+
 M.show_stats = function()
     local n = 0
     for stat, value in pairs(M.Stats) do
@@ -72,6 +76,10 @@ cs.Commands.add_cmd("stats", M.show_stats, [[
 cs.Commands.add_cmd("clear", M.clear_stats, [[
 "/cs clear" clears your entire stat block.
 "/cs clear name" clears the stat with the given name from your stat block.
+]])
+
+cs.Commands.add_cmd("heal", M.roll_heal, [[
+"/cs heal" performs a heal roll using a d14.
 ]])
 
 cs.Charsheet = M
