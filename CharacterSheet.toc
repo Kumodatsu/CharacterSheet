@@ -8,6 +8,7 @@
 
 src\util\type.lua
 src\util\table.lua
+src\util\set.lua
 src\commands.lua
 
 src\mechanics\stats.lua
