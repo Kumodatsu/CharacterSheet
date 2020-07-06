@@ -23,7 +23,7 @@ M.Class = function(class)
         local savedata = {}
         for k, v in pairs(self) do
             if type(v) ~= "function" then
-                savedata.k = v
+                savedata[k] = v
             end
         end
         return savedata
