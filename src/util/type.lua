@@ -1,18 +1,29 @@
 local _, cs = ...
 local M = {}
 
-M.Enum = function(t)
-    local mt   = {}
-    local enum = {}
-    mt.__index = mt
-    for k, v in pairs(t) do
-        if type(v) == "function" then
-            mt[k] = v
-        else
-            enum[k] = { Value = v }
-            setmetatable(enum[k], mt)
+M.Enum = function(enum)
+    local mt = {
+        from_string = enum.from_string or function(str)
+            str = str:lower()
+            for k, v in pairs(enum) do
+                if k:lower() == str then
+                    return v
+                end
+            end
+            return nil
+        end,
+
+        to_string = enum.to_string or function(value)
+            for k, v in pairs(enum) do
+                if v == value then
+                    return k
+                end
+            end
+            return nil
         end
-    end
+    }
+    mt.__index = mt
+    setmetatable(enum, mt)
     return enum
 end
 

@@ -11,16 +11,16 @@ M.PowerLevel = Enum {
     Apprentice = 2,
     Adept      = 3,
     Expert     = 4,
-    Master     = 5,
-
-    get_sp_bonus = function(self)
-        return 14 + 2 * self.Value
-    end,
-
-    get_hp_bonus = function(self)
-        return 2 * self.Value
-    end
+    Master     = 5
 }
+
+M.get_sp_bonus = function(level)
+    return 14 + 2 * level
+end
+
+M.get_hp_bonus = function(level)
+    return 2 * level
+end
 
 M.StatBlock = Class {
     STR   = 10,
@@ -32,7 +32,8 @@ M.StatBlock = Class {
     Level = M.PowerLevel.Adept,
 
     get_max_hp = function(self)
-        return self.CON + self.Level:get_hp_bonus()
+        return self.CON + M.get_hp_bonus(self.Level)
+    end,
     end
 }
 
