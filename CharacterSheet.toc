@@ -10,6 +10,10 @@ src\util\type.lua
 src\util\table.lua
 src\commands.lua
 
+src\mechanics\stats.lua
 src\mechanics\charsheet.lua
+
 src\interface.lua
+
+src\saving.lua
 src\main.lua
