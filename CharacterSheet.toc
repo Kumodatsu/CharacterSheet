@@ -6,8 +6,9 @@
 ## SavedVariablesPerCharacter: CS_Char_DB
 ## Version: 0.1.0
 
-src\table.lua
+src\util\table.lua
 src\commands.lua
-src\charsheet.lua
+
+src\mechanics\charsheet.lua
 src\interface.lua
 src\main.lua
