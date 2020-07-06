@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Command: `/cs heal`. Allows one to perform a heal roll.
+- Command: `/cs level`. Allows one to set their character's power level.
+- Command: `/cs validate`. Checks if one's stat block is valid.
 - (Code) Type utilities. Includes functions to facilitate object oriented programming.
 
 ### Removed

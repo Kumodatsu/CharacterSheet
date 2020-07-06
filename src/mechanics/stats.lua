@@ -5,6 +5,9 @@ local Enum  = cs.Type.Enum
 local Class = cs.Type.Class
 local print = print
 
+M.StatMinVal = 5
+M.StatMaxVal = 24
+
 -- Enumeration of character power levels
 M.PowerLevel = Enum {
     Novice     = 1,
@@ -34,6 +37,54 @@ M.StatBlock = Class {
     get_max_hp = function(self)
         return self.CON + M.get_hp_bonus(self.Level)
     end,
+
+    attributes = function(self)
+        local attribute_names = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
+        local index = 1
+        return function()
+            local attribute_name = attribute_names[index]
+            local value          = self[attribute_name]
+            index = index + 1
+            return attribute_name, value
+        end
+    end,
+
+    -- Validates the stat block, checking if any constraints are violated.
+    -- Returns true if the stat block is valid.
+    -- Returns false and an error (string) if the stat block is invalid.
+    validate = function(self)
+        local total = 0
+        for attrib, val in self:attributes() do
+            if val < M.StatMinVal then
+                return false,
+                    "Attribute " .. attrib .. " can't be lower than " .. M.StatMinVal .. "."
+            elseif val > M.StatMaxVal then
+                return false,
+                    "Attribute " .. attrib .. " can't be greater than " .. M.StatMaxVal .. "."
+            end
+            total = total + val
+        end
+        local remaining_sp = self:get_potential_sp() - total
+        if remaining_sp < 0 then
+            return false, "You have spent " .. remaining_sp .. " too many SP."
+        elseif remaining_sp > 0 then
+            return false, "You still have " .. remaining_sp .. " unspent SP."
+        end
+        return true
+    end,
+
+    -- The number of SP that may be spent given the power level.
+    get_potential_sp = function(self)
+        return 60 + M.get_sp_bonus(self.Level)
+    end,
+
+    -- The total number SP currently spent.
+    get_total_sp = function(self)
+        local total = 0
+        for _, val in self:attributes() do
+            total = total + val
+        end
+        return total
     end
 }
 

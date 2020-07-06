@@ -56,13 +56,33 @@ M.roll_heal = function()
 end
 
 M.show_stats = function()
-    print("Max HP: " .. M.Stats:get_max_hp())
-    print("STR: "    .. M.Stats.STR)
-    print("DEX: "    .. M.Stats.DEX)
-    print("CON: "    .. M.Stats.CON)
-    print("INT: "    .. M.Stats.INT)
-    print("WIS: "    .. M.Stats.WIS)
-    print("CHA: "    .. M.Stats.CHA)
+    print("Power level: " .. cs.Stats.PowerLevel.to_string(M.Stats.Level))
+    print("Max HP: "      .. M.Stats:get_max_hp())
+    print("STR: "         .. M.Stats.STR)
+    print("DEX: "         .. M.Stats.DEX)
+    print("CON: "         .. M.Stats.CON)
+    print("INT: "         .. M.Stats.INT)
+    print("WIS: "         .. M.Stats.WIS)
+    print("CHA: "         .. M.Stats.CHA)
+end
+
+M.set_level = function(level_name)
+    local level = cs.Stats.PowerLevel.from_string(level_name)
+    if level == nil then
+        print(level_name .. " is not a valid power level.")
+        return
+    end
+    M.Stats.Level = level
+    print ("Power level set to " .. cs.Stats.PowerLevel.to_string(level) .. ".")
+end
+
+M.validate_stats = function()
+    local valid, msg = M.Stats:validate()
+    if valid then
+        print("Your stat block is valid.")
+    else
+        print(msg)
+    end
 end
 
 cs.Commands.add_cmd("set", M.set_stat, [[
@@ -81,6 +101,15 @@ cs.Commands.add_cmd("stats", M.show_stats, [[
 
 cs.Commands.add_cmd("heal", M.roll_heal, [[
 "/cs heal" performs a heal roll using a d14.
+]])
+
+cs.Commands.add_cmd("level", M.set_level, [[
+"/cs level name" sets your character's power level to the specified level.
+<name> must be one of novice, apprentice, adept, expert, master.
+]])
+
+cs.Commands.add_cmd("validate", M.validate_stats, [[
+"/cs validate" checks whether your stat block is valid.
 ]])
 
 cs.Charsheet = M
