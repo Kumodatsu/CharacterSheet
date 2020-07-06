@@ -8,11 +8,11 @@ local on_addon_loaded = function()
     CS_Char_DB = CS_Char_DB or {}
     
     -- Character stats
-    cs.Charsheet.Stats   = CS_Char_DB.Stats or {}
+    cs.Charsheet.Stats = cs.Stats.StatBlock.load(CS_Char_DB.Stats)
 end
 
 local on_addon_unloading = function()
-    CS_Char_DB.Stats   = cs.Charsheet.Stats
+    CS_Char_DB.Stats = cs.Charsheet.Stats:save()
 end
 
 local frame_load_vars = CreateFrame("FRAME", "LoadData")

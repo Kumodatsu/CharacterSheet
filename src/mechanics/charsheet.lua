@@ -7,23 +7,47 @@ local print = print
 M.Stats = {}
 
 M.set_stat = function(name, value)
+    -- Check if the given value is a valid number
     value = tonumber(value)
-    print(name .. " set to " .. value)
+    if value == nil or value < 0 or math.floor(value) ~= value then
+        print("The value must be a positive integer.")
+        return
+    end
+    -- Check if the given stat is valid
+    local mutable_stats = cs.Set.Set {
+        "STR", "DEX", "CON", "INT", "WIS", "CHA"
+    }
+    name = name:upper()
+    if not cs.Set.Contains(mutable_stats, name) then
+        print(name .. " is not a valid stat.")
+        return
+    end
+    -- Modify the stat
     M.Stats[name] = value
+    print(name .. " set to " .. value)
 end
 
-M.roll_stat = function(name, lower, upper)
+M.roll_stat = function(name)
+    -- Roll bounds
+    local lower = 1
+    local upper = 20
+
+    -- Natural d20 if no stat is specified
     if name == nil then
-        RandomRoll(1, 20)
+        RandomRoll(lower, upper)
+        return
+    end
+
+    -- d20 + modifier if a stat is specified
+    local roll_stats = cs.Set.Set {
+        "STR", "DEX", "CON", "INT", "WIS", "CHA"
+    }
+    name = name:upper()
+    if not cs.Set.Contains(roll_stats, name) then
+        print(name .. " is not a valid stat.")
         return
     end
     local v = M.Stats[name]
-    if v == nil then
-        print(name .. " is not one of your stats. Did you misspell it or forget to set it using /cs set?")
-        return
-    end
-    lower = lower or 1
-    upper = upper or 20
     RandomRoll(lower + v, upper + v)
 end
 
@@ -32,31 +56,13 @@ M.roll_heal = function()
 end
 
 M.show_stats = function()
-    local n = 0
-    for stat, value in pairs(M.Stats) do
-        print(stat .. ": " .. value)
-        n = n + 1
-    end
-    if n == 0 then
-        print("Your stat block is empty.")
-    end
-end
-
-M.clear_stats = function(name)
-    if name == nil then
-        for k, _ in pairs(M.Stats) do
-            M.Stats[k] = nil
-        end
-        print("Your stat block has been cleared.")
-        return
-    end
-    local v = M.Stats[name]
-    if v == nil then
-        print(name .. " is not one of your stats. Did you misspell it or forget to set it using /cs set?")
-        return
-    end
-    M.Stats[name] = nil
-    print(name .. " has been removed from your stats.")
+    print("Max HP: " .. M.Stats:get_max_hp())
+    print("STR: "    .. M.Stats.STR)
+    print("DEX: "    .. M.Stats.DEX)
+    print("CON: "    .. M.Stats.CON)
+    print("INT: "    .. M.Stats.INT)
+    print("WIS: "    .. M.Stats.WIS)
+    print("CHA: "    .. M.Stats.CHA)
 end
 
 cs.Commands.add_cmd("set", M.set_stat, [[
@@ -71,11 +77,6 @@ For example: "/cs roll atk"
 
 cs.Commands.add_cmd("stats", M.show_stats, [[
 "/cs stats" shows the stats you have and their values.
-]])
-
-cs.Commands.add_cmd("clear", M.clear_stats, [[
-"/cs clear" clears your entire stat block.
-"/cs clear name" clears the stat with the given name from your stat block.
 ]])
 
 cs.Commands.add_cmd("heal", M.roll_heal, [[

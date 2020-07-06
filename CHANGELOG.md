@@ -9,8 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Command: `/cs heal`. Allows one to perform a heal roll.
 - (Code) Type utilities. Includes functions to facilitate object oriented programming.
 
+### Removed
+- Command: `/cs clear`. The set of available stats is fixed now, so this command is no longer necessary.
+- Optional roll range in `/cs roll`. It will be replaced with a different system in the future.
+
 ### Changed
-- Rolls now use the new D&D d20 system.
+- Stats and rolls now use the new D&D system.
+- Stat names in commands are no longer case sensitive.
+- The value given in `/cs set` is now validated before use, preventing errors when attempting to set a stat to something nonsensical such as "flipperdipperdoo".
 
 ## [0.1.0] - 2020-07-03
 ### Added
