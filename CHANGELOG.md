@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Stats and rolls now use the new D&D system.
 - Stat names in commands are no longer case sensitive.
 - The value given in `/cs set` is now validated before use, preventing errors when attempting to set a stat to something nonsensical such as "flipperdipperdoo".
+- Command descriptions have been made more readable.
 
 ## [0.1.0] - 2020-07-03
 ### Added

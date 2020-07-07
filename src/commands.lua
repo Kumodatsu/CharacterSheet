@@ -69,15 +69,17 @@ local list_help = function(name)
             print("Unknown command: " .. name)
         end
     else
+        print("Available commands:")
         for k, v in pairs(M.cmds) do
-            print(k .. ": " .. v.Description)
+            print("/cs " .. k)
         end
+        print("Use \"/cs help <command>\" to show an explanation of the specified command.")
     end
 end
 
 M.add_cmd("help", list_help, [[
 "/cs help" shows the list of commands.
-"/cs help command" shows an explanation of the specified command.
+"/cs help <command>" shows an explanation of the specified command.
 ]])
 
 cs.Commands = M

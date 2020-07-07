@@ -108,13 +108,13 @@ M.set_hp = function(value)
 end
 
 cs.Commands.add_cmd("set", M.set_stat, [[
-"/cs set name value" sets the stat with a given name to a given value.
-For example: "/cs set atk 15"
+"/cs set <name> <value>" sets the stat with a given name to a given value.
+For example: "/cs set str 15"
 ]])
 
 cs.Commands.add_cmd("roll", M.roll_stat, [[
-"/cs roll name" rolls with the given stat modifier.
-For example: "/cs roll atk"
+"/cs roll <name>" rolls with the given stat modifier.
+For example: "/cs roll str"
 ]])
 
 cs.Commands.add_cmd("stats", M.show_stats, [[
@@ -126,7 +126,7 @@ cs.Commands.add_cmd("heal", M.roll_heal, [[
 ]])
 
 cs.Commands.add_cmd("level", M.set_level, [[
-"/cs level name" sets your character's power level to the specified level.
+"/cs level <name>" sets your character's power level to the specified level.
 <name> must be one of novice, apprentice, adept, expert, master.
 ]])
 
