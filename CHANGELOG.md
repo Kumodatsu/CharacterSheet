@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Command: `/cs heal`. Allows one to perform a heal roll.
 - Command: `/cs level`. Allows one to set their character's power level.
 - Command: `/cs validate`. Checks if one's stat block is valid.
+- Command: `/cs hp`. Allows one to set their current HP value.
+- HP tracking. Max HP is calculated from the stat block and current HP can be set by the player.
+- SP validation. Functionality for checking of a stat block's SP distribution is valid.
 - (Code) Type utilities. Includes functions to facilitate object oriented programming.
 
 ### Removed

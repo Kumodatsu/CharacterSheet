@@ -8,11 +8,13 @@ local on_addon_loaded = function()
     CS_Char_DB = CS_Char_DB or {}
     
     -- Character stats
-    cs.Charsheet.Stats = cs.Stats.StatBlock.load(CS_Char_DB.Stats)
+    cs.Charsheet.Stats     = cs.Stats.StatBlock.load(CS_Char_DB.Stats)
+    cs.Charsheet.CurrentHP = CS_Char_DB.CurrentHP or cs.Charsheet.Stats:get_max_hp()
 end
 
 local on_addon_unloading = function()
-    CS_Char_DB.Stats = cs.Charsheet.Stats:save()
+    CS_Char_DB.Stats     = cs.Charsheet.Stats:save()
+    CS_Char_DB.CurrentHP = cs.Charsheet.CurrentHP
 end
 
 local frame_load_vars = CreateFrame("FRAME", "LoadData")

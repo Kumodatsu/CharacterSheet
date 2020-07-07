@@ -3,8 +3,9 @@ local M = {}
 
 local print = print
 
--- Stats will be loaded from file on addon load
-M.Stats = {}
+-- Will be loaded from file on addon load
+M.Stats     = {}
+M.CurrentHP = 16
 
 M.set_stat = function(name, value)
     -- Check if the given value is a valid number
@@ -24,6 +25,9 @@ M.set_stat = function(name, value)
     end
     -- Modify the stat
     M.Stats[name] = value
+    if M.CurrentHP > M.Stats:get_max_hp() then
+        M.CurrentHP = M.Stats:get_max_hp()
+    end
     print(name .. " set to " .. value)
 end
 
@@ -57,13 +61,13 @@ end
 
 M.show_stats = function()
     print("Power level: " .. cs.Stats.PowerLevel.to_string(M.Stats.Level))
-    print("Max HP: "      .. M.Stats:get_max_hp())
-    print("STR: "         .. M.Stats.STR)
-    print("DEX: "         .. M.Stats.DEX)
-    print("CON: "         .. M.Stats.CON)
-    print("INT: "         .. M.Stats.INT)
-    print("WIS: "         .. M.Stats.WIS)
-    print("CHA: "         .. M.Stats.CHA)
+    print("HP: " .. M.CurrentHP .. "/" .. M.Stats:get_max_hp())
+    print("STR: " .. M.Stats.STR)
+    print("DEX: " .. M.Stats.DEX)
+    print("CON: " .. M.Stats.CON)
+    print("INT: " .. M.Stats.INT)
+    print("WIS: " .. M.Stats.WIS)
+    print("CHA: " .. M.Stats.CHA)
 end
 
 M.set_level = function(level_name)
@@ -83,6 +87,24 @@ M.validate_stats = function()
     else
         print(msg)
     end
+end
+
+M.set_hp = function(value)
+    if value == "max" then
+        value = M.Stats:get_max_hp()
+    else
+        value = tonumber(value)
+        if value == nil then
+            print("The given value must be a number or \"max\".")
+            return
+        end
+    end
+    if value < 0 or value > M.Stats:get_max_hp() or math.floor(value) ~= value then
+        print("The given value must be a positive integer and may not exceed your max HP.")
+        return
+    end
+    M.CurrentHP = value
+    print("HP set to " .. value .. ".")
 end
 
 cs.Commands.add_cmd("set", M.set_stat, [[
@@ -110,6 +132,11 @@ cs.Commands.add_cmd("level", M.set_level, [[
 
 cs.Commands.add_cmd("validate", M.validate_stats, [[
 "/cs validate" checks whether your stat block is valid.
+]])
+
+cs.Commands.add_cmd("hp", M.set_hp, [[
+"/cs hp max" sets your current HP to your max HP.
+"/cs hp <value>" sets your current HP to the given value.
 ]])
 
 cs.Charsheet = M
