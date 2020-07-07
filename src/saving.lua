@@ -38,7 +38,7 @@ local on_addon_unloading = function()
     end
 end
 
-local frame_load_vars = CreateFrame("FRAME", "LoadData")
+local frame_load_vars = CreateFrame("FRAME", "CS_LoadData")
 
 frame_load_vars:RegisterEvent("ADDON_LOADED")
 frame_load_vars:RegisterEvent("PLAYER_LOGOUT")
