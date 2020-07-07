@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://www.blizzard.com/wow/ui/..\FrameXML\UI.xsd">
 
 <Frame
-        name="myTabContainerFrame"
+        name="CS_MainFrame"
         toplevel="true"
         frameStrata="DIALOG"
         movable="true"
@@ -29,7 +29,9 @@
     </Backdrop>
     <Layers>
         <Layer level="ARTWORK">
-            <Texture name="myFrameHeader" file="Interface\DialogFrame\UI-DialogBox-Header">
+            <Texture
+                    name="CS_MainFrame_HeaderTexture"
+                    file="Interface\DialogFrame\UI-DialogBox-Header">
                 <Size><AbsDimension x="356" y="64"/></Size>
                 <Anchors>
                     <Anchor point="TOP">
@@ -39,7 +41,7 @@
             </Texture>
             <FontString inherits="GameFontNormal" text="Character Sheet">
                 <Anchors>
-                    <Anchor point="TOP" relativeTo="myFrameHeader">
+                    <Anchor point="TOP" relativeTo="CS_MainFrame_HeaderTexture">
                         <Offset><AbsDimension x="0" y="-14"/></Offset>
                     </Anchor>
                 </Anchors>
@@ -48,7 +50,7 @@
     </Layers>
     <!-- FRAMES -->
     <Frames>
-        <Frame name="myTabPage1" hidden="false">
+        <Frame name="CS_MainFrame_TabPage1" hidden="false">
             <Anchors>
                 <Anchor point="TOPLEFT"/>
                 <Anchor point="BOTTOMRIGHT"/>
@@ -66,7 +68,7 @@
             </Layers>
             <Frames></Frames>
         </Frame>   
-        <Frame name="myTabPage2" hidden="true">
+        <Frame name="CS_MainFrame_TabPage2" hidden="true">
             <Anchors>
                 <Anchor point="TOPLEFT"/>
                 <Anchor point="BOTTOMRIGHT"/>
@@ -93,9 +95,9 @@
             </Anchors>
             <Scripts>
                 <OnClick>
-                    PanelTemplates_SetTab(myTabContainerFrame, 1)
-                    myTabPage1:Show()
-                    myTabPage2:Hide()
+                    PanelTemplates_SetTab(CS_MainFrame, 1)
+                    CS_MainFrame_TabPage1:Show()
+                    CS_MainFrame_TabPage2:Hide()
                 </OnClick>
             </Scripts>
         </Button>
@@ -107,24 +109,24 @@
             </Anchors>
             <Scripts>
                 <OnClick>
-                    PanelTemplates_SetTab(myTabContainerFrame, 2)
-                    myTabPage1:Hide()
-                    myTabPage2:Show()
+                    PanelTemplates_SetTab(CS_MainFrame, 2)
+                    CS_MainFrame_TabPage1:Hide()
+                    CS_MainFrame_TabPage2:Show()
                 </OnClick>
             </Scripts>
         </Button>
     </Frames>
     <Scripts>
         <OnLoad>
-            PanelTemplates_SetNumTabs(myTabContainerFrame, 2)
-            PanelTemplates_SetTab(myTabContainerFrame, 1)
+            PanelTemplates_SetNumTabs(CS_MainFrame, 2)
+            PanelTemplates_SetTab(CS_MainFrame, 1)
             self:RegisterForDrag("LeftButton")
         </OnLoad>
         <OnShow>
             PlaySound("UChatScrollButton")
-            PanelTemplates_SetTab(myTabContainerFrame, 1)
-            myTabPage1:Show()
-            myTabPage2:Hide()
+            PanelTemplates_SetTab(CS_MainFrame, 1)
+            CS_MainFrame_TabPage1:Show()
+            CS_MainFrame_TabPage2:Hide()
         </OnShow>
         <OnHide>
             PlaySound("UChatScrollButton")
