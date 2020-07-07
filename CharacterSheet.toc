@@ -4,7 +4,7 @@
 ## Author: Kumodatsu
 ## SavedVariables: CS_DB
 ## SavedVariablesPerCharacter: CS_Char_DB
-## Version: 0.2.0
+## Version: 0.2.1
 
 src\util\type.lua
 src\util\table.lua
