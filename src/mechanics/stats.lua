@@ -85,6 +85,11 @@ M.StatBlock = Class {
             total = total + val
         end
         return total
+    end,
+
+    -- The modifier to be added for healing rolls.
+    get_heal_modifier = function(self)
+        return math.floor(math.max(0, (self.CHA - 10)) / 2)
     end
 }
 
