@@ -77,6 +77,9 @@ M.set_level = function(level_name)
         return
     end
     M.Stats.Level = level
+    if M.CurrentHP > M.Stats:get_max_hp() then
+        M.CurrentHP = M.Stats:get_max_hp()
+    end
     print ("Power level set to " .. cs.Stats.PowerLevel.to_string(level) .. ".")
 end
 
