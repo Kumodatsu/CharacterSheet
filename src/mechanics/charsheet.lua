@@ -56,7 +56,8 @@ M.roll_stat = function(name)
 end
 
 M.roll_heal = function()
-    RandomRoll(1, 14)
+    local mod = M.Stats:get_heal_modifier()
+    RandomRoll(mod + 1, mod + 14)
 end
 
 M.show_stats = function()
