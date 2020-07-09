@@ -6,6 +6,20 @@ local print = print
 -- Will be loaded from file on addon load
 M.Stats     = {}
 M.CurrentHP = 16
+M.Pets      = {}
+
+-- Called when a stat or the power level is changed.
+local on_stats_changed = function()
+    if M.CurrentHP > M.Stats:get_max_hp() then
+        M.CurrentHP = M.Stats:get_max_hp()
+    end
+    local pet_max_hp = M.Stats:get_pet_max_hp()
+    for pet_name, pet in M.Pets do
+        if pet.CurrentHP > pet_max_hp then
+            pet.CurrentHP = pet_max_hp
+        end
+    end
+end
 
 M.set_stat = function(name, value)
     -- Check if the given value is a valid number
@@ -25,9 +39,7 @@ M.set_stat = function(name, value)
     end
     -- Modify the stat
     M.Stats[name] = value
-    if M.CurrentHP > M.Stats:get_max_hp() then
-        M.CurrentHP = M.Stats:get_max_hp()
-    end
+    on_stats_changed()
     print(name .. " set to " .. value)
 end
 
@@ -78,9 +90,7 @@ M.set_level = function(level_name)
         return
     end
     M.Stats.Level = level
-    if M.CurrentHP > M.Stats:get_max_hp() then
-        M.CurrentHP = M.Stats:get_max_hp()
-    end
+    on_stats_changed()
     print ("Power level set to " .. cs.Stats.PowerLevel.to_string(level) .. ".")
 end
 
@@ -109,6 +119,60 @@ M.set_hp = function(value)
     end
     M.CurrentHP = value
     print("HP set to " .. value .. ".")
+end
+
+M.add_pet = function(name)
+    if M.Pets[name] ~= nil then
+        print("You already have a pet named " .. name .. ".")
+        return
+    end
+    M.Pets[name] = {
+        CurrentHP = M.Stats:get_pet_max_hp()
+    }
+    print("Added pet named " .. name .. ".")
+end
+
+M.show_pets = function()
+    local pet_count  = 0
+    local pet_max_hp = M.Stats:get_pet_max_hp()
+    for pet_name, pet in pairs(M.Pets) do
+        print(pet_name .. ": " .. pet.CurrentHP .. "/" .. pet_max_hp .. " HP")
+        pet_count = pet_count + 1
+    end
+    if pet_count == 0 then
+        print("You do not have any pets.")
+    end
+end
+
+M.remove_pet = function(name)
+    if name == nil or M.Pets[name] == nil then
+        print("You must specify one of your pets' names.")
+        return
+    end
+    M.Pets[name] = nil
+    print("Removed pet " .. name)
+end
+
+M.set_pet_hp = function(name, value)
+    if name == nil or M.Pets[name] == nil then
+        print("You must specify one of your pets' names.")
+        return
+    end
+    if value == "max" then
+        value = M.Stats:get_pet_max_hp()
+    else
+        value = tonumber(value)
+        if value == nil then
+            print("The given value must be a number or \"max\".")
+            return
+        end
+    end
+    if value < 0 or value > M.Stats:get_pet_max_hp() or math.floor(value) ~= value then
+        print("The given value must be a positive integer and may not exceed your pet's max HP.")
+        return
+    end
+    M.Pets[name].CurrentHP = value
+    print(name .. "'s HP set to " .. value .. ".")
 end
 
 cs.Commands.add_cmd("set", M.set_stat, [[
@@ -141,6 +205,23 @@ cs.Commands.add_cmd("validate", M.validate_stats, [[
 cs.Commands.add_cmd("hp", M.set_hp, [[
 "/cs hp max" sets your current HP to your max HP.
 "/cs hp <value>" sets your current HP to the given value.
+]])
+
+cs.Commands.add_cmd("addpet", M.add_pet, [[
+"/cs addpet <name>" adds a pet with the given name.
+]])
+
+cs.Commands.add_cmd("pets", M.show_pets, [[
+"/cs pets" shows a list of your pets and their stats.
+]])
+
+cs.Commands.add_cmd("removepet", M.remove_pet, [[
+"/cs removepet <name>" removes the pet with the given name.
+]])
+
+cs.Commands.add_cmd("pethp", M.set_pet_hp, [[
+"/cs pethp <name> max" sets the pet with the given name's current HP to their max HP.
+"/cs pethp <name> <value>" sets the pet with the given name's current HP to the given value.
 ]])
 
 cs.Charsheet = M

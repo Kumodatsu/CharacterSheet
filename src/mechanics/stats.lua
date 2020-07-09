@@ -34,10 +34,6 @@ M.StatBlock = Class {
     CHA   = 10,
     Level = M.PowerLevel.Adept,
 
-    get_max_hp = function(self)
-        return self.CON + M.get_hp_bonus(self.Level)
-    end,
-
     attributes = function(self)
         local attribute_names = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
         local index = 1
@@ -71,6 +67,14 @@ M.StatBlock = Class {
             return false, "You still have " .. remaining_sp .. " unspent SP."
         end
         return true
+    end,
+    
+    get_max_hp = function(self)
+        return self.CON + M.get_hp_bonus(self.Level)
+    end,
+
+    get_pet_max_hp = function(self)
+        return math.ceil(self:get_max_hp() / 2)
     end,
 
     -- The number of SP that may be spent given the power level.
