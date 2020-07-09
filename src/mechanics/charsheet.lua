@@ -224,4 +224,29 @@ cs.Commands.add_cmd("pethp", M.set_pet_hp, [[
 "/cs pethp <name> <value>" sets the pet with the given name's current HP to the given value.
 ]])
 
+-- Temporary helper function to half an integer value.
+local half = function(x, mode)
+    x = tonumber(x)
+    if x == nil then
+        print("You must specify a valid number.")
+        return
+    end
+    mode = mode or "up"
+    mode = mode:lower()
+    local half_x = x / 2
+    if mode == "up" then
+        print(math.ceil(half_x))
+    elseif mode == "down" then
+        print(math.floor(half_x))
+    else
+        print("The rounding must be one of up, down.")
+    end
+end
+
+cs.Commands.add_cmd("half", half, [[
+    "/cs half <x> up" shows half the value of <x>, rounded up.
+    "/cs half <x> down" shows half the value of <x>, rounded down.
+    If no rounding is specified, values are rounded up.
+]])
+
 cs.Charsheet = M
