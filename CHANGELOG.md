@@ -4,10 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.2] - 2020-07-09
-### Changed
-- One's current HP is now clamped below max HP when the max HP changes due to stat updates.
+## [0.2.3] - 2020-07-18
+### Fixed
+- Setting a stat's value no longer causes a Lua error.
 
+## [0.2.2] - 2020-07-09
 ### Added
 - Heal modifier. This value is calculated from CHA and added to heal rolls.
 - Command: `/cs half`. Helper command to calculate half of a value with rounding.
@@ -16,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Command: `/cs pets`. Shows the list of pets a character has.
 - Command: `/cs removepet`. Removes a pet.
 - Command: `/cs pethp`. Sets a pet's HP.
+
+### Fixed
+- One's current HP is now clamped below max HP when the max HP changes due to stat updates.
 
 ## [0.2.1] - 2020-07-07
 ### Changed

@@ -14,7 +14,7 @@ local on_stats_changed = function()
         M.CurrentHP = M.Stats:get_max_hp()
     end
     local pet_max_hp = M.Stats:get_pet_max_hp()
-    for pet_name, pet in M.Pets do
+    for pet_name, pet in pairs(M.Pets) do
         if pet.CurrentHP > pet_max_hp then
             pet.CurrentHP = pet_max_hp
         end
