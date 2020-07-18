@@ -43,17 +43,17 @@ M.set_stat = function(name, value)
     print(name .. " set to " .. value)
 end
 
-M.roll_stat = function(name)
+M.roll_stat = function(name, bonus)
     -- Roll bounds
     local lower = 1
     local upper = 20
-
+    
     -- Natural d20 if no stat is specified
     if name == nil then
         RandomRoll(lower, upper)
         return
     end
-
+    
     -- d20 + modifier if a stat is specified
     local roll_stats = cs.Set.Set {
         "STR", "DEX", "CON", "INT", "WIS", "CHA"
@@ -63,7 +63,8 @@ M.roll_stat = function(name)
         print(name .. " is not a valid stat.")
         return
     end
-    local v = M.Stats[name]
+    bonus = tonumber(bonus) or 0
+    local v = M.Stats[name] + bonus
     RandomRoll(lower + v, upper + v)
 end
 
