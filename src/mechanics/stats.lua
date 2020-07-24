@@ -62,7 +62,7 @@ M.StatBlock = Class {
         end
         local remaining_sp = self:get_potential_sp() - total
         if remaining_sp < 0 then
-            return false, "You have spent " .. remaining_sp .. " too many SP."
+            return false, "You have spent " .. -remaining_sp .. " too many SP."
         elseif remaining_sp > 0 then
             return false, "You still have " .. remaining_sp .. " unspent SP."
         end
