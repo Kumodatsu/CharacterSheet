@@ -68,9 +68,19 @@ M.roll_stat = function(name, bonus)
     RandomRoll(lower + v, upper + v)
 end
 
-M.roll_heal = function()
-    local mod = M.Stats:get_heal_modifier()
-    RandomRoll(mod + 1, mod + 14)
+M.roll_heal = function(in_combat)
+    in_combat = in_combat or "combat"
+    if in_combat == "combat" then
+        in_combat = true
+    elseif in_combat == "safe" then
+        in_combat = false
+    else
+        print("Parameter must be one of combat, safe.")
+        return
+    end
+    local mod   = M.Stats:get_heal_modifier()
+    local bound = in_combat and 14 or 18
+    RandomRoll(mod + 1, mod + bound)
 end
 
 M.show_stats = function()
@@ -191,7 +201,8 @@ cs.Commands.add_cmd("stats", M.show_stats, [[
 ]])
 
 cs.Commands.add_cmd("heal", M.roll_heal, [[
-"/cs heal" performs a heal roll using a d14.
+"/cs heal" and "/cs heal combat" perform a heal roll using a d14.
+"/cs heal safe" performs a heal roll using a d18.
 ]])
 
 cs.Commands.add_cmd("level", M.set_level, [[
