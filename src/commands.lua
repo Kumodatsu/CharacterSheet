@@ -11,7 +11,7 @@ M.cmds = { }
 -- msg: str -> bool, str, table
 M.parse_cmd = function(msg)
     local tokens = {}
-    for token in msg:gmatch("%w+") do
+    for token in msg:gmatch("[_%w%-%.]+") do
         table.insert(tokens, token)
     end
     if #tokens == 0 then

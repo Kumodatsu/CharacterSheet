@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - When validating a stat block that has too many SP spent, the overflow will no longer be presented as a negative number.
+- Negative numbers in commands are now parsed correctly.
 
 ## [0.2.3] - 2020-07-18
 ### Fixed
