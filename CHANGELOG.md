@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Command: `/cs trp`. Toggles the overwriting TRP OOC information on and off.
 - Key bindings for incrementing and decrementing one's current HP value.
 - Optional parameter to the `/cs heal` command to specify whether the heal is done in or out of combat.
+- Roll results are now optionally sent to raid/party chat when in a group.
 - (Code) Event system. This makes it easier to do event based programming.
 
 ### Fixed
