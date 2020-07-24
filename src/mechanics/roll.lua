@@ -27,17 +27,18 @@ local on_system_message = function(message)
 
     local sender, roll, lower, upper = message:match(roll_string_pattern)
     if sender and sender == UnitName("player") then
-        --[[
+        local special_str = ""
+        if roll == lower then
+            special_str = " (NATURAL 1)"
+        elseif roll == upper then
+            local range = upper - (lower - 1)
+            special_str = string.format(" (NATURAL %d)", range)
+        end
         local output = string.format(
-            "%s rolls %d (%d-%d).",
-            sender, roll, lower, upper
+            "%d%s.",
+            roll,
+            special_str
         )
-        ]]
-        local output = string.format(
-            "%d.",
-            roll
-        )
-        print(output)
         SendChatMessage(output, "RAID")
     end
 end
