@@ -1,0 +1,10 @@
+<Bindings>
+    <Binding name="INCREMENT_HP" header="CHARACTER_SHEET">
+        local M = CS_GetAddon().Charsheet
+        M.set_hp(M.CurrentHP + 1)
+    </Binding>
+    <Binding name="DECREMENT_HP">
+        local M = CS_GetAddon().Charsheet
+        M.set_hp(M.CurrentHP - 1)
+    </Binding>
+</Bindings>
