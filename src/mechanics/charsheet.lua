@@ -9,9 +9,13 @@ M.CurrentHP = 16
 M.Pets      = {}
 
 -- Called when a stat or the power level is changed.
-local on_stats_changed = function()
+M.OnStatsChanged = cs.Event.create_event()
+-- Called when the current HP is changed.
+M.OnCurrentHPChanged = cs.Event.create_event()
+
+local clamp_hp = function()
     if M.CurrentHP > M.Stats:get_max_hp() then
-        M.CurrentHP = M.Stats:get_max_hp()
+        M.set_hp("max")
     end
     local pet_max_hp = M.Stats:get_pet_max_hp()
     for pet_name, pet in pairs(M.Pets) do
@@ -20,6 +24,8 @@ local on_stats_changed = function()
         end
     end
 end
+
+M.OnStatsChanged:add(clamp_hp)
 
 M.set_stat = function(name, value)
     -- Check if the given value is a valid number
@@ -39,7 +45,7 @@ M.set_stat = function(name, value)
     end
     -- Modify the stat
     M.Stats[name] = value
-    on_stats_changed()
+    M.OnStatsChanged()
     print(name .. " set to " .. value)
 end
 
@@ -101,7 +107,7 @@ M.set_level = function(level_name)
         return
     end
     M.Stats.Level = level
-    on_stats_changed()
+    M.OnStatsChanged()
     print ("Power level set to " .. cs.Stats.PowerLevel.to_string(level) .. ".")
 end
 
@@ -129,6 +135,7 @@ M.set_hp = function(value)
         return
     end
     M.CurrentHP = value
+    M.OnCurrentHPChanged()
     print("HP set to " .. value .. ".")
 end
 
