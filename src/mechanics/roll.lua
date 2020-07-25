@@ -39,7 +39,9 @@ local on_system_message = function(message)
             roll,
             special_str
         )
-        SendChatMessage(output, "RAID")
+
+        local chat_type = IsInRaid() and "RAID" or "PARTY"
+        SendChatMessage(output, chat_type)
     end
 end
 
