@@ -1,8 +1,34 @@
 local addon_name, cs = ...
 local M = {}
 
+--[[
+    Code for rolling dice, handling modifiers and showing the results in chat.
+    Most of this code has been based on Skylar and Rennae's Dicemaster addon.
+]]
+
 -- Will be loaded from file on addon load
 M.RaidRollsEnabled = false
+
+M.RollRecords = {}
+
+M.RollMatches = function(roll_data, lower, upper, name)
+    return (
+        roll_data.lower == lower and
+        roll_data.upper == upper and
+        (name == nil or roll_data.name == name)
+    )
+end
+
+M.Roll = function(lower, upper, mod)
+    local roll_data = {
+        name  = UnitName("player"),
+        lower = tonumber(lower),
+        upper = tonumber(upper),
+        mod   = tonumber(mod) or 0
+    }
+    table.insert(M.RollRecords, roll_data)
+    RandomRoll(lower, upper)
+end
 
 local toggle_raid_rolls = function()
     M.RaidRollsEnabled = not M.RaidRollsEnabled
@@ -17,6 +43,7 @@ cs.Commands.add_cmd("raidrolls", toggle_raid_rolls, [[
 Toggles raid roll messages on and off.
 ]])
 
+-- This pattern is taken from Skylar and Rennae's Dicemaster addon
 local roll_string_pattern = RANDOM_ROLL_RESULT
     :gsub("%%s", "(%%S+)")
     :gsub("%%d", "(%%d+)")
@@ -26,7 +53,21 @@ local on_system_message = function(message)
     if not M.RaidRollsEnabled or not IsInGroup() then return end
 
     local sender, roll, lower, upper = message:match(roll_string_pattern)
-    if sender and sender == UnitName("player") then
+    roll  = tonumber(roll)
+    lower = tonumber(lower)
+    upper = tonumber(upper)
+    local name = UnitName("player")
+
+    if sender and sender == name then
+        local mod = 0
+        for i = 1, #M.RollRecords do
+            if M.RollMatches(M.RollRecords[i], lower, upper, name) then
+                mod = M.RollRecords[i].mod
+                table.remove(M.RollRecords, i)
+                break
+            end
+        end
+
         local special_str = ""
         if roll == lower then
             special_str = " (NATURAL 1)"
@@ -36,7 +77,7 @@ local on_system_message = function(message)
         end
         local output = string.format(
             "%d%s.",
-            roll,
+            roll + mod,
             special_str
         )
 
