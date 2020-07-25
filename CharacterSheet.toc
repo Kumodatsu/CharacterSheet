@@ -5,7 +5,7 @@
 ## OptionalDeps: TotalRP3
 ## SavedVariables: CS_DB
 ## SavedVariablesPerCharacter: CS_Char_DB
-## Version: 0.2.3
+## Version: 0.3.0
 
 src\util\type.lua
 src\util\table.lua

@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.3.0] - 2020-07-25
 ### Added
 - Roll bonus support. The `/cs roll` command now accepts an additional parameter that is a bonus to be added to the roll.
 - Optional parameter to the `/cs heal` command to specify whether the heal is done in or out of combat.
