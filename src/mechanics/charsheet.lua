@@ -49,14 +49,14 @@ M.set_stat = function(name, value)
     print(name .. " set to " .. value)
 end
 
-M.roll_stat = function(name, bonus)
+M.roll_stat = function(name, mod)
     -- Roll bounds
     local lower = 1
     local upper = 20
     
     -- Natural d20 if no stat is specified
     if name == nil then
-        RandomRoll(lower, upper)
+        cs.Roll.Roll(lower, upper)
         return
     end
     
@@ -69,9 +69,8 @@ M.roll_stat = function(name, bonus)
         print(name .. " is not a valid stat.")
         return
     end
-    bonus = tonumber(bonus) or 0
-    local v = M.Stats[name] + bonus
-    RandomRoll(lower + v, upper + v)
+    mod = (tonumber(mod) or 0) + M.Stats[name]
+    cs.Roll.Roll(lower, upper, mod)
 end
 
 M.roll_heal = function(in_combat)
@@ -85,8 +84,9 @@ M.roll_heal = function(in_combat)
         return
     end
     local mod   = M.Stats:get_heal_modifier()
-    local bound = in_combat and 14 or 18
-    RandomRoll(mod + 1, mod + bound)
+    local lower = 1
+    local upper = in_combat and 14 or 18
+    cs.Roll.Roll(lower, upper, mod)
 end
 
 M.show_stats = function()
