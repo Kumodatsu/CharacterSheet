@@ -198,12 +198,12 @@ M.set_pet_hp = function(name, value)
 end
 
 cs.Commands.add_cmd("set", M.set_stat, [[
-"/cs set <name> <value>" sets the stat with a given name to a given value.
+"/cs set <stat> <value>" sets the given stat to a given value.
 For example: "/cs set str 15"
 ]])
 
 cs.Commands.add_cmd("roll", M.roll_stat, [[
-"/cs roll <name>" rolls with the given stat modifier.
+"/cs roll <stat>" rolls with the given stat modifier.
 For example: "/cs roll str"
 ]])
 
@@ -217,8 +217,8 @@ cs.Commands.add_cmd("heal", M.roll_heal, [[
 ]])
 
 cs.Commands.add_cmd("level", M.set_level, [[
-"/cs level <name>" sets your character's power level to the specified level.
-<name> must be one of novice, apprentice, adept, expert, master.
+"/cs level <level>" sets your character's power level to the specified level.
+<level> must be one of novice, apprentice, adept, expert, master.
 ]])
 
 cs.Commands.add_cmd("validate", M.validate_stats, [[
