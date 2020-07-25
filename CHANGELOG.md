@@ -7,11 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Roll bonus support. The `/cs roll` command now accepts an additional parameter that is a bonus to be added to the roll.
+- Optional parameter to the `/cs heal` command to specify whether the heal is done in or out of combat.
 - Optional TRP3 interoperation. One's TRP OOC information can optionally be overwritten by one's stats.
 - Command: `/cs trp`. Toggles the overwriting TRP OOC information on and off.
 - Key bindings for incrementing and decrementing one's current HP value.
-- Optional parameter to the `/cs heal` command to specify whether the heal is done in or out of combat.
 - Roll results are now optionally sent to raid/party chat when in a group.
+- (Code) The addon now registers the `CS` prefix for addon messages.
 - (Code) Event system. This makes it easier to do event based programming.
 
 ### Fixed
