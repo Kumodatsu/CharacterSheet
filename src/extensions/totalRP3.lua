@@ -3,8 +3,6 @@ if not TRP3_API then return end
 local addon_name, cs = ...
 local M = {}
 
-local print = print
-
 -- Will be loaded from file on addon load
 M.UpdateTRPWithStats = false
 
@@ -77,14 +75,18 @@ TRP3_API.module.registerModule({
 local toggle_stat_update = function()
     M.UpdateTRPWithStats = not M.UpdateTRPWithStats
     if M.UpdateTRPWithStats then
-        print("TRP OOC information now WILL be overwritten by your stats.")
+        cs.Output.Print(
+            "TRP OOC information now WILL be overwritten by your stats."
+        )
     else
-        print("TRP OOC information now WILL NOT be overwritten by your stats.")
+        cs.Output.Print(
+            "TRP OOC information now WILL NOT be overwritten by your stats."
+        )
     end
 end
 
 cs.Commands.add_cmd("trp", toggle_stat_update, [[
-    "/cs trp" toggles whether your stats are allowed to overwrite your TRP's OOC information.
+"/cs trp" toggles whether your stats are allowed to overwrite your TRP's OOC information.
 ]])
 
 cs.Extensions = cs.Extensions or {}

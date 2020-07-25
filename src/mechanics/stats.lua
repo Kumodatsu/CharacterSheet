@@ -3,7 +3,6 @@ local M = {}
 
 local Enum  = cs.Type.Enum
 local Class = cs.Type.Class
-local print = print
 
 M.StatMinVal = 5
 M.StatMaxVal = 24

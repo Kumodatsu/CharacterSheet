@@ -33,9 +33,9 @@ end
 local toggle_raid_rolls = function()
     M.RaidRollsEnabled = not M.RaidRollsEnabled
     if M.RaidRollsEnabled then
-        print("Raid roll messages are now ENABLED.")
+        cs.Output.Print("Raid roll messages are now ENABLED.")
     else
-        print("Raid roll messages are now DISABLED.")
+        cs.Output.Print("Raid roll messages are now DISABLED.")
     end
 end
 

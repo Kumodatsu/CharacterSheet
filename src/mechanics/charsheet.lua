@@ -1,8 +1,6 @@
 local addon_name, cs = ...
 local M = {}
 
-local print = print
-
 -- Will be loaded from file on addon load
 M.Stats     = {}
 M.CurrentHP = 16
@@ -31,7 +29,7 @@ M.set_stat = function(name, value)
     -- Check if the given value is a valid number
     value = tonumber(value)
     if value == nil or value < 0 or math.floor(value) ~= value then
-        print("The value must be a positive integer.")
+        cs.Output.Print("The value must be a positive integer.")
         return
     end
     -- Check if the given stat is valid
@@ -40,13 +38,13 @@ M.set_stat = function(name, value)
     }
     name = name:upper()
     if not cs.Set.Contains(mutable_stats, name) then
-        print(name .. " is not a valid stat.")
+        cs.Output.Print("%s is not a valid stat.", name)
         return
     end
     -- Modify the stat
     M.Stats[name] = value
     M.OnStatsChanged()
-    print(name .. " set to " .. value)
+    cs.Output.Print("%s set to %d", name, value)
 end
 
 M.roll_stat = function(name, mod)
@@ -66,7 +64,7 @@ M.roll_stat = function(name, mod)
     }
     name = name:upper()
     if not cs.Set.Contains(roll_stats, name) then
-        print(name .. " is not a valid stat.")
+        cs.Output.Print("%s is not a valid stat.", name)
         return
     end
     mod = (tonumber(mod) or 0) + M.Stats[name]
@@ -80,7 +78,7 @@ M.roll_heal = function(in_combat)
     elseif in_combat == "safe" then
         in_combat = false
     else
-        print("Parameter must be one of combat, safe.")
+        cs.Output.Print("Parameter must be one of combat, safe.")
         return
     end
     local mod   = M.Stats:get_heal_modifier()
@@ -90,33 +88,35 @@ M.roll_heal = function(in_combat)
 end
 
 M.show_stats = function()
-    print("Power level: " .. cs.Stats.PowerLevel.to_string(M.Stats.Level))
-    print("HP: " .. M.CurrentHP .. "/" .. M.Stats:get_max_hp())
-    print("STR: " .. M.Stats.STR)
-    print("DEX: " .. M.Stats.DEX)
-    print("CON: " .. M.Stats.CON)
-    print("INT: " .. M.Stats.INT)
-    print("WIS: " .. M.Stats.WIS)
-    print("CHA: " .. M.Stats.CHA)
+    cs.Output.Print("Power level: %s",
+        cs.Stats.PowerLevel.to_string(M.Stats.Level))
+    cs.Output.Print("HP: %d/%d", M.CurrentHP, M.Stats:get_max_hp())
+    cs.Output.Print("STR: %d", M.Stats.STR)
+    cs.Output.Print("DEX: %d", M.Stats.DEX)
+    cs.Output.Print("CON: %d", M.Stats.CON)
+    cs.Output.Print("INT: %d", M.Stats.INT)
+    cs.Output.Print("WIS: %d", M.Stats.WIS)
+    cs.Output.Print("CHA: %d", M.Stats.CHA)
 end
 
 M.set_level = function(level_name)
     local level = cs.Stats.PowerLevel.from_string(level_name)
     if level == nil then
-        print(level_name .. " is not a valid power level.")
+        cs.Output.Print("%s is not a valid power level.", level_name)
         return
     end
     M.Stats.Level = level
     M.OnStatsChanged()
-    print ("Power level set to " .. cs.Stats.PowerLevel.to_string(level) .. ".")
+    cs.Output.Print("Power level set to %s.",
+        cs.Stats.PowerLevel.to_string(level))
 end
 
 M.validate_stats = function()
     local valid, msg = M.Stats:validate()
     if valid then
-        print("Your stat block is valid.")
+        cs.Output.Print("Your stat block is valid.")
     else
-        print(msg)
+        cs.Output.Print(msg)
     end
 end
 
@@ -126,54 +126,56 @@ M.set_hp = function(value)
     else
         value = tonumber(value)
         if value == nil then
-            print("The given value must be a number or \"max\".")
+            cs.Output.Print("The given value must be a number or \"max\".")
             return
         end
     end
     if value < 0 or value > M.Stats:get_max_hp() or math.floor(value) ~= value then
-        print("The given value must be a positive integer and may not exceed your max HP.")
+        cs.Output.Print(
+            "The given value must be a positive integer and may not exceed your max HP."
+        )
         return
     end
     M.CurrentHP = value
     M.OnCurrentHPChanged()
-    print("HP set to " .. value .. ".")
+    cs.Output.Print("HP set to %d.", value)
 end
 
 M.add_pet = function(name)
     if M.Pets[name] ~= nil then
-        print("You already have a pet named " .. name .. ".")
+        cs.Output.Print("You already have a pet named %s.", name)
         return
     end
     M.Pets[name] = {
         CurrentHP = M.Stats:get_pet_max_hp()
     }
-    print("Added pet named " .. name .. ".")
+    cs.Output.Print("Added pet named %s.", name)
 end
 
 M.show_pets = function()
     local pet_count  = 0
     local pet_max_hp = M.Stats:get_pet_max_hp()
     for pet_name, pet in pairs(M.Pets) do
-        print(pet_name .. ": " .. pet.CurrentHP .. "/" .. pet_max_hp .. " HP")
+        cs.Output.Print("%s: %d/%d HP", pet_name, pet.CurrentHP, pet_max_hp)
         pet_count = pet_count + 1
     end
     if pet_count == 0 then
-        print("You do not have any pets.")
+        cs.Output.Print("You do not have any pets.")
     end
 end
 
 M.remove_pet = function(name)
     if name == nil or M.Pets[name] == nil then
-        print("You must specify one of your pets' names.")
+        cs.Output.Print("You must specify one of your pets' names.")
         return
     end
     M.Pets[name] = nil
-    print("Removed pet " .. name)
+    cs.Output.Print("Removed pet %s.", name)
 end
 
 M.set_pet_hp = function(name, value)
     if name == nil or M.Pets[name] == nil then
-        print("You must specify one of your pets' names.")
+        cs.Output.Print("You must specify one of your pets' names.")
         return
     end
     if value == "max" then
@@ -181,16 +183,18 @@ M.set_pet_hp = function(name, value)
     else
         value = tonumber(value)
         if value == nil then
-            print("The given value must be a number or \"max\".")
+            cs.Output.Print("The given value must be a number or \"max\".")
             return
         end
     end
     if value < 0 or value > M.Stats:get_pet_max_hp() or math.floor(value) ~= value then
-        print("The given value must be a positive integer and may not exceed your pet's max HP.")
+        cs.Output.Print(
+            "The given value must be a positive integer and may not exceed your pet's max HP."
+        )
         return
     end
     M.Pets[name].CurrentHP = value
-    print(name .. "'s HP set to " .. value .. ".")
+    cs.Output.Print("%s's HP set to %d.", name, value)
 end
 
 cs.Commands.add_cmd("set", M.set_stat, [[
@@ -247,18 +251,18 @@ cs.Commands.add_cmd("pethp", M.set_pet_hp, [[
 local half = function(x, mode)
     x = tonumber(x)
     if x == nil then
-        print("You must specify a valid number.")
+        cs.Output.Print("You must specify a valid number.")
         return
     end
     mode = mode or "up"
     mode = mode:lower()
     local half_x = x / 2
     if mode == "up" then
-        print(math.ceil(half_x))
+        cs.Output.Print(math.ceil(half_x))
     elseif mode == "down" then
-        print(math.floor(half_x))
+        cs.Output.Print(math.floor(half_x))
     else
-        print("The rounding must be one of up, down.")
+        cs.Output.Print("The rounding must be one of up, down.")
     end
 end
 

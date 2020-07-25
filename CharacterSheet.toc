@@ -11,6 +11,9 @@ src\util\type.lua
 src\util\table.lua
 src\util\set.lua
 src\util\event.lua
+
+src\output.lua
+
 src\commands.lua
 
 src\mechanics\roll.lua
