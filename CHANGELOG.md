@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - (Code) The addon now registers the `CS` prefix for addon messages.
 - (Code) Event system. This makes it easier to do event based programming.
 
+### Changed
+- The addon's console output is now sent as a system message instead of a Lua print message.
+
 ### Fixed
 - When validating a stat block that has too many SP spent, the overflow will no longer be presented as a negative number.
 - Negative numbers in commands are now parsed correctly.
