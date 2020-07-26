@@ -20,13 +20,15 @@ M.RollMatches = function(roll_data, lower, upper, name)
 end
 
 M.Roll = function(lower, upper, mod)
-    local roll_data = {
-        name  = UnitName("player"),
-        lower = tonumber(lower),
-        upper = tonumber(upper),
-        mod   = tonumber(mod) or 0
-    }
-    table.insert(M.RollRecords, roll_data)
+    if M.RaidRollsEnabled then
+        local roll_data = {
+            name  = UnitName("player"),
+            lower = tonumber(lower),
+            upper = tonumber(upper),
+            mod   = tonumber(mod) or 0
+        }
+        table.insert(M.RollRecords, roll_data)
+    end
     RandomRoll(lower, upper)
 end
 
