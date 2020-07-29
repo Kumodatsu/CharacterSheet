@@ -7,4 +7,11 @@
         local M = CS_GetAddon().Charsheet
         M.set_hp(M.CurrentHP - 1)
     </Binding>
+    <Binding name="TOGGLE_MAIN_FRAME">
+        if CS_MainFrame:IsShown() then
+            CS_MainFrame:Hide()
+        else
+            CS_MainFrame:Show()
+        end
+    </Binding>
 </Bindings>

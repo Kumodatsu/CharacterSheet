@@ -9,6 +9,7 @@ end
 BINDING_HEADER_CHARACTER_SHEET = "Character Sheet"
 BINDING_NAME_INCREMENT_HP      = "Increment HP"
 BINDING_NAME_DECREMENT_HP      = "Decrement HP"
+BINDING_NAME_TOGGLE_MAIN_FRAME = "Toggle main frame"
 
 -- Addon messages
 CS_MessagePrefix = "CS"
