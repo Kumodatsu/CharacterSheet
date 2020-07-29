@@ -127,13 +127,13 @@
             self:RegisterForDrag("LeftButton")
         </OnLoad>
         <OnShow>
-            PlaySound("UChatScrollButton")
+            -- PlaySound("UChatScrollButton")
             PanelTemplates_SetTab(CS_MainFrame, 1)
             CS_MainFrame_TabPage1:Show()
             CS_MainFrame_TabPage2:Hide()
         </OnShow>
         <OnHide>
-            PlaySound("UChatScrollButton")
+            -- PlaySound("UChatScrollButton")
         </OnHide>
         <OnDragStart>
             self:StartMoving()
