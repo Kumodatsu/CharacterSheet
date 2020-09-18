@@ -35,7 +35,7 @@ M.execute_cmd = function(name, args)
 end
 
 M.add_cmd = function(name, f, description, packed)
-    if cs.Table.has_key(name) then
+    if cs.Table.has_key(M.cmds, name) then
         cs.Output.Print("Duplicate command name: %s", name)
     else
         if packed == nil then
