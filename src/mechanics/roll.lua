@@ -19,13 +19,14 @@ M.RollMatches = function(roll_data, lower, upper, name)
     )
 end
 
-M.Roll = function(lower, upper, mod)
+M.Roll = function(lower, upper, mod, stat)
     if M.RaidRollsEnabled then
         local roll_data = {
             name  = UnitName("player"),
             lower = tonumber(lower),
             upper = tonumber(upper),
-            mod   = tonumber(mod) or 0
+            mod   = tonumber(mod) or 0,
+            stat  = stat
         }
         table.insert(M.RollRecords, roll_data)
     end
@@ -61,30 +62,35 @@ local on_system_message = function(message)
     local name = UnitName("player")
 
     if sender and sender == name then
-        local mod = 0
+        local mod  = 0
+        local stat = nil
         for i = 1, #M.RollRecords do
             if M.RollMatches(M.RollRecords[i], lower, upper, name) then
-                mod = M.RollRecords[i].mod
+                mod  = M.RollRecords[i].mod
+                stat = M.RollRecords[i].stat
                 table.remove(M.RollRecords, i)
                 break
             end
         end
 
-        local special_str = ""
+        local roll_str = ""
         if roll == lower then
-            special_str = " (NATURAL 1)"
+            roll_str = " (NATURAL 1)"
         elseif roll == upper then
             local range = upper - (lower - 1)
-            special_str = string.format(" (NATURAL %d)", range)
+            roll_str = string.format(" (NATURAL %d)", range)
         end
-        local output = string.format(
+        if stat ~= nil then
+            roll_str = string.format(" %s%s", stat, roll_str)
+        end
+        roll_str = string.format(
             "%d%s.",
             roll + mod,
-            special_str
+            roll_str
         )
 
         local chat_type = IsInRaid() and "RAID" or "PARTY"
-        SendChatMessage(output, chat_type)
+        SendChatMessage(roll_str, chat_type)
     end
 end
 

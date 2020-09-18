@@ -68,7 +68,7 @@ M.roll_stat = function(name, mod)
         return
     end
     mod = (tonumber(mod) or 0) + M.Stats[name]
-    cs.Roll.Roll(lower, upper, mod)
+    cs.Roll.Roll(lower, upper, mod, name)
 end
 
 M.roll_heal = function(in_combat)
