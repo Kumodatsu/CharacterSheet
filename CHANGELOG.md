@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Roll results are now displayed as a system message when not in a raid or group or when raid roll messages have been disabled.
+- A stat can no longer be set outside of the allowed range.
 
 ### Fixed
 - (Code) Fixed events triggering callbacks of unrelated events.

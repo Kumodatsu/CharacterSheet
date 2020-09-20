@@ -29,15 +29,21 @@ M.set_stat = function(name, value)
     -- Check if the given value is a valid number
     value = tonumber(value)
     if value == nil or value < 0 or math.floor(value) ~= value then
-        cs.Output.Print("The value must be a positive integer.")
-        return
+        return cs.Output.Print "The value must be a positive integer."
+    end
+    -- Check if the given value is within the allowed range
+    if value < cs.Stats.StatMinVal or value > cs.Stats.StatMaxVal then
+        return cs.Output.Print(
+            "The value must be in the range [%d, %d].",
+            cs.Stats.StatMinVal,
+            cs.Stats.StatMaxVal
+        )
     end
     -- Check if the given stat is valid
     local mutable_stats = cs.Set.Set(cs.Stats.AttributeNames)
     name = name:upper()
     if not cs.Set.Contains(mutable_stats, name) then
-        cs.Output.Print("%s is not a valid stat.", name)
-        return
+        return cs.Output.Print("%s is not a valid stat.", name)
     end
     -- Modify the stat
     M.Stats[name] = value
