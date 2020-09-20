@@ -20,9 +20,10 @@ end)
 power_level:Show()
 ]]
 
-local entry_width  = 180
-local entry_height = 32
-local entry_count  = #CS.Stats.AttributeNames
+local entry_width    = 180
+local entry_height   = 32
+local entry_count    = #CS.Stats.AttributeNames
+local derived_height = 48
 
 local edit_frame = CreateFrame("Frame", "CS_EditFrame", UIParent)
 edit_frame:SetBackdrop {
@@ -40,7 +41,7 @@ edit_frame:SetBackdrop {
 }
 
 edit_frame:SetWidth(entry_width + 11 + 12)
-edit_frame:SetHeight((entry_count + 1) * entry_height + 11 + 12)
+edit_frame:SetHeight(entry_count * entry_height + 11 + 12 + derived_height)
 edit_frame:SetPoint("CENTER", UIParent, "CENTER")
 edit_frame:EnableMouse(true)
 edit_frame:SetMovable(true)
@@ -103,12 +104,14 @@ end
 edit_frame.entries = entries
 
 
-edit_frame.sp_text = edit_frame:CreateFontString(nil, "OVERLAY")
-edit_frame.sp_text:SetPoint("TOP", entries[#entries], "BOTTOM", 0, 0)
-edit_frame.sp_text:SetWidth(entry_width)
-edit_frame.sp_text:SetHeight(entry_height)
-edit_frame.sp_text:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
-edit_frame.sp_text:SetText("SP: 0")
+edit_frame.derived_text = edit_frame:CreateFontString(nil, "OVERLAY")
+edit_frame.derived_text:SetPoint("TOP", entries[#entries], "BOTTOM", 0, 0)
+edit_frame.derived_text:SetWidth(entry_width)
+edit_frame.derived_text:SetHeight(derived_height)
+edit_frame.derived_text:SetJustifyH "CENTER"
+edit_frame.derived_text:SetJustifyV "CENTER"
+edit_frame.derived_text:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
+edit_frame.derived_text:SetText("HP: 16\nHeal mod: +0\nSP: 0")
 
 CS.Interface.update_edit_frame = function()
     for i = 1, entry_count do
@@ -118,8 +121,10 @@ CS.Interface.update_edit_frame = function()
             CS.Charsheet.Stats[CS.Stats.AttributeNames[i]]
         ))
     end
-    edit_frame.sp_text:SetText(string.format(
-        "SP: %d",
+    edit_frame.derived_text:SetText(string.format(
+        "HP: %d\nHeal mod: +%d\nSP: %d",
+        CS.Charsheet.Stats:get_max_hp(),
+        CS.Charsheet.Stats:get_heal_modifier(),
         CS.Charsheet.Stats:get_remaining_sp()
     ))
 end
