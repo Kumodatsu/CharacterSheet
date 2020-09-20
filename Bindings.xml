@@ -8,11 +8,8 @@
         M.set_hp(M.CurrentHP - 1)
     </Binding>
     <Binding name="TOGGLE_MAIN_FRAME">
-        if CS_MainFrame:IsShown() then
-            CS_MainFrame:Hide()
-        else
-            CS_MainFrame:Show()
-        end
+        local M = CS_GetAddon().Interface
+        M.ToggleMainFrame()
     </Binding>
     <Binding name="TOGGLE_STATS_FRAME">
         local M = CS_GetAddon().Interface
