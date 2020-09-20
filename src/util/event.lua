@@ -4,6 +4,7 @@ local M = {}
 M.Event = {
     add       = function(self, callback)
         table.insert(self.callbacks, callback)
+        return self
     end,
     __call    = function(self)
         for _, callback in pairs(self.callbacks) do
