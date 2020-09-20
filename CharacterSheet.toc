@@ -20,6 +20,7 @@ src\mechanics\roll.lua
 src\mechanics\stats.lua
 src\mechanics\charsheet.lua
 
+ui\interface.lua
 ui\stats_frame.lua
 ui\tabbed_frame.lua
 ui\tabbed_frame.xml

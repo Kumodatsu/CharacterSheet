@@ -1,6 +1,5 @@
 local addon_name, CS = ...
 
-CS.Interface = CS.Interface or {}
 CS.Interface.ToggleMainFrame = function()
     if CS_MainFrame:IsShown() then
         CS_MainFrame:Hide()

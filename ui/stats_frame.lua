@@ -1,5 +1,4 @@
 local addon_name, CS = ...
-local M = {}
 
 local stat_names = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
 local stat_icons = {
@@ -92,7 +91,7 @@ for i = 1, entry_count do
     create_button(i)
 end
 
-M.update_hp_indicator = function()
+CS.Interface.update_hp_indicator = function()
     local hp     = CS.Charsheet.CurrentHP
     local hp_max = CS.Charsheet.Stats:get_max_hp()
     local text   = string.format("%d/%d", hp, hp_max)
@@ -101,7 +100,7 @@ M.update_hp_indicator = function()
     stats_frame.health_bar:SetValue(hp)
 end
 
-M.update_stats_buttons = function()
+CS.Interface.update_stats_buttons = function()
     for i = 1, entry_count do
         buttons[i]:SetText(string.format(
             "%s: %d",
@@ -113,13 +112,13 @@ end
 
 stats_frame:Show()
 
-CS.Charsheet.OnStatsChanged:add(M.update_stats_buttons)
-CS.Charsheet.OnHPChanged:add(M.update_hp_indicator)
+CS.Charsheet.OnStatsChanged:add(CS.Interface.update_stats_buttons)
+CS.Charsheet.OnHPChanged:add(CS.Interface.update_hp_indicator)
 CS.OnAddonLoaded
-    :add(M.update_hp_indicator)
-    :add(M.update_stats_buttons)
+    :add(CS.Interface.update_hp_indicator)
+    :add(CS.Interface.update_stats_buttons)
 
-M.ToggleStatsFrame = function()
+CS.Interface.ToggleStatsFrame = function()
     if stats_frame:IsVisible() then
         stats_frame:Hide()
     else
@@ -133,13 +132,9 @@ local toggle_frame = function(name)
     end
     name = name:lower()
     if name == "stats" then
-        M.ToggleStatsFrame()
+        CS.Interface.ToggleStatsFrame()
     elseif name == "tabs" then
-        if CS_MainFrame:IsShown() then
-            CS_MainFrame:Hide()
-        else
-            CS_MainFrame:Show()
-        end
+        CS.Interface.ToggleMainFrame()
     else
         CS.Output.Print("\"%s\" is not a valid frame.", name)
     end
@@ -149,5 +144,3 @@ CS.Commands.add_cmd("toggle", toggle_frame, [[
 "/cs toggle <frame>" toggles the specified UI frame on or off.
 <frame> must be one of: stats, tabs
 ]])
-
-CS.Interface = M
