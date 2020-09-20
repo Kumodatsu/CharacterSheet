@@ -2,6 +2,14 @@ local addon_name, CS = ...
 local M = {}
 
 local stat_names = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
+local stat_icons = {
+    "Interface\\ICONS\\Icon_PetFamily_Beast.blp",
+    "Interface\\ICONS\\Icon_PetFamily_Flying.blp",
+    "Interface\\ICONS\\Icon_PetFamily_Humanoid.blp",
+    "Interface\\ICONS\\Icon_PetFamily_Mechanical.blp",
+    "Interface\\ICONS\\Icon_PetFamily_Dragon.blp",
+    "Interface\\ICONS\\Icon_PetFamily_Magical.blp"
+}
 local entry_width  = 110
 local entry_height = 32
 local entry_count  = #stat_names
@@ -46,12 +54,15 @@ local create_button = function(i)
         button:SetPoint("TOP", buttons[i - 1], "BOTTOM")
     end
     button:SetNormalFontObject "GameFontNormal"
+    button:SetText "undefined"
+    button:GetFontString():SetPoint("LEFT", button, "LEFT", 32, 0)
+    button:GetFontString():SetPoint("RIGHT", button, "RIGHT", 0, 0)
     button:SetSize(entry_width, entry_height)
     button.texture = button:CreateTexture()
     button.texture:SetPoint "TOPLEFT"
     button.texture:SetWidth(32)
     button.texture:SetHeight(32)
-    button.texture:SetTexture(nil)
+    button.texture:SetTexture(stat_icons[i])
     button:SetScript("OnClick", function()
         CS.Charsheet.roll_stat(stat_names[i])
     end)
