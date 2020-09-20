@@ -18,3 +18,16 @@ local request_result =
 if not request_result then
     message("The CharacterSheet addon could not register a message prefix. The addon may not work properly.")
 end
+
+-- Version command
+local show_version = function()
+    local author  = GetAddOnMetadata(addon_name, "author")
+    local title   = GetAddOnMetadata(addon_name, "title")
+    local version = GetAddOnMetadata(addon_name, "version")
+    cs.Output.Print("%s's %s, version %s", author, title, version)
+end
+
+cs.Commands.add_cmd("version", show_version, [[
+"/cs version" shows the addon's current version number.
+]])
+

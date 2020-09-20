@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Stat rolls now also display the abbreviated name of the used stat in the Raid chat.
+- Command: `/cs version`. Shows the current version number of the addon.
 
 ## [0.3.2] - 2020-08-06
 ### Fixed
