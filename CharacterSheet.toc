@@ -25,6 +25,7 @@ src\mechanics\charsheet.lua
 
 src\interface.lua
 
+src\extensions\extensions.lua
 src\extensions\totalRP3.lua
 
 src\saving.lua

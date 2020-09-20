@@ -89,5 +89,4 @@ cs.Commands.add_cmd("trp", toggle_stat_update, [[
 "/cs trp" toggles whether your stats are allowed to overwrite your TRP's OOC information.
 ]])
 
-cs.Extensions = cs.Extensions or {}
 cs.Extensions.totalRP3 = M
