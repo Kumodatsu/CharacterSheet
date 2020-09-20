@@ -7,9 +7,6 @@
 ## SavedVariablesPerCharacter: CS_Char_DB
 ## Version: 0.3.2
 
-ui\tabbed_frame.lua
-ui\tabbed_frame.xml
-
 src\util\type.lua
 src\util\table.lua
 src\util\set.lua
@@ -24,6 +21,8 @@ src\mechanics\stats.lua
 src\mechanics\charsheet.lua
 
 ui\stats_frame.lua
+ui\tabbed_frame.lua
+ui\tabbed_frame.xml
 
 src\extensions\extensions.lua
 src\extensions\totalRP3.lua
