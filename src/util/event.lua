@@ -2,7 +2,6 @@ local _, cs = ...
 local M = {}
 
 M.Event = {
-    callbacks = {},
     add       = function(self, callback)
         table.insert(self.callbacks, callback)
     end,
@@ -15,7 +14,7 @@ M.Event = {
 M.Event.__index = M.Event
 
 M.create_event = function()
-    local event = {}
+    local event = { callbacks = {} }
     setmetatable(event, M.Event)
     return event
 end
