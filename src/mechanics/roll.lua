@@ -20,16 +20,14 @@ M.RollMatches = function(roll_data, lower, upper, name)
 end
 
 M.Roll = function(lower, upper, mod, stat)
-    if M.RaidRollsEnabled then
-        local roll_data = {
-            name  = UnitName("player"),
-            lower = tonumber(lower),
-            upper = tonumber(upper),
-            mod   = tonumber(mod) or 0,
-            stat  = stat
-        }
-        table.insert(M.RollRecords, roll_data)
-    end
+    local roll_data = {
+        name  = UnitName("player"),
+        lower = tonumber(lower),
+        upper = tonumber(upper),
+        mod   = tonumber(mod) or 0,
+        stat  = stat
+    }
+    table.insert(M.RollRecords, roll_data)
     RandomRoll(lower, upper)
 end
 
@@ -53,8 +51,6 @@ local roll_string_pattern = RANDOM_ROLL_RESULT
     :gsub("%(%(%%d%+%)%-%(%%d%+%)%)", "%%((%%d+)%%-(%%d+)%%)")
 
 local on_system_message = function(message)
-    if not M.RaidRollsEnabled or not IsInGroup() then return end
-
     local sender, roll, lower, upper = message:match(roll_string_pattern)
     roll  = tonumber(roll)
     lower = tonumber(lower)
@@ -88,9 +84,14 @@ local on_system_message = function(message)
             roll + mod,
             roll_str
         )
-
-        local chat_type = IsInRaid() and "RAID" or "PARTY"
-        SendChatMessage(roll_str, chat_type)
+        if M.RaidRollsEnabled then
+            if IsInRaid() then
+                return SendChatMessage(roll_str, "RAID")
+            elseif IsInGroup() then
+                return SendChatMessage(roll_str, "PARTY")
+            end
+        end
+        cs.Output.Print(roll_str)
     end
 end
 
