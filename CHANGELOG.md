@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
 - Stats frame. This is a UI frame that displays one's stat values and allows one to roll stats with a button click.
+- Edit frame. This is a UI frame that allows one to edit their stats.
 - Stat rolls now also display the abbreviated name of the used stat in the Raid chat.
 - Command: `/cs version`. Shows the current version number of the addon.
 
