@@ -33,7 +33,7 @@ stats_frame:SetBackdrop {
 }
 
 stats_frame:SetWidth(entry_width + 11 + 12)
-stats_frame:SetHeight(entry_count * entry_height + 11 + 12)
+stats_frame:SetHeight(entry_count * entry_height + 11 + 12 + 20)
 stats_frame:SetPoint("CENTER", UIParent, "CENTER")
 stats_frame:EnableMouse(true)
 stats_frame:SetMovable(true)
@@ -42,14 +42,32 @@ stats_frame:SetScript("OnDragStart", function(self) self:StartMoving() end)
 stats_frame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
 stats_frame:SetClampedToScreen(true)
 
-stats_frame.text = stats_frame:CreateFontString(nil, "ARTWORK")
-stats_frame.text:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
-stats_frame.text:SetPoint("TOP", 0, 25)
+local health_bar = CreateFrame("StatusBar", nil, stats_frame)
+health_bar:SetPoint("TOP", stats_frame, "TOP", 0, -12)
+health_bar:SetOrientation "HORIZONTAL"
+health_bar:SetWidth(entry_width)
+health_bar:SetHeight(20)
+health_bar:SetStatusBarTexture "Interface\\TARGETINGFRAME\\UI-StatusBar"
+health_bar:SetStatusBarColor(0.1, 0.9, 0.3, 1.0)
+
+health_bar.background = health_bar:CreateTexture(nil, "BACKGROUND")
+health_bar.background:SetTexture "Interface\\TARGETINGFRAME\\UI-StatusBar"
+health_bar.background:SetAllPoints(true)
+health_bar.background:SetVertexColor(0, 0.35, 0)
+
+health_bar.text = health_bar:CreateFontString(nil, "OVERLAY")
+health_bar.text:SetPoint("CENTER", health_bar, "CENTER", 0, 0)
+health_bar.text:SetFont("Fonts\\FRIZQT__.TTF", 16, "OUTLINE")
+health_bar.text:SetJustifyH "CENTER"
+health_bar.text:SetShadowOffset(1, -1)
+health_bar.text:SetTextColor(0.0, 1.0, 0.0)
+
+stats_frame.health_bar = health_bar
 
 local create_button = function(i)
     local button = CreateFrame("Button", nil, stats_frame)
     if i == 1 then
-        button:SetPoint("TOP", stats_frame, "TOP", 0, -12)
+        button:SetPoint("TOP", stats_frame, "TOP", 0, -32)
     else
         button:SetPoint("TOP", buttons[i - 1], "BOTTOM")
     end
@@ -75,11 +93,12 @@ for i = 1, entry_count do
 end
 
 M.update_hp_indicator = function()
-    stats_frame.text:SetText(string.format(
-        "HP: %d/%d",
-        CS.Charsheet.CurrentHP,
-        CS.Charsheet.Stats:get_max_hp()
-    ))
+    local hp     = CS.Charsheet.CurrentHP
+    local hp_max = CS.Charsheet.Stats:get_max_hp()
+    local text   = string.format("%d/%d", hp, hp_max)
+    stats_frame.health_bar.text:SetText(text)
+    stats_frame.health_bar:SetMinMaxValues(0, hp_max)
+    stats_frame.health_bar:SetValue(hp)
 end
 
 M.update_stats_buttons = function()
