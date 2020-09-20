@@ -134,6 +134,8 @@ local toggle_frame = function(name)
         CS.Interface.ToggleStatsFrame()
     elseif name == "tabs" then
         CS.Interface.ToggleMainFrame()
+    elseif name == "edit" then
+        CS.Interface.ToggleEditFrame()
     else
         CS.Output.Print("\"%s\" is not a valid frame.", name)
     end
@@ -141,5 +143,5 @@ end
 
 CS.Commands.add_cmd("toggle", toggle_frame, [[
 "/cs toggle <frame>" toggles the specified UI frame on or off.
-<frame> must be one of: stats, tabs
+<frame> must be one of: stats, tabs, edit
 ]])

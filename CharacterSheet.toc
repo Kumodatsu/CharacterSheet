@@ -22,6 +22,7 @@ src\mechanics\charsheet.lua
 
 ui\interface.lua
 ui\stats_frame.lua
+ui\edit_frame.lua
 ui\tabbed_frame.lua
 ui\tabbed_frame.xml
 
