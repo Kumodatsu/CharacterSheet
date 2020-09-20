@@ -23,7 +23,7 @@ src\mechanics\roll.lua
 src\mechanics\stats.lua
 src\mechanics\charsheet.lua
 
-src\interface.lua
+
 
 src\extensions\extensions.lua
 src\extensions\totalRP3.lua
