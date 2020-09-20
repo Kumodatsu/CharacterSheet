@@ -34,6 +34,10 @@ stats_frame:SetScript("OnDragStart", function(self) self:StartMoving() end)
 stats_frame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
 stats_frame:SetClampedToScreen(true)
 
+stats_frame.text = stats_frame:CreateFontString(nil, "ARTWORK")
+stats_frame.text:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
+stats_frame.text:SetPoint("TOP", 0, 25)
+
 local create_button = function(i)
     local button = CreateFrame("Button", nil, stats_frame)
     if i == 1 then
@@ -59,7 +63,15 @@ for i = 1, entry_count do
     create_button(i)
 end
 
-M.UpdateStatsButtons = function()
+M.update_hp_indicator = function()
+    stats_frame.text:SetText(string.format(
+        "HP: %d/%d",
+        CS.Charsheet.CurrentHP,
+        CS.Charsheet.Stats:get_max_hp()
+    ))
+end
+
+M.update_stats_buttons = function()
     for i = 1, entry_count do
         buttons[i]:SetText(string.format(
             "%s: %d",
@@ -71,8 +83,11 @@ end
 
 stats_frame:Show()
 
-CS.Charsheet.OnStatsChanged:add(M.UpdateStatsButtons)
-CS.OnAddonLoaded:add(M.UpdateStatsButtons)
+CS.Charsheet.OnStatsChanged:add(M.update_stats_buttons)
+CS.Charsheet.OnHPChanged:add(M.update_hp_indicator)
+CS.OnAddonLoaded
+    :add(M.update_hp_indicator)
+    :add(M.update_stats_buttons)
 
 M.ToggleStatsFrame = function()
     if stats_frame:IsVisible() then
