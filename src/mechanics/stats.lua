@@ -49,7 +49,6 @@ M.StatBlock = Class {
     -- Returns true if the stat block is valid.
     -- Returns false and an error (string) if the stat block is invalid.
     validate = function(self)
-        local total = 0
         for attrib, val in self:attributes() do
             if val < M.StatMinVal then
                 return false,
@@ -58,9 +57,8 @@ M.StatBlock = Class {
                 return false,
                     "Attribute " .. attrib .. " can't be greater than " .. M.StatMaxVal .. "."
             end
-            total = total + val
         end
-        local remaining_sp = self:get_potential_sp() - total
+        local remaining_sp = self:get_remaining_sp()
         if remaining_sp < 0 then
             return false, "You have spent " .. -remaining_sp .. " too many SP."
         elseif remaining_sp > 0 then
@@ -89,6 +87,11 @@ M.StatBlock = Class {
             total = total + val
         end
         return total
+    end,
+
+    -- The number of SP that may still be spent.
+    get_remaining_sp = function(self)
+        return self:get_potential_sp() - self:get_total_sp()
     end,
 
     -- The modifier to be added for healing rolls.
