@@ -1,3 +1,5 @@
+do return end
+
 if not TRP3_API then return end
 
 local addon_name, cs = ...
