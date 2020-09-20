@@ -14,4 +14,8 @@
             CS_MainFrame:Show()
         end
     </Binding>
+    <Binding name="TOGGLE_STATS_FRAME">
+        local M = CS_GetAddon().Interface
+        M.ToggleStatsFrame()
+    </Binding>
 </Bindings>
