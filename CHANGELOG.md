@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Roll results are now displayed as a system message when not in a raid or group or when raid roll messages have been disabled.
 
+### Removed
+- TRP3 interoperation. This was causing Lua errors. TRP3 interoperation will be added back once a fix has been found.
+
 ## [0.3.2] - 2020-08-06
 ### Fixed
 - Fixed an error with some output messages resulting in a Lua error.
