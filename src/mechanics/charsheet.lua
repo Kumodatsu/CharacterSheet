@@ -8,8 +8,8 @@ M.Pets      = {}
 
 -- Called when a stat or the power level is changed.
 M.OnStatsChanged = cs.Event.create_event()
--- Called when the current HP is changed.
-M.OnCurrentHPChanged = cs.Event.create_event()
+-- Called when the current or max HP is changed.
+M.OnHPChanged    = cs.Event.create_event()
 
 local clamp_hp = function()
     if M.CurrentHP > M.Stats:get_max_hp() then
@@ -44,6 +44,9 @@ M.set_stat = function(name, value)
     -- Modify the stat
     M.Stats[name] = value
     M.OnStatsChanged()
+    if name == "CON" then
+        M.OnHPChanged()
+    end
     cs.Output.Print("%s set to %d", name, value)
 end
 
@@ -137,7 +140,7 @@ M.set_hp = function(value)
         return
     end
     M.CurrentHP = value
-    M.OnCurrentHPChanged()
+    M.OnHPChanged()
     cs.Output.Print("HP set to %d.", value)
 end
 
