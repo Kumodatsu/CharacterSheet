@@ -11,6 +11,7 @@ BINDING_NAME_INCREMENT_HP       = "Increment HP"
 BINDING_NAME_DECREMENT_HP       = "Decrement HP"
 BINDING_NAME_TOGGLE_MAIN_FRAME  = "Toggle main frame"
 BINDING_NAME_TOGGLE_STATS_FRAME = "Toggle stats frame"
+BINDING_NAME_TOGGLE_EDIT_FRAME  = "Toggle edit frame"
 
 -- Addon messages
 CS_MessagePrefix = "CS"

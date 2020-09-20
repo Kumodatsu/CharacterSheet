@@ -15,4 +15,7 @@
         local M = CS_GetAddon().Interface
         M.ToggleStatsFrame()
     </Binding>
+    <Binding name="TOGGLE_EDIT_FRAME">
+        CS_GetAddon().Interface.ToggleEditFrame()
+    </Binding>
 </Bindings>
