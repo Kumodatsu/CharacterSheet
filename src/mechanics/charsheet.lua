@@ -114,6 +114,7 @@ M.set_level = function(level_name)
     end
     M.Stats.Level = level
     M.OnStatsChanged()
+    M.OnHPChanged()
     cs.Output.Print("Power level set to %s.",
         cs.Stats.PowerLevel.to_string(level))
 end

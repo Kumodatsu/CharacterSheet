@@ -24,6 +24,7 @@ local entry_width    = 180
 local entry_height   = 32
 local entry_count    = #CS.Stats.AttributeNames
 local derived_height = 48
+local power_height   = 32
 
 local edit_frame = CreateFrame("Frame", "CS_EditFrame", UIParent)
 edit_frame:SetBackdrop {
@@ -41,7 +42,9 @@ edit_frame:SetBackdrop {
 }
 
 edit_frame:SetWidth(entry_width + 11 + 12)
-edit_frame:SetHeight(entry_count * entry_height + 11 + 12 + derived_height)
+edit_frame:SetHeight(
+    entry_count * entry_height + 11 + 12 + derived_height + power_height
+)
 edit_frame:SetPoint("CENTER", UIParent, "CENTER")
 edit_frame:EnableMouse(true)
 edit_frame:SetMovable(true)
@@ -50,6 +53,55 @@ edit_frame:SetScript("OnDragStart", function(self) self:StartMoving() end)
 edit_frame:SetScript("OnDragStop", function(self) self:StopMovingOrSizing() end)
 edit_frame:SetClampedToScreen(true)
 
+local power_button = CreateFrame("Button", "CS_PowerButton", edit_frame)
+power_button:SetWidth(entry_width)
+power_button:SetHeight(power_height)
+power_button:SetPoint("TOP", edit_frame, "TOP", 0, -12)
+power_button:SetNormalFontObject "GameFontNormal"
+power_button:SetText "undefined"
+power_button:GetFontString():SetPoint("LEFT", power_button, "LEFT", 0, 0)
+power_button:GetFontString():SetPoint("RIGHT", power_button, "RIGHT", 0, 0)
+
+local power_menu = {
+    {
+        text = "Power Level",
+        isTitle = true,
+        notCheckable = true
+    }, {
+        text = "Novice",
+        func = function() CS.Charsheet.set_level "Novice" end,
+        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Novice end
+    }, {
+        text = "Apprentice",
+        func = function() CS.Charsheet.set_level "Apprentice" end,
+        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Apprentice end
+    }, {
+        text = "Adept",
+        func = function() CS.Charsheet.set_level "Adept" end,
+        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Adept end
+    }, {
+        text = "Expert",
+        func = function() CS.Charsheet.set_level "Expert" end,
+        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Expert end
+    }, {
+        text = "Master",
+        func = function() CS.Charsheet.set_level "Master" end,
+        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Master end
+    }
+}
+
+local power_select = CreateFrame("Frame", "CS_PowerSelect", power_button)
+power_select:SetPoint("TOP", edit_frame, "TOP", 0, -12)
+power_select:SetWidth(entry_width)
+power_select:SetHeight(power_height)
+power_button:SetScript("OnClick", function(self, button, down)
+    if button == "LeftButton" then
+        EasyMenu(power_menu, power_select, power_select, 0, 0)
+    end
+end)
+
+edit_frame.power_select = power_select
+
 local entries = {}
 
 local create_entry = function(i)
@@ -57,7 +109,7 @@ local create_entry = function(i)
 
     local entry = CreateFrame("Frame", nil, edit_frame)
     if i == 1 then
-        entry:SetPoint("TOP", edit_frame, "TOP", 0, -12)
+        entry:SetPoint("TOP", edit_frame, "TOP", 0, -12 - power_height)
     else
         entry:SetPoint("TOP", entries[i - 1], "BOTTOM")
     end
@@ -103,7 +155,6 @@ for i = 1, entry_count do
 end
 edit_frame.entries = entries
 
-
 edit_frame.derived_text = edit_frame:CreateFontString(nil, "OVERLAY")
 edit_frame.derived_text:SetPoint("TOP", entries[#entries], "BOTTOM", 0, 0)
 edit_frame.derived_text:SetWidth(entry_width)
@@ -121,6 +172,7 @@ CS.Interface.update_edit_frame = function()
             CS.Charsheet.Stats[CS.Stats.AttributeNames[i]]
         ))
     end
+    power_button:SetText(CS.Stats.PowerLevel.to_string(CS.Charsheet.Stats.Level))
     edit_frame.derived_text:SetText(string.format(
         "HP: %d\nHeal mod: +%d\nSP: %d",
         CS.Charsheet.Stats:get_max_hp(),
@@ -129,8 +181,20 @@ CS.Interface.update_edit_frame = function()
     ))
 end
 
+local initialize_power_select = function()
+    UIDropDownMenu_Initialize(power_select, function(dropdown, level, menu_list)
+        local info = UIDropDownMenu_CreateInfo()
+        info.disabled = nil
+        info.text     = "Master"
+        info.func     = function() CS.Output.Print "TEST" end
+        UIDropDownMenu_AddButton(info, level)
+    end)
+end
+
 CS.Charsheet.OnStatsChanged:add(CS.Interface.update_edit_frame)
-CS.OnAddonLoaded:add(CS.Interface.update_edit_frame)
+CS.OnAddonLoaded
+    :add(CS.Interface.update_edit_frame)
+    :add(initialize_power_select)
 
 CS.Interface.ToggleEditFrame = function()
     if edit_frame:IsVisible() then
