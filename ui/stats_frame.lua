@@ -1,6 +1,5 @@
 local addon_name, CS = ...
 
-local stat_names = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
 local stat_icons = {
     "Interface\\ICONS\\Icon_PetFamily_Beast.blp",
     "Interface\\ICONS\\Icon_PetFamily_Flying.blp",
@@ -11,7 +10,7 @@ local stat_icons = {
 }
 local entry_width  = 110
 local entry_height = 32
-local entry_count  = #stat_names
+local entry_count  = #CS.Stats.AttributeNames
 
 local buttons = {}
 
@@ -81,7 +80,7 @@ local create_button = function(i)
     button.texture:SetHeight(32)
     button.texture:SetTexture(stat_icons[i])
     button:SetScript("OnClick", function()
-        CS.Charsheet.roll_stat(stat_names[i])
+        CS.Charsheet.roll_stat(CS.Stats.AttributeNames[i])
     end)
     button:Show()
     buttons[i] = button
@@ -104,8 +103,8 @@ CS.Interface.update_stats_buttons = function()
     for i = 1, entry_count do
         buttons[i]:SetText(string.format(
             "%s: %d",
-            stat_names[i],
-            CS.Charsheet.Stats[stat_names[i]]
+            CS.Stats.AttributeNames[i],
+            CS.Charsheet.Stats[CS.Stats.AttributeNames[i]]
         ))
     end
 end

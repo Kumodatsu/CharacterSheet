@@ -33,9 +33,7 @@ M.set_stat = function(name, value)
         return
     end
     -- Check if the given stat is valid
-    local mutable_stats = cs.Set.Set {
-        "STR", "DEX", "CON", "INT", "WIS", "CHA"
-    }
+    local mutable_stats = cs.Set.Set(cs.Stats.AttributeNames)
     name = name:upper()
     if not cs.Set.Contains(mutable_stats, name) then
         cs.Output.Print("%s is not a valid stat.", name)

@@ -4,6 +4,8 @@ local M = {}
 local Enum  = cs.Type.Enum
 local Class = cs.Type.Class
 
+M.AttributeNames = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
+
 M.StatMinVal = 5
 M.StatMaxVal = 24
 
@@ -34,10 +36,9 @@ M.StatBlock = Class {
     Level = M.PowerLevel.Adept,
 
     attributes = function(self)
-        local attribute_names = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
         local index = 1
         return function()
-            local attribute_name = attribute_names[index]
+            local attribute_name = M.AttributeNames[index]
             local value          = self[attribute_name]
             index = index + 1
             return attribute_name, value
