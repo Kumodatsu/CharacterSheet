@@ -20,6 +20,8 @@ src\mechanics\roll.lua
 src\mechanics\stats.lua
 src\mechanics\charsheet.lua
 
+src\comm.lua
+
 ui\interface.lua
 ui\stats_frame.lua
 ui\edit_frame.lua

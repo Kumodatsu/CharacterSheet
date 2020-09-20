@@ -13,14 +13,6 @@ BINDING_NAME_TOGGLE_MAIN_FRAME  = "Toggle main frame"
 BINDING_NAME_TOGGLE_STATS_FRAME = "Toggle stats frame"
 BINDING_NAME_TOGGLE_EDIT_FRAME  = "Toggle edit frame"
 
--- Addon messages
-CS_MessagePrefix = "CS"
-local request_result =
-    C_ChatInfo.RegisterAddonMessagePrefix(CS_MessagePrefix)
-if not request_result then
-    message("The CharacterSheet addon could not register a message prefix. The addon may not work properly.")
-end
-
 -- Version command
 local show_version = function()
     local author  = GetAddOnMetadata(addon_name, "author")
@@ -36,16 +28,19 @@ cs.Commands.add_cmd("version", show_version, [[
 -- Event handling
 local frame_events = CreateFrame("FRAME", "CS_EventFrame")
 
-frame_events:RegisterEvent("ADDON_LOADED")
-frame_events:RegisterEvent("PLAYER_LOGOUT")
+frame_events:RegisterEvent "ADDON_LOADED"
+frame_events:RegisterEvent "PLAYER_LOGOUT"
+frame_events:RegisterEvent "CHAT_MSG_ADDON"
 
-frame_events.OnEvent = function(self, event, arg1)
+frame_events.OnEvent = function(self, event, arg1, arg2, arg3, arg4)
     if event == "ADDON_LOADED" and arg1 == addon_name then
         cs.Saving.LoadData()
         cs.OnAddonLoaded()
     elseif event == "PLAYER_LOGOUT" then
         cs.OnAddonUnloading()
         cs.Saving.SaveData()
+    elseif event == "CHAT_MSG_ADDON" and arg1 == CS_MessagePrefix then
+        cs.OnAddonMessageReceived(arg2, arg3, arg4)
     end
 end
 
