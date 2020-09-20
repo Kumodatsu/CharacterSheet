@@ -20,4 +20,7 @@ M.create_event = function()
     return event
 end
 
+cs.OnAddonLoaded    = M.create_event()
+cs.OnAddonUnloading = M.create_event()
+
 cs.Event = M
