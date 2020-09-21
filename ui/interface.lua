@@ -1,2 +1,6 @@
 local addon_name, CS = ...
-CS.Interface = {}
+
+CS.Interface = {
+    UIState = {}
+}
+

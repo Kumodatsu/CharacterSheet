@@ -1,5 +1,8 @@
 local addon_name, CS = ...
 
+-- Will be loaded from file on addon load
+CS.Interface.UIState.StatsFrameVisible = true
+
 local stat_icons = {
     "Interface\\ICONS\\Icon_PetFamily_Beast.blp",
     "Interface\\ICONS\\Icon_PetFamily_Flying.blp",
@@ -109,13 +112,24 @@ CS.Interface.update_stats_buttons = function()
     end
 end
 
-stats_frame:Show()
-
-CS.Charsheet.OnStatsChanged:add(CS.Interface.update_stats_buttons)
-CS.Charsheet.OnHPChanged:add(CS.Interface.update_hp_indicator)
+CS.Charsheet.OnStatsChanged
+    :add(CS.Interface.update_stats_buttons)
+CS.Charsheet.OnHPChanged
+    :add(CS.Interface.update_hp_indicator)
 CS.OnAddonLoaded
     :add(CS.Interface.update_hp_indicator)
     :add(CS.Interface.update_stats_buttons)
+    :add(function()
+        if CS.Interface.UIState.StatsFrameVisible then
+            stats_frame:Show()
+        else
+            stats_frame:Hide()
+        end
+    end)
+CS.OnAddonUnloading
+    :add(function()
+        CS.Interface.UIState.StatsFrameVisible = stats_frame:IsVisible()
+    end)
 
 CS.Interface.ToggleStatsFrame = function()
     if stats_frame:IsVisible() then

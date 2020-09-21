@@ -16,6 +16,9 @@ M.LoadData = function()
     -- Addon settings
     CS.Roll.RaidRollsEnabled = CS_DB.RaidRollsEnabled or false
 
+    -- UI state
+    CS.Interface.UIState = CS_Char_DB.UIState or CS.Interface.UIState
+
     -- TRP settings
     if CS.Extensions.totalRP3 then
         CS.Extensions.totalRP3.UpdateTRPWithStats =
@@ -31,6 +34,9 @@ M.SaveData = function()
 
     -- Addon settings
     CS_DB.RaidRollsEnabled = CS.Roll.RaidRollsEnabled
+
+    -- UI state
+    CS_Char_DB.UIState = CS.Interface.UIState
 
     -- TRP settings
     if CS.Extensions.totalRP3 then

@@ -20,6 +20,9 @@ end)
 power_level:Show()
 ]]
 
+-- Will be loaded from file on addon load
+CS.Interface.UIState.EditFrameVisible = true
+
 local entry_width    = 180
 local entry_height   = 32
 local entry_count    = #CS.Stats.AttributeNames
@@ -191,10 +194,22 @@ local initialize_power_select = function()
     end)
 end
 
-CS.Charsheet.OnStatsChanged:add(CS.Interface.update_edit_frame)
+CS.Charsheet.OnStatsChanged
+    :add(CS.Interface.update_edit_frame)
 CS.OnAddonLoaded
     :add(CS.Interface.update_edit_frame)
     :add(initialize_power_select)
+    :add(function()
+        if CS.Interface.UIState.EditFrameVisible then
+            edit_frame:Show()
+        else
+            edit_frame:Hide()
+        end
+    end)
+CS.OnAddonUnloading
+    :add(function()
+        CS.Interface.UIState.EditFrameVisible = edit_frame:IsVisible()
+    end)
 
 CS.Interface.ToggleEditFrame = function()
     if edit_frame:IsVisible() then
