@@ -1,4 +1,4 @@
-local _, cs = ...
+local _, CS = ...
 local M = {}
 
 M.Event = {
@@ -20,8 +20,8 @@ M.create_event = function()
     return event
 end
 
-cs.OnAddonLoaded          = M.create_event()
-cs.OnAddonUnloading       = M.create_event()
-cs.OnAddonMessageReceived = M.create_event()
+CS.OnAddonLoaded          = M.create_event()
+CS.OnAddonUnloading       = M.create_event()
+CS.OnAddonMessageReceived = M.create_event()
 
-cs.Event = M
+CS.Event = M

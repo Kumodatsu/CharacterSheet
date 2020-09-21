@@ -1,4 +1,4 @@
-local _, cs = ...
+local _, CS = ...
 local M = {}
 
 -- t: table, s: num, e: num -> table
@@ -14,4 +14,4 @@ M.has_key = function(t, k)
     return t[k] ~= nil
 end
 
-cs.Table = M
+CS.Table = M

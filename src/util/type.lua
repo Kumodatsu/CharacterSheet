@@ -1,4 +1,4 @@
-local _, cs = ...
+local _, CS = ...
 local M = {}
 
 M.Enum = function(enum)
@@ -54,4 +54,4 @@ M.Class = function(class)
     }
 end
 
-cs.Type = M
+CS.Type = M

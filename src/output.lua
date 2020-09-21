@@ -1,8 +1,8 @@
-local addon_name, cs = ...
+local addon_name, CS = ...
 local M = {}
 
 M.Print = function(format, ...)
     SendSystemMessage(string.format(format, ...))
 end
 
-cs.Output = M
+CS.Output = M

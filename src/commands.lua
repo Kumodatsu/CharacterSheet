@@ -1,4 +1,4 @@
-local _, cs = ...
+local _, CS = ...
 local M = {}
 
 SLASH_CHARACTER_SHEET1 = "/cs"
@@ -16,7 +16,7 @@ M.parse_cmd = function(msg)
         return false
     end
     local cmd  = tokens[1]
-    local args = cs.Table.get_range(tokens, 2, #tokens)
+    local args = CS.Table.get_range(tokens, 2, #tokens)
     return true, cmd, args
 end
 
@@ -30,13 +30,13 @@ M.execute_cmd = function(name, args)
             entry.Cmd(unpack(args))
         end
     else
-        cs.Output.Print("Unknown command: %s", name)
+        CS.Output.Print("Unknown command: %s", name)
     end
 end
 
 M.add_cmd = function(name, f, description, packed)
-    if cs.Table.has_key(M.cmds, name) then
-        cs.Output.Print("Duplicate command name: %s", name)
+    if CS.Table.has_key(M.cmds, name) then
+        CS.Output.Print("Duplicate command name: %s", name)
     else
         if packed == nil then
             packed = false
@@ -54,7 +54,7 @@ SlashCmdList["CHARACTER_SHEET"] = function(msg)
     if success then
         M.execute_cmd(name, args)
     else
-        cs.Output.Print("Failed to parse command: %s", msg)
+        CS.Output.Print("Failed to parse command: %s", msg)
     end
 end
 
@@ -62,16 +62,16 @@ local list_help = function(name)
     if name ~= nil then
         local entry = M.cmds[name]
         if entry ~= nil then
-            cs.Output.Print(entry.Description)
+            CS.Output.Print(entry.Description)
         else
-            cs.Output.Print("Unknown command: %s", name)
+            CS.Output.Print("Unknown command: %s", name)
         end
     else
-        cs.Output.Print("Available commands:")
+        CS.Output.Print("Available commands:")
         for k, v in pairs(M.cmds) do
-            cs.Output.Print("/cs %s", k)
+            CS.Output.Print("/cs %s", k)
         end
-        cs.Output.Print("Use \"/cs help <command>\" to show an explanation of the specified command.")
+        CS.Output.Print("Use \"/cs help <command>\" to show an explanation of the specified command.")
     end
 end
 
@@ -80,4 +80,4 @@ M.add_cmd("help", list_help, [[
 "/cs help <command>" shows an explanation of the specified command.
 ]])
 
-cs.Commands = M
+CS.Commands = M

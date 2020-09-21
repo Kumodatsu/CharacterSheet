@@ -1,4 +1,4 @@
-local addon_name, cs = ...
+local addon_name, CS = ...
 local M = {}
 
 --[[
@@ -34,13 +34,13 @@ end
 local toggle_raid_rolls = function()
     M.RaidRollsEnabled = not M.RaidRollsEnabled
     if M.RaidRollsEnabled then
-        cs.Output.Print("Raid roll messages are now ENABLED.")
+        CS.Output.Print("Raid roll messages are now ENABLED.")
     else
-        cs.Output.Print("Raid roll messages are now DISABLED.")
+        CS.Output.Print("Raid roll messages are now DISABLED.")
     end
 end
 
-cs.Commands.add_cmd("raidrolls", toggle_raid_rolls, [[
+CS.Commands.add_cmd("raidrolls", toggle_raid_rolls, [[
 Toggles raid roll messages on and off.
 ]])
 
@@ -91,7 +91,7 @@ local on_system_message = function(message)
                 return SendChatMessage(roll_str, "PARTY")
             end
         end
-        cs.Output.Print(roll_str)
+        CS.Output.Print(roll_str)
     end
 end
 
@@ -108,4 +108,4 @@ end
 
 frame_handle_rolls:SetScript("OnEvent", frame_handle_rolls.OnEvent)
 
-cs.Roll = M
+CS.Roll = M

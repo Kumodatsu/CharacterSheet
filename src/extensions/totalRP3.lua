@@ -2,7 +2,7 @@ do return end
 
 if not TRP3_API then return end
 
-local addon_name, cs = ...
+local addon_name, CS = ...
 local M = {}
 
 -- Will be loaded from file on addon load
@@ -46,9 +46,9 @@ local update_trp_stats = function()
     if not M.UpdateTRPWithStats then
         return
     end
-    local stats = cs.Charsheet.Stats
+    local stats = CS.Charsheet.Stats
     set_trp_ooc(format_stats_string(
-        cs.Charsheet.CurrentHP,
+        CS.Charsheet.CurrentHP,
         stats:get_max_hp(),
         stats.STR,
         stats.DEX,
@@ -59,8 +59,8 @@ local update_trp_stats = function()
     ))
 end
 
-cs.Charsheet.OnStatsChanged:add(update_trp_stats)
-cs.Charsheet.OnCurrentHPChanged:add(update_trp_stats)
+CS.Charsheet.OnStatsChanged:add(update_trp_stats)
+CS.Charsheet.OnCurrentHPChanged:add(update_trp_stats)
 
 TRP3_API.module.registerModule({
     name        = GetAddOnMetadata(addon_name, "Title"),
@@ -77,18 +77,18 @@ TRP3_API.module.registerModule({
 local toggle_stat_update = function()
     M.UpdateTRPWithStats = not M.UpdateTRPWithStats
     if M.UpdateTRPWithStats then
-        cs.Output.Print(
+        CS.Output.Print(
             "TRP OOC information now WILL be overwritten by your stats."
         )
     else
-        cs.Output.Print(
+        CS.Output.Print(
             "TRP OOC information now WILL NOT be overwritten by your stats."
         )
     end
 end
 
-cs.Commands.add_cmd("trp", toggle_stat_update, [[
+CS.Commands.add_cmd("trp", toggle_stat_update, [[
 "/cs trp" toggles whether your stats are allowed to overwrite your TRP's OOC information.
 ]])
 
-cs.Extensions.totalRP3 = M
+CS.Extensions.totalRP3 = M

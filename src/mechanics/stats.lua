@@ -1,8 +1,8 @@
-local addon_name, cs = ...
+local addon_name, CS = ...
 local M = {}
 
-local Enum  = cs.Type.Enum
-local Class = cs.Type.Class
+local Enum  = CS.Type.Enum
+local Class = CS.Type.Class
 
 M.AttributeNames = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
 
@@ -100,4 +100,4 @@ M.StatBlock = Class {
     end
 }
 
-cs.Stats = M
+CS.Stats = M

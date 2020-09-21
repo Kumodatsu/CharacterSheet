@@ -1,7 +1,7 @@
-local _, cs = ...
+local _, CS = ...
 local M = {}
 
-local Class = cs.Type.Class
+local Class = CS.Type.Class
 
 M.Set = function(values)
     local set = {}
@@ -27,4 +27,4 @@ M.Remove = function(set, value)
     return false
 end
 
-cs.Set = M
+CS.Set = M
