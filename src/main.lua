@@ -1,9 +1,7 @@
 local addon_name, CS = ...
 
--- Global addon getter
-CS_GetAddon = function()
-    return CS
-end
+-- Global addon accessor
+CS_API = CS
 
 -- Key bindings
 BINDING_HEADER_CHARACTER_SHEET  = "Character Sheet"

@@ -1,21 +1,17 @@
 <Bindings>
     <Binding name="INCREMENT_HP" header="CHARACTER_SHEET">
-        local M = CS_GetAddon().Charsheet
-        M.set_hp(M.CurrentHP + 1)
+        CS_API.Charsheet.set_hp(CS_API.Charsheet.CurrentHP + 1)
     </Binding>
     <Binding name="DECREMENT_HP">
-        local M = CS_GetAddon().Charsheet
-        M.set_hp(M.CurrentHP - 1)
+        CS_API.Charsheet.set_hp(CS_API.Charsheet.CurrentHP - 1)
     </Binding>
     <Binding name="TOGGLE_MAIN_FRAME">
-        local M = CS_GetAddon().Interface
-        M.ToggleMainFrame()
+        CS_API.Interface.ToggleMainFrame()
     </Binding>
     <Binding name="TOGGLE_STATS_FRAME">
-        local M = CS_GetAddon().Interface
-        M.ToggleStatsFrame()
+        CS_API.Interface.ToggleStatsFrame()
     </Binding>
     <Binding name="TOGGLE_EDIT_FRAME">
-        CS_GetAddon().Interface.ToggleEditFrame()
+        CS_API.Interface.ToggleEditFrame()
     </Binding>
 </Bindings>
