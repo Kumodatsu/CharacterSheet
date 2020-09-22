@@ -22,29 +22,34 @@ Character specific data is stored in `World of Warcraft\_retail_\WTF\Account\<ac
 To make a backup of your data, copy these files somewhere safe.
 To restore the data, copy the backup files back to the aforementioned locations.
 
-## Usage (latest version)
-At the moment, all interactions with the addon happen through commands.
-A UI will be coming in the future.
-
+## Usage (0.4.0)
+At the moment, most of the functionality of the addon can be used through the UI.
+All of the functionality can be accessed through slash commands.
 All commands provided by the addon start with `/cs`.
 Use the command `/cs help` to view a listing of all available commands, and `/cs help <command>` to see an explanation of the given command.
 The most important use cases of the addon are described below.
 
 ### Editing your stat block
-Use the command `/cs stats` to view your stat block.
-Initially your power level and stats all have default values.
-To change your power level, use `/cs level <name>` where `<name>` is one of Novice, Apprentice, Adept, Expert and Master (case insensitive).
-For example, use `/cs level adept` to set your power level to Adept.
-To edit a stat's value, use `/cs set <stat> <value>` where `<stat>` is one of STR, DEX, CON, INT, WIS, CHA (case insensitive).
-For example, use `/cs set str 15` to set your Strength to 15.
-Use `/cs hp <value>` to set your current HP to the given value.
-Your max HP and SP are automatically calculated from your power level and stats.
+Use the edit frame to edit your stat block.
+The frame can be toggled on and off with the command `/cs toggle edit`.
+Use the arrow buttons to add or remove points from a stat.
+Click the power level in the top of the frame to change your power level.
+At the bottom of the frame, the number of skill points you have left are displayed,
+as well as values that are derived from your stats (HP and heal modifier).
 
 ### Validating your stat block
 Use `/cs validate` to check if your stat block is valid, i.e. you have a valid distribution of SP.
 If your stat block is invalid, a message will be displayed telling you what should be changed.
 
-### Rolling
-Use `/cs roll <stat>` to roll with the given stat modifier.
+### Using your stats
+Click a stat in your stat frame to roll with that stat's modifier.
+The stat frame can be toggled on and off with the command `/cs toggle stats`.
+You can also use `/cs roll <stat>` to roll with the given stat modifier.
 For example, use `/cs roll str` to roll for Strength (1d20 + STR).
-Use `/cs heal` to roll for healing (1d14).
+Use `/cs heal` to roll for healing in combat (1d14 + heal mod)
+and `/cs heal safe` to roll for healing out of combat (1d18 + heal mod).
+At the moment, heal rolls can not yet be performed through the UI, so you need to use the command.
+You can change your HP either by configuring keybinds for incrementing and decrementing your HP value
+or by using `/cs hp <value>`.
+At the moment, changing your HP can not yet be performed through the UI.
+Pet HP and pet attack rolls have also not yet been incorporated into the UI.
