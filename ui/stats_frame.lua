@@ -11,6 +11,7 @@ local stat_icons = {
     "Interface\\ICONS\\Icon_PetFamily_Dragon.blp",
     "Interface\\ICONS\\Icon_PetFamily_Magical.blp"
 }
+local plusminus_icon = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP"
 local entry_width  = 110
 local entry_height = 32
 local entry_count  = #CS.Stats.AttributeNames
@@ -22,7 +23,7 @@ local stats_frame = CreateFrame("Frame", "CS_StatsFrame", UIParent)
 stats_frame:SetBackdrop {
     bgFile   = "Interface\\DialogFrame\\UI-DialogBox-Background",
     edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-    tile     = 1,
+    tile     = true,
     tileSize = 32,
     edgeSize = 32,
     insets   = {
@@ -46,7 +47,7 @@ stats_frame:SetClampedToScreen(true)
 local health_bar = CreateFrame("StatusBar", nil, stats_frame)
 health_bar:SetPoint("TOP", stats_frame, "TOP", 0, -12)
 health_bar:SetOrientation "HORIZONTAL"
-health_bar:SetWidth(entry_width)
+health_bar:SetWidth(entry_width - 40)
 health_bar:SetHeight(20)
 health_bar:SetStatusBarTexture "Interface\\TARGETINGFRAME\\UI-StatusBar"
 health_bar:SetStatusBarColor(0.1, 0.9, 0.3, 1.0)
@@ -64,6 +65,33 @@ health_bar.text:SetShadowOffset(1, -1)
 health_bar.text:SetTextColor(0.0, 1.0, 0.0)
 
 stats_frame.health_bar = health_bar
+
+local health_dec = CreateFrame("Button", nil, health_bar)
+health_dec:SetPoint("RIGHT", health_bar, "LEFT", 0, 0)
+health_dec:SetSize(entry_width, entry_height)
+health_dec.texture = health_dec:CreateTexture()
+health_dec.texture:SetPoint("RIGHT", health_bar, "LEFT", 0, 0)
+health_dec.texture:SetWidth(20)
+health_dec.texture:SetHeight(20)
+health_dec.texture:SetTexCoord(0.0, 0.5, 0.25, 0.5)
+--health_dec.texture:SetTexCoord(0.0, 0.5, 0.0, 0.25)
+health_dec.texture:SetTexture(plusminus_icon)
+health_dec:SetScript("OnClick", function()
+    CS.Charsheet.set_hp(CS.Charsheet.CurrentHP - 1)
+end)
+
+local health_inc = CreateFrame("Button", nil, health_bar)
+health_inc:SetPoint("LEFT", health_bar, "RIGHT", 0, 0)
+health_inc:SetSize(entry_width, entry_height)
+health_inc.texture = health_inc:CreateTexture()
+health_inc.texture:SetPoint("LEFT", health_bar, "RIGHT", 0, 0)
+health_inc.texture:SetWidth(20)
+health_inc.texture:SetHeight(20)
+health_inc.texture:SetTexCoord(0.0, 0.5, 0.0, 0.25)
+health_inc.texture:SetTexture(plusminus_icon)
+health_inc:SetScript("OnClick", function()
+    CS.Charsheet.set_hp(CS.Charsheet.CurrentHP + 1)
+end)
 
 local create_button = function(i)
     local button = CreateFrame("Button", nil, stats_frame)
