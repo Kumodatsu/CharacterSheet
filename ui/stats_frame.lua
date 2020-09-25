@@ -186,7 +186,7 @@ local toggle_frame = function(name)
     elseif name == "tabs" then
         CS.Interface.ToggleMainFrame()
     elseif name == "edit" then
-        CS.Interface.ToggleEditFrame()
+        CS.Interface.Toggle(CS_EditFrame)
     else
         CS.Output.Print("\"%s\" is not a valid frame.", name)
     end
