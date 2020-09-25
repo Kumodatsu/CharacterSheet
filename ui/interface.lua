@@ -66,18 +66,14 @@ CS.Interface.Frame = function(info)
     end
     for _, content in ipairs(info.Content) do
         content:SetParent(frame)
-
         local c_width = CS.Math.round(content:GetWidth())
         local new_x   = x + c_width
         local wrap    = new_x > info.Width
-        CS.Output.Print("X: %d; W: %d; B: %s", new_x, info.Width, tostring(wrap))
         if wrap then
             x = 0
             y = y - c_height
         end
-        
         content:SetPoint("TOPLEFT", frame, "TOPLEFT", x + offset_x, y + offset_y)
-        
         x = wrap and c_width or new_x
         c_height = CS.Math.round(content:GetHeight())
     end
