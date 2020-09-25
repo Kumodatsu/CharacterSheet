@@ -149,6 +149,16 @@ M.set_hp = function(value)
     CS.Output.Print("HP set to %d.", value)
 end
 
+M.increment_hp = function(number)
+    number = number or 1
+    M.set_hp(M.CurrentHP + 1)
+end
+
+M.decrement_hp = function(number)
+    number = number or 1
+    M.set_hp(M.CurrentHP - 1)
+end
+
 M.add_pet = function(name)
     if M.Pets[name] ~= nil then
         CS.Output.Print("You already have a pet named %s.", name)

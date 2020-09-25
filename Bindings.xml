@@ -1,9 +1,9 @@
 <Bindings>
     <Binding name="INCREMENT_HP" header="CHARACTER_SHEET">
-        CS_API.Charsheet.set_hp(CS_API.Charsheet.CurrentHP + 1)
+        CS_API.Charsheet.increment_hp()
     </Binding>
     <Binding name="DECREMENT_HP">
-        CS_API.Charsheet.set_hp(CS_API.Charsheet.CurrentHP - 1)
+        CS_API.Charsheet.decrement_hp()
     </Binding>
     <Binding name="TOGGLE_MAIN_FRAME">
         CS_API.Interface.ToggleMainFrame()
