@@ -1,25 +1,5 @@
 local addon_name, CS = ...
 
---[[
-local power_level = CreateFrame("Frame", "CS_PowerLevelSelect", UIParent)
-local power_level_select = CreateFrame("Button", "CS_PowerLevelSelectButton", power_level)
-power_level_select:SetScript("OnClick", function(self)
-    ToggleDropDownMenu(1, nil, CS_PowerLevelSelect, CS_PowerLevelSelectButton, 0, 0)
-end)
-power_level_select:SetScript("OnLoad", function(self)
-    UIDropDownMenu_Initialze(self, function(dropdown, level, menu_list)
-        local info = UIDropDownMenu_CreateInfo()
-        info.notCheckable = true
-        info.disabled     = nil
-        info.text         = "Master"
-        info.func         = function() CS.Output.Print "TEST" end
-        UIDropDownMenu_AddButton(info, level)
-    end)
-end)
-
-power_level:Show()
-]]
-
 -- Will be loaded from file on addon load
 CS.Interface.UIState.EditFrameVisible = true
 
