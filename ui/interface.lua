@@ -146,6 +146,41 @@ CS.Interface.Icon = function(info)
     return icon
 end
 
+CS.Interface.Text = function(info)
+    local frame = CreateFrame("Frame", info.Global or nil, nil)
+    frame:SetSize(info.Width, info.Height)
+    frame.text = frame:CreateFontString(nil, "ARTWORK")
+    frame.text:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
+    frame.text:SetPoint("CENTER", 0, 0)
+    frame.text:SetText(info.Text or "")
+    register_events(frame, info.Events)
+    return frame
+end
+
+CS.Interface.Dropdown = function(info)
+    local dropdown = CreateFrame("Button", info.Global, nil)
+    dropdown:SetWidth(info.Width)
+    dropdown:SetHeight(info.Height)
+    dropdown:SetNormalFontObject "GameFontNormal"
+    dropdown:SetText(info.Text or "undefined")
+    dropdown:GetFontString():SetPoint("LEFT", dropdown, "LEFT", 0, 0)
+    dropdown:GetFontString():SetPoint("RIGHT", dropdown, "RIGHT", 0, 0)
+
+    dropdown.select = CreateFrame("Frame", info.Global .. "Select", dropdown)
+    dropdown.select:SetPoint("TOP", dropdown, "TOP", 0, 0)
+    dropdown.select:SetWidth(info.Width)
+    dropdown.select:SetHeight(info.Height)
+
+    dropdown:SetScript("OnClick", function(self, button, down)
+        if button == "LeftButton" then
+            EasyMenu(info.Menu, dropdown.select, dropdown.select, 0, 0)
+        end
+    end)
+
+    register_events(dropdown, info.Events)
+    return dropdown
+end
+
 CS.Interface.Toggle = function(frame)
     if frame:IsVisible() then
         frame:Hide()
