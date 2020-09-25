@@ -7,6 +7,7 @@
 ## SavedVariablesPerCharacter: CS_Char_DB
 ## Version: 0.4.0
 
+src\util\math.lua
 src\util\type.lua
 src\util\table.lua
 src\util\set.lua
