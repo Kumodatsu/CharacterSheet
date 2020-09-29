@@ -13,8 +13,8 @@ local register_events = function(frame, events)
     end
 end
 
-CS.Interface.Frame = function(info)
-    local frame  = CreateFrame("Frame", info.Global or nil, UIParent)
+CS.Interface.Frame = function(info, parent)
+    local frame  = CreateFrame("Frame", info.Global or nil, parent or UIParent)
     local width  = info.Width
     local height = info.Height
     if info.Backdrop then
