@@ -35,7 +35,7 @@ CS.Interface.Frame {
         }
     },
     Width      = 110,
-    Height     = 20 + 6 * 32,
+    Height     = 20 + 6 * 32 + 2 * 24,
     Point      = { "CENTER", UIParent, "CENTER" },
     Movable    = true,
     Clamped    = true,
@@ -172,6 +172,22 @@ CS.Interface.Frame {
                 [CS.OnAddonLoaded]            = { update_stat_button "CHA" },
                 [CS.Charsheet.OnStatsChanged] = { update_stat_button "CHA" }
             }
+        },
+        CS.Interface.Button {
+            Width     = 110,
+            Height    = 24,
+            Text      = "Pet Attack",
+            Texture   = "Interface\\BUTTONS\\UI-DialogBox-Button-Gold-Up.blp",
+            TexCoords = { 0.0, 1.0, 0.0, 0.6 },
+            OnClick   = CS.skip_arg(CS.Charsheet.pet_attack)
+        },
+        CS.Interface.Button {
+            Width     = 110,
+            Height    = 24,
+            Text      = "Heal",
+            Texture   = "Interface\\BUTTONS\\UI-DialogBox-Button-Gold-Up.blp",
+            TexCoords = { 0.0, 1.0, 0.0, 0.6 },
+            OnClick   = CS.skip_arg(CS.Charsheet.roll_heal)
         }
     }
 }
