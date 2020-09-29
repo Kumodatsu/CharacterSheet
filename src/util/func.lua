@@ -10,3 +10,9 @@ CS.fwd = function(f, ...)
         return f(unpack(args))
     end
 end
+
+CS.skip_arg = function(f)
+    return function(arg)
+        return f()
+    end
+end
