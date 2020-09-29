@@ -19,13 +19,14 @@ M.RollMatches = function(roll_data, lower, upper, name)
     )
 end
 
-M.Roll = function(lower, upper, mod, stat)
+M.Roll = function(lower, upper, mod, stat, tf)
     local roll_data = {
         name  = UnitName("player"),
         lower = tonumber(lower),
         upper = tonumber(upper),
         mod   = tonumber(mod) or 0,
-        stat  = stat
+        stat  = stat,
+        tf    = tf
     }
     table.insert(M.RollRecords, roll_data)
     RandomRoll(lower, upper)
@@ -60,10 +61,12 @@ local on_system_message = function(message)
     if sender and sender == name then
         local mod  = 0
         local stat = nil
+        local tf   = nil
         for i = 1, #M.RollRecords do
             if M.RollMatches(M.RollRecords[i], lower, upper, name) then
                 mod  = M.RollRecords[i].mod
                 stat = M.RollRecords[i].stat
+                tf   = M.RollRecords[i].tf
                 table.remove(M.RollRecords, i)
                 break
             end
@@ -76,12 +79,13 @@ local on_system_message = function(message)
             local range = upper - (lower - 1)
             roll_str = string.format(" (NATURAL %d)", range)
         end
-        if stat ~= nil then
+        if stat ~= nil and lower == 1 and upper == 20 and tf == nil then
             roll_str = string.format(" %s%s", stat, roll_str)
         end
+        tf = tf or CS.id
         roll_str = string.format(
             "%d%s.",
-            roll + mod,
+            tf(roll + mod),
             roll_str
         )
         if M.RaidRollsEnabled then
