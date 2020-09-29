@@ -86,7 +86,7 @@ CS.Interface.Frame {
         CS.Interface.Icon {
             Width   = 32,
             Height  = 32,
-            Texture = "Interface\\ICONS\\Icon_PetFamily_Beast.blp"
+            Texture = "Interface\\ICONS\\Pet_Type_Beast.blp"
         },
         CS.Interface.Button {
             Width   = 110 - 32,
@@ -101,7 +101,7 @@ CS.Interface.Frame {
         CS.Interface.Icon {
             Width   = 32,
             Height  = 32,
-            Texture = "Interface\\ICONS\\Icon_PetFamily_Flying.blp"
+            Texture = "Interface\\ICONS\\Pet_Type_Flying.blp"
         },
         CS.Interface.Button {
             Width   = 110 - 32,
@@ -116,7 +116,7 @@ CS.Interface.Frame {
         CS.Interface.Icon {
             Width   = 32,
             Height  = 32,
-            Texture = "Interface\\ICONS\\Icon_PetFamily_Humanoid.blp"
+            Texture = "Interface\\ICONS\\Pet_Type_Humanoid.blp"
         },
         CS.Interface.Button {
             Width   = 110 - 32,
@@ -131,7 +131,7 @@ CS.Interface.Frame {
         CS.Interface.Icon {
             Width   = 32,
             Height  = 32,
-            Texture = "Interface\\ICONS\\Icon_PetFamily_Mechanical.blp"
+            Texture = "Interface\\ICONS\\Pet_Type_Mechanical.blp"
         },
         CS.Interface.Button {
             Width   = 110 - 32,
@@ -146,7 +146,7 @@ CS.Interface.Frame {
         CS.Interface.Icon {
             Width   = 32,
             Height  = 32,
-            Texture = "Interface\\ICONS\\Icon_PetFamily_Dragon.blp"
+            Texture = "Interface\\ICONS\\Pet_Type_Dragon.blp"
         },
         CS.Interface.Button {
             Width   = 110 - 32,
@@ -161,7 +161,7 @@ CS.Interface.Frame {
         CS.Interface.Icon {
             Width   = 32,
             Height  = 32,
-            Texture = "Interface\\ICONS\\Icon_PetFamily_Magical.blp"
+            Texture = "Interface\\ICONS\\Pet_Type_Magical.blp"
         },
         CS.Interface.Button {
             Width   = 110 - 32,
