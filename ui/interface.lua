@@ -89,7 +89,7 @@ CS.Interface.Button = function(info)
     end
     if info.Texture then
         button.texture = button:CreateTexture()
-        button.texture:SetPoint("TOPLEFT", button, "TOPLEFT", 0, 0)
+        button.texture:SetPoint("CENTER", button, "CENTER", 0, 0)
         button.texture:SetWidth(info.Width)
         button.texture:SetHeight(info.Height)
         if info.TexCoords then
