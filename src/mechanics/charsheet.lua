@@ -5,6 +5,7 @@ local M = {}
 M.Stats     = {}
 M.CurrentHP = 16
 M.Pets      = {}
+M.PetAttack = "CHA"
 
 -- Called when a stat or the power level is changed.
 M.OnStatsChanged = CS.Event.create_event()
@@ -92,6 +93,22 @@ M.roll_heal = function(in_combat)
     local lower = 1
     local upper = in_combat and 14 or 18
     CS.Roll.Roll(lower, upper, mod)
+end
+
+M.pet_attack = function()
+    CS.Roll.Roll(1, 20, M.Stats[M.PetAttack], M.PetAttack, CS.Math.half)
+end
+
+M.set_pet_attack_attribute = function(attrib)
+    if type(attrib) ~= "string" then
+        return CS.Output.Print "You must specify a valid stat attribute."
+    end
+    attrib = attrib:upper()
+    if not CS.Stats.is_valid_attribute(attrib) then
+        return CS.Output.Print "You must specify a valid stat attribute."
+    end
+    M.PetAttack = attrib
+    CS.Output.Print("Pet attack attribute set to %s.", attrib)
 end
 
 M.show_stats = function()
@@ -263,6 +280,14 @@ CS.Commands.add_cmd("removepet", M.remove_pet, [[
 CS.Commands.add_cmd("pethp", M.set_pet_hp, [[
 "/cs pethp <name> max" sets the pet with the given name's current HP to their max HP.
 "/cs pethp <name> <value>" sets the pet with the given name's current HP to the given value.
+]])
+
+CS.Commands.add_cmd("petatk", M.pet_attack, [[
+"/cs petatk" performs a pet attack roll and displays the final damage number.
+]])
+
+CS.Commands.add_cmd("setpetatk", M.set_pet_attack_attribute, [[
+"/cs setpetatk <attribute>" sets your pet attack attribute to the given attribute.
 ]])
 
 -- Temporary helper function to half an integer value.
