@@ -64,7 +64,7 @@ CS.Interface.Frame = function(info, parent)
         offset_x = info.Backdrop.Insets.Left
         offset_y = -info.Backdrop.Insets.Top
     end
-    for _, content in ipairs(info.Content) do
+    local configure = function(content)
         content:SetParent(frame)
         local c_width = CS.Math.round(content:GetWidth())
         local new_x   = x + c_width
@@ -76,6 +76,15 @@ CS.Interface.Frame = function(info, parent)
         content:SetPoint("TOPLEFT", frame, "TOPLEFT", x + offset_x, y + offset_y)
         x = wrap and c_width or new_x
         c_height = CS.Math.round(content:GetHeight())
+    end
+    for _, content in ipairs(info.Content) do
+        if type(content) == "function" then
+            for inner in content do
+                configure(inner)
+            end
+        else
+            configure(content)
+        end
     end
     register_events(frame, info.Events)
     return frame
