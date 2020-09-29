@@ -6,6 +6,13 @@ local Class = CS.Type.Class
 
 M.AttributeNames = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
 
+M.is_valid_attribute = function(name)
+    for _, attrib in ipairs(M.AttributeNames) do
+        if attrib == name then return true end
+    end
+    return false
+end
+
 M.StatMinVal = 5
 M.StatMaxVal = 24
 
