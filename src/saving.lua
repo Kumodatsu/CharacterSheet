@@ -8,6 +8,8 @@ M.LoadData = function()
     -- Character specific data
     CS_Char_DB = CS_Char_DB or {}
     
+    -- TODO: Detect outdated data formats
+
     -- Character stats
     CS.Charsheet.Stats     = CS.Stats.StatBlock.load(CS_Char_DB.Stats)
     CS.Charsheet.CurrentHP = CS_Char_DB.CurrentHP or CS.Charsheet.Stats:get_max_hp()
@@ -28,6 +30,11 @@ M.LoadData = function()
 end
 
 M.SaveData = function()
+    -- Version. Used to detect outdated data formats
+    local version = GetAddOnMetadata(addon_name, "version")
+    CS_DB.Version      = version
+    CS_Char_DB.Version = version
+
     -- Character stats
     CS_Char_DB.Stats     = CS.Charsheet.Stats:save()
     CS_Char_DB.CurrentHP = CS.Charsheet.CurrentHP
