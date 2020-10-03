@@ -12,6 +12,16 @@ local update_hp_bar = function(self)
     self:SetValue(hp)
 end
 
+local update_pet_hp_bar = function(self)
+    local pet    = CS.Charsheet.active_pet()
+    local hp     = pet and pet.CurrentHP or 0
+    local hp_max = pet and CS.Charsheet.Stats:get_pet_max_hp() or 0
+    local text   = string.format("%d/%d", hp, hp_max)
+    self.text:SetText(text)
+    self:SetMinMaxValues(0, hp_max)
+    self:SetValue(hp)
+end
+
 local update_stat_button = function(stat)
     return function(self)
         local text = string.format("%s: %d", stat, CS.Charsheet.Stats[stat])
@@ -35,7 +45,7 @@ CS.Interface.Frame {
         }
     },
     Width      = 110,
-    Height     = 20 + 6 * 32 + 2 * 24,
+    Height     = 2 * 20 + 6 * 32 + 2 * 24,
     Point      = { "CENTER", UIParent, "CENTER" },
     Movable    = true,
     Clamped    = true,
@@ -52,12 +62,13 @@ CS.Interface.Frame {
         end }
     },
     Content    = {
+        -- HP bar
         CS.Interface.Button {
             Width     = 20,
             Height    = 20,
             Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.25, 0.5 },
-            OnClick   = CS.Charsheet.decrement_hp
+            OnClick   = CS.skip_arg(CS.Charsheet.decrement_hp)
         },
         CS.Interface.StatusBar {
             Orientation = "HORIZONTAL",
@@ -81,8 +92,9 @@ CS.Interface.Frame {
             Height    = 20,
             Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.0, 0.25 },
-            OnClick   = CS.Charsheet.increment_hp
+            OnClick   = CS.skip_arg(CS.Charsheet.increment_hp)
         },
+        -- Stats
         CS.Interface.Icon {
             Width   = 32,
             Height  = 32,
@@ -173,14 +185,7 @@ CS.Interface.Frame {
                 [CS.Charsheet.OnStatsChanged] = { update_stat_button "CHA" }
             }
         },
-        CS.Interface.Button {
-            Width     = 110,
-            Height    = 24,
-            Text      = "Pet Attack",
-            Texture   = "Interface\\BUTTONS\\UI-DialogBox-Button-Gold-Up.blp",
-            TexCoords = { 0.0, 1.0, 0.0, 0.6 },
-            OnClick   = CS.skip_arg(CS.Charsheet.pet_attack)
-        },
+        -- Heal button
         CS.Interface.Button {
             Width     = 110,
             Height    = 24,
@@ -188,6 +193,48 @@ CS.Interface.Frame {
             Texture   = "Interface\\BUTTONS\\UI-DialogBox-Button-Gold-Up.blp",
             TexCoords = { 0.0, 1.0, 0.0, 0.6 },
             OnClick   = CS.skip_arg(CS.Charsheet.roll_heal)
+        },
+        -- Pet HP bar
+        CS.Interface.Button {
+            Width     = 20,
+            Height    = 20,
+            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            TexCoords = { 0.0, 0.5, 0.25, 0.5 },
+            OnClick   = CS.skip_arg(CS.Charsheet.decrement_pet_hp)
+        },
+        CS.Interface.StatusBar {
+            Orientation = "HORIZONTAL",
+            Width       = 70,
+            Height      = 20,
+            Foreground = {
+                Texture = "Interface\\TARGETINGFRAME\\UI-StatusBar",
+                Color   = { 0.4, 0.9, 0.3, 1.0 }
+            },
+            Background  = {
+                Texture = "Interface\\TARGETINGFRAME\\UI-StatusBar",
+                Color   = { 0.0, 0.35, 0.0, 1.0 }
+            },
+            Events      = {
+                [CS.OnAddonLoaded]                = { update_pet_hp_bar },
+                [CS.Charsheet.OnPetsChanged]      = { update_pet_hp_bar },
+                [CS.Charsheet.OnActivePetChanged] = { update_pet_hp_bar }
+            }
+        },
+        CS.Interface.Button {
+            Width     = 20,
+            Height    = 20,
+            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            TexCoords = { 0.0, 0.5, 0.0, 0.25 },
+            OnClick   = CS.skip_arg(CS.Charsheet.increment_pet_hp)
+        },
+        -- Pet attack button
+        CS.Interface.Button {
+            Width     = 110,
+            Height    = 24,
+            Text      = "Pet Attack",
+            Texture   = "Interface\\BUTTONS\\UI-DialogBox-Button-Gold-Up.blp",
+            TexCoords = { 0.0, 1.0, 0.0, 0.6 },
+            OnClick   = CS.skip_arg(CS.Charsheet.pet_attack)
         }
     }
 }
