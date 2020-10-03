@@ -190,10 +190,19 @@ CS.Interface.Dropdown = function(info)
     return dropdown
 end
 
-CS.Interface.Toggle = function(frame)
-    if frame:IsVisible() then
-        frame:Hide()
-    else
+CS.Interface.Toggle = function(frame, visible)
+    if visible == nil then
+        if frame:IsVisible() then
+            frame:Hide()
+            return false
+        else
+            frame:Show()
+            return true
+        end
+    elseif visible then
         frame:Show()
+    else
+        frame:Hide()
     end
+    return visible
 end
