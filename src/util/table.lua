@@ -14,4 +14,11 @@ M.has_key = function(t, k)
     return t[k] ~= nil
 end
 
+M.is_empty = function(t)
+    for _, _ in pairs(t) do
+        return false
+    end
+    return true
+end
+
 CS.Table = M
