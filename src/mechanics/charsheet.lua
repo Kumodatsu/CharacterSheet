@@ -5,16 +5,20 @@ local M = {}
 M.Stats     = {}
 M.CurrentHP = 16
 M.Pets      = {}
-M.PetAttack = "CHA"
+M.ActivePet = nil
 
 -- Called when a stat or the power level is changed.
-M.OnStatsChanged = CS.Event.create_event()
+M.OnStatsChanged     = CS.Event.create_event()
 -- Called when the current or max HP is changed.
-M.OnHPChanged    = CS.Event.create_event()
+M.OnHPChanged        = CS.Event.create_event()
+-- Called when the list of pets or a pet's properties is/are changed.
+M.OnActivePetChanged = CS.Event.create_event() 
+-- Called when the currently active pet is changed.
+M.OnPetsChanged      = CS.Event.create_event()
 
 local clamp_hp = function()
     if M.CurrentHP > M.Stats:get_max_hp() then
-        M.set_hp("max")
+        M.set_hp "max"
     end
     local pet_max_hp = M.Stats:get_pet_max_hp()
     for pet_name, pet in pairs(M.Pets) do
@@ -95,11 +99,16 @@ M.roll_heal = function(in_combat)
     CS.Roll.Roll(lower, upper, mod)
 end
 
-M.pet_attack = function()
-    CS.Roll.Roll(1, 20, M.Stats[M.PetAttack], M.PetAttack, CS.Math.half)
+M.pet_attack = function(name)
+    name = name or M.ActivePet
+    if not name or not M.Pets[name] then
+        return CS.Output.Print "You must have a pet active or specify one of your pets' names."
+    end
+    local pet = M.Pets[name]
+    CS.Roll.Roll(1, 20, M.Stats[pet.Attack], pet.Attack, CS.Math.half)
 end
 
-M.set_pet_attack_attribute = function(attrib)
+M.set_pet_attack_attribute = function(attrib, name)
     if type(attrib) ~= "string" then
         return CS.Output.Print "You must specify a valid stat attribute."
     end
@@ -107,7 +116,16 @@ M.set_pet_attack_attribute = function(attrib)
     if not CS.Stats.is_valid_attribute(attrib) then
         return CS.Output.Print "You must specify a valid stat attribute."
     end
-    M.PetAttack = attrib
+    name = name or M.ActivePet
+    if not name then
+        return CS.Output.Print "You must have a pet active or specify one of your pets' names."
+    end
+    if M.Pets[name] then
+        M.Pets[name].Attack = attrib
+        M.OnPetsChanged()
+    else
+        return CS.Output.Print("You don't have a pet named %s.", name)
+    end
     CS.Output.Print("Pet attack attribute set to %s.", attrib)
 end
 
@@ -115,6 +133,11 @@ M.show_stats = function()
     CS.Output.Print("Power level: %s",
         CS.Stats.PowerLevel.to_string(M.Stats.Level))
     CS.Output.Print("HP: %d/%d", M.CurrentHP, M.Stats:get_max_hp())
+    if M.ActivePet then
+        local pet = M.Pets[M.ActivePet]
+        CS.Output.Print("%s HP: %d/%d", pet.Name, pet.CurrentHP,
+            M.Stats:get_pet_max_hp())
+    end
     CS.Output.Print("STR: %d", M.Stats.STR)
     CS.Output.Print("DEX: %d", M.Stats.DEX)
     CS.Output.Print("CON: %d", M.Stats.CON)
@@ -139,7 +162,7 @@ end
 M.validate_stats = function()
     local valid, msg = M.Stats:validate()
     if valid then
-        CS.Output.Print("Your stat block is valid.")
+        CS.Output.Print "Your stat block is valid."
     else
         CS.Output.Print(msg)
     end
@@ -168,22 +191,28 @@ end
 
 M.increment_hp = function(number)
     number = number or 1
-    M.set_hp(M.CurrentHP + 1)
+    M.set_hp(M.CurrentHP + number)
 end
 
 M.decrement_hp = function(number)
     number = number or 1
-    M.set_hp(M.CurrentHP - 1)
+    M.set_hp(M.CurrentHP - number)
 end
 
 M.add_pet = function(name)
+    local first_pet = CS.Table.is_empty(M.Pets)
     if M.Pets[name] ~= nil then
-        CS.Output.Print("You already have a pet named %s.", name)
-        return
+        return CS.Output.Print("You already have a pet named %s.", name)
     end
     M.Pets[name] = {
-        CurrentHP = M.Stats:get_pet_max_hp()
+        Name      = name,
+        CurrentHP = M.Stats:get_pet_max_hp(),
+        Attack    = "CHA"
     }
+    M.OnPetsChanged()
+    if first_pet then
+        M.set_active_pet(name)
+    end
     CS.Output.Print("Added pet named %s.", name)
 end
 
@@ -191,45 +220,85 @@ M.show_pets = function()
     local pet_count  = 0
     local pet_max_hp = M.Stats:get_pet_max_hp()
     for pet_name, pet in pairs(M.Pets) do
-        CS.Output.Print("%s: %d/%d HP", pet_name, pet.CurrentHP, pet_max_hp)
+        local active = M.ActivePet == pet_name and " (active)" or ""
+        CS.Output.Print("%s: %d/%d HP%s", pet_name, pet.CurrentHP, pet_max_hp,
+            active)
         pet_count = pet_count + 1
     end
     if pet_count == 0 then
-        CS.Output.Print("You do not have any pets.")
+        CS.Output.Print "You do not have any pets."
     end
 end
 
 M.remove_pet = function(name)
     if name == nil or M.Pets[name] == nil then
-        CS.Output.Print("You must specify one of your pets' names.")
-        return
+        return CS.Output.Print "You must specify one of your pets' names."
     end
     M.Pets[name] = nil
+    if M.ActivePet == name then
+        M.set_active_pet(nil)
+    end
+    M.OnPetsChanged()
     CS.Output.Print("Removed pet %s.", name)
 end
 
-M.set_pet_hp = function(name, value)
+M.set_pet_hp = function(value, name)
+    name = name or M.ActivePet
     if name == nil or M.Pets[name] == nil then
-        CS.Output.Print("You must specify one of your pets' names.")
-        return
+        return CS.Output.Print "You must have a pet active or specify one of your pets' names."
     end
     if value == "max" then
         value = M.Stats:get_pet_max_hp()
     else
         value = tonumber(value)
         if value == nil then
-            CS.Output.Print("The given value must be a number or \"max\".")
-            return
+            return CS.Output.Print "The given value must be a number or \"max\"."
         end
     end
     if value < 0 or value > M.Stats:get_pet_max_hp() or math.floor(value) ~= value then
-        CS.Output.Print(
+        return CS.Output.Print(
             "The given value must be a positive integer and may not exceed your pet's max HP."
         )
-        return
     end
     M.Pets[name].CurrentHP = value
+    M.OnPetsChanged()
     CS.Output.Print("%s's HP set to %d.", name, value)
+end
+
+M.increment_pet_hp = function(number, name)
+    number = number or 1
+    name   = name or M.ActivePet
+    if not M.pet_exists(name) then
+        return CS.Output.Print "You must have a pet active or specify one of your pets' names."
+    end
+    local pet = M.Pets[name]
+    M.set_pet_hp(pet.CurrentHP + number, name)
+end
+
+M.decrement_pet_hp = function(number, name)
+    number = number or 1
+    M.increment_pet_hp(-number, name)
+end
+
+M.set_active_pet = function(name)
+    if name == nil or M.pet_exists(name) then
+        M.ActivePet = name
+        M.OnActivePetChanged()
+        if name then
+            CS.Output.Print("%s is now your active pet.", name)
+        end
+    else
+        CS.Output.Print("You do not have a pet named \"%s\".", name)
+    end
+end
+
+M.active_pet = function()
+    if not M.ActivePet then return nil end
+    return M.Pets[M.ActivePet]
+end
+
+M.pet_exists = function(name)
+    return name ~= nil and M.Pets[name] ~= nil
 end
 
 CS.Commands.add_cmd("set", M.set_stat, [[
@@ -273,13 +342,20 @@ CS.Commands.add_cmd("pets", M.show_pets, [[
 "/cs pets" shows a list of your pets and their stats.
 ]])
 
+CS.Commands.add_cmd("setpet", M.set_active_pet, [[
+"/cs setpet" deactivates your pet.
+"/cs setpet <name>" sets the pet with the given name to be your active pet.
+]])
+
 CS.Commands.add_cmd("removepet", M.remove_pet, [[
 "/cs removepet <name>" removes the pet with the given name.
 ]])
 
 CS.Commands.add_cmd("pethp", M.set_pet_hp, [[
-"/cs pethp <name> max" sets the pet with the given name's current HP to their max HP.
-"/cs pethp <name> <value>" sets the pet with the given name's current HP to the given value.
+"/cs pethp max" sets your active pet's current HP to their max HP.
+"/cs pethp <value>" sets your active pet's current HP to the given value.
+"/cs pethp max <name>" sets the pet with the given name's current HP to their max HP.
+"/cs pethp <value> <name>" sets the pet with the given name's current HP to the given value.
 ]])
 
 CS.Commands.add_cmd("petatk", M.pet_attack, [[
