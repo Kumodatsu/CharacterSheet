@@ -29,6 +29,19 @@ local update_stat_button = function(stat)
     end
 end
 
+local default_height = 20 + 6 * 32 + 2 * 24
+
+local toggle_pet_info = function()
+    local visible = CS.Charsheet.active_pet() and true or false
+    CS.Interface.Toggle(CS_PetHPBar_Decrement, visible)
+    CS.Interface.Toggle(CS_PetHPBar, visible)
+    CS.Interface.Toggle(CS_PetHPBar_Increment, visible)
+    CS.Interface.Toggle(CS_PetAttackButton, visible)
+    local delta = visible and (20 + 24) or 0
+    CS_StatsFrame:SetHeight(default_height + delta)
+end
+
+
 CS.Interface.Frame {
     Global     = "CS_StatsFrame",
     Backdrop   = {
@@ -45,21 +58,29 @@ CS.Interface.Frame {
         }
     },
     Width      = 110,
-    Height     = 2 * 20 + 6 * 32 + 2 * 24,
+    Height     = default_height,
     Point      = { "CENTER", UIParent, "CENTER" },
     Movable    = true,
     Clamped    = true,
     Events     = {
-        [CS.OnAddonLoaded]    = { function(self)
-            if CS.Interface.UIState.StatsFrameVisible then
-                self:Show()
-            else
-                self:Hide()
+        [CS.OnAddonLoaded]    = {
+            function(self)
+                if CS.Interface.UIState.StatsFrameVisible then
+                    self:Show()
+                else
+                    self:Hide()
+                end
+            end,
+            toggle_pet_info
+        },
+        [CS.OnAddonUnloading] = {
+            function(self)
+                CS.Interface.UIState.StatsFrameVisible = self:IsVisible()
             end
-        end },
-        [CS.OnAddonUnloading] = { function(self)
-            CS.Interface.UIState.StatsFrameVisible = self:IsVisible()
-        end }
+        },
+        [CS.Charsheet.OnActivePetChanged] = {
+            toggle_pet_info
+        }
     },
     Content    = {
         -- HP bar
@@ -196,6 +217,7 @@ CS.Interface.Frame {
         },
         -- Pet HP bar
         CS.Interface.Button {
+            Global    = "CS_PetHPBar_Decrement",
             Width     = 20,
             Height    = 20,
             Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
@@ -203,6 +225,7 @@ CS.Interface.Frame {
             OnClick   = CS.skip_arg(CS.Charsheet.decrement_pet_hp)
         },
         CS.Interface.StatusBar {
+            Global      = "CS_PetHPBar",
             Orientation = "HORIZONTAL",
             Width       = 70,
             Height      = 20,
@@ -221,6 +244,7 @@ CS.Interface.Frame {
             }
         },
         CS.Interface.Button {
+            Global    = "CS_PetHPBar_Increment",
             Width     = 20,
             Height    = 20,
             Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
@@ -229,6 +253,7 @@ CS.Interface.Frame {
         },
         -- Pet attack button
         CS.Interface.Button {
+            Global    = "CS_PetAttackButton",
             Width     = 110,
             Height    = 24,
             Text      = "Pet Attack",
