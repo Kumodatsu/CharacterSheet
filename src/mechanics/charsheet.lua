@@ -282,10 +282,15 @@ end
 
 M.set_active_pet = function(name)
     if name == nil or M.pet_exists(name) then
+        local had_active = M.ActivePet ~= nil
         M.ActivePet = name
         M.OnActivePetChanged()
         if name then
             CS.Output.Print("%s is now your active pet.", name)
+        elseif had_active then
+            CS.Output.Print "You no longer have an active pet."
+        else
+            CS.Output.Print "You must specify a pet's name."
         end
     else
         CS.Output.Print("You do not have a pet named \"%s\".", name)
