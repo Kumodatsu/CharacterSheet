@@ -213,6 +213,9 @@ M.decrement_hp = function(number)
 end
 
 M.add_pet = function(name)
+    if type(name) ~= "string" then
+        return CS.Output.Print "You must specify a name for your pet."
+    end
     local first_pet = CS.Table.is_empty(M.Pets)
     if M.Pets[name] ~= nil then
         return CS.Output.Print("You already have a pet named %s.", name)

@@ -24,6 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - When using the UI, the chat will no longer get spammed by messages if the UI itself already provides feedback.
 - The command `/cs pethp` no longer requires a pet name, and the currently active pet will be selected when no name is specified.
 
+### Fixed
+- The command `/cs addpet` no longer yields a Lua error when not given a pet name.
+
 ## [0.4.0] - 2020-09-22
 ### Added
 - Stats frame. This is a UI frame that displays one's stat values and allows one to roll stats with a button click.
