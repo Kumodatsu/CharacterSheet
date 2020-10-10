@@ -104,7 +104,9 @@ CS.Commands.add_cmd("trpcur", set_cur_packed, [[
 ]], true)
 
 CS.Commands.add_cmd("trpstats", toggle_stat_update, [[
-"/cs trpstats" toggles whether your stats are allowed to overwrite your TRP's OOC information.
+"/cs trpstats" toggles whether your stats are allowed to overwrite your TRP OOC information.
+When this is on, your TRP OOC information will be completely overwritten by your stats.
+This can not be undone, so make sure this is really what you want.
 ]])
 
 TRP3_API.module.registerModule({

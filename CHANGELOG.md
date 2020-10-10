@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Command: `/cs petatk`. Performs a pet attack roll and displays the final damage number.
 - Command: `/cs setpetatk`. Sets the attribute used to calculate pet attack damage.
 - Command: `/cs setpet`. Sets the currently active pet.
-- Command: `/cs trpstats`. Toggles the overwriting TRP OOC information on and off.
+- Command: `/cs trpstats`. Toggles the overwriting TRP OOC information on and off (it's off by default).
 - Command: `/cs trpcur`. Sets one's TRP Currently information.
 - Command: `/cs trpooc`. Sets one's TRP OOC information.
 
