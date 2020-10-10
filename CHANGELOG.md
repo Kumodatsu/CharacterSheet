@@ -4,6 +4,25 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- The stats frame now has buttons to increment and decrement one's HP.
+- The stats frame now has a pet HP bar and a pet attack button when a pet is active.
+- The stats frame now has a button to perform a heal roll.
+- Optional TRP3 interoperation has been added back. One's TRP OOC information can optionally be overwritten by one's stats.
+- Command: `/cs petatk`. Performs a pet attack roll and displays the final damage number.
+- Command: `/cs setpetatk`. Sets the attribute used to calculate pet attack damage.
+- Command: `/cs setpet`. Sets the currently active pet.
+- Command: `/cs trpstats`. Toggles the overwriting TRP OOC information on and off.
+- Command: `/cs trpcur`. Sets one's TRP Currently information.
+- Command: `/cs trpooc`. Sets one's TRP OOC information.
+
+### Changed
+- The attribute icons in the stats frame no longer have a background.
+- The addon's version number is now included in save files, allowing future versions to handle older save formats.
+- A pet from the pet list can now be set to active. This shows their properties in the stats frame and allows one to omit a pet name in most pet related commands.
+- The command `/cs pethp` no longer requires a pet name, and the currently active pet will be selected when no name is specified.
+
 ## [0.4.0] - 2020-09-22
 ### Added
 - Stats frame. This is a UI frame that displays one's stat values and allows one to roll stats with a button click.
