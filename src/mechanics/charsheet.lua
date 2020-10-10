@@ -34,11 +34,11 @@ M.set_stat = function(name, value)
     -- Check if the given value is a valid number
     value = tonumber(value)
     if value == nil or value < 0 or math.floor(value) ~= value then
-        return CS.Output.Print "The value must be a positive integer."
+        return "The value must be a positive integer."
     end
     -- Check if the given value is within the allowed range
     if value < CS.Stats.StatMinVal or value > CS.Stats.StatMaxVal then
-        return CS.Output.Print(
+        return string.format(
             "The value must be in the range [%d, %d].",
             CS.Stats.StatMinVal,
             CS.Stats.StatMaxVal
@@ -48,7 +48,7 @@ M.set_stat = function(name, value)
     local mutable_stats = CS.Set.Set(CS.Stats.AttributeNames)
     name = name:upper()
     if not CS.Set.Contains(mutable_stats, name) then
-        return CS.Output.Print("%s is not a valid stat.", name)
+        return string.format("%s is not a valid stat.", name)
     end
     -- Modify the stat
     M.Stats[name] = value
@@ -56,7 +56,12 @@ M.set_stat = function(name, value)
     if name == "CON" then
         M.OnHPChanged()
     end
-    CS.Output.Print("%s set to %d", name, value)
+    return string.format("%s set to %d", name, value)
+end
+
+local cmd_set_stat = function(name, value)
+    local output = M.set_stat(name, value)
+    if output then CS.Output.Print(output) end
 end
 
 M.roll_stat = function(name, mod)
@@ -149,14 +154,18 @@ end
 M.set_level = function(level_name)
     local level = CS.Stats.PowerLevel.from_string(level_name)
     if level == nil then
-        CS.Output.Print("%s is not a valid power level.", level_name)
-        return
+        return string.format("%s is not a valid power level.", level_name)
     end
     M.Stats.Level = level
     M.OnStatsChanged()
     M.OnHPChanged()
-    CS.Output.Print("Power level set to %s.",
+    return string.format("Power level set to %s.",
         CS.Stats.PowerLevel.to_string(level))
+end
+
+local cmd_set_level = function(level_name)
+    local output = M.set_level(level_name)
+    if output then CS.Output.Print(output) end
 end
 
 M.validate_stats = function()
@@ -174,19 +183,20 @@ M.set_hp = function(value)
     else
         value = tonumber(value)
         if value == nil then
-            CS.Output.Print("The given value must be a number or \"max\".")
-            return
+            return "The given value must be a number or \"max\"."
         end
     end
     if value < 0 or value > M.Stats:get_max_hp() or math.floor(value) ~= value then
-        CS.Output.Print(
-            "The given value must be a positive integer and may not exceed your max HP."
-        )
-        return
+        return "The given value must be a positive integer and may not exceed your max HP."
     end
     M.CurrentHP = value
     M.OnHPChanged()
-    CS.Output.Print("HP set to %d.", value)
+    return string.format("HP set to %d.", value)
+end
+
+local cmd_set_hp = function(value)
+    local output = M.set_hp(value)
+    if output then CS.Output.Print(output) end
 end
 
 M.increment_hp = function(number)
@@ -245,24 +255,27 @@ end
 M.set_pet_hp = function(value, name)
     name = name or M.ActivePet
     if name == nil or M.Pets[name] == nil then
-        return CS.Output.Print "You must have a pet active or specify one of your pets' names."
+        return "You must have a pet active or specify one of your pets' names."
     end
     if value == "max" then
         value = M.Stats:get_pet_max_hp()
     else
         value = tonumber(value)
         if value == nil then
-            return CS.Output.Print "The given value must be a number or \"max\"."
+            return "The given value must be a number or \"max\"."
         end
     end
     if value < 0 or value > M.Stats:get_pet_max_hp() or math.floor(value) ~= value then
-        return CS.Output.Print(
-            "The given value must be a positive integer and may not exceed your pet's max HP."
-        )
+        return "The given value must be a positive integer and may not exceed your pet's max HP."
     end
     M.Pets[name].CurrentHP = value
     M.OnPetsChanged()
-    CS.Output.Print("%s's HP set to %d.", name, value)
+    return string.format("%s's HP set to %d.", name, value)
+end
+
+local cmd_set_pet_hp = function(value, name)
+    local output = M.set_pet_hp(value, name)
+    if output then CS.Output.Print(output) end
 end
 
 M.increment_pet_hp = function(number, name)
@@ -306,7 +319,7 @@ M.pet_exists = function(name)
     return name ~= nil and M.Pets[name] ~= nil
 end
 
-CS.Commands.add_cmd("set", M.set_stat, [[
+CS.Commands.add_cmd("set", cmd_set_stat, [[
 "/cs set <stat> <value>" sets the given stat to a given value.
 For example: "/cs set str 15"
 ]])
@@ -325,7 +338,7 @@ CS.Commands.add_cmd("heal", M.roll_heal, [[
 "/cs heal safe" performs a heal roll using a d18.
 ]])
 
-CS.Commands.add_cmd("level", M.set_level, [[
+CS.Commands.add_cmd("level", cmd_set_level, [[
 "/cs level <level>" sets your character's power level to the specified level.
 <level> must be one of novice, apprentice, adept, expert, master.
 ]])
@@ -334,7 +347,7 @@ CS.Commands.add_cmd("validate", M.validate_stats, [[
 "/cs validate" checks whether your stat block is valid.
 ]])
 
-CS.Commands.add_cmd("hp", M.set_hp, [[
+CS.Commands.add_cmd("hp", cmd_set_hp, [[
 "/cs hp max" sets your current HP to your max HP.
 "/cs hp <value>" sets your current HP to the given value.
 ]])
@@ -356,7 +369,7 @@ CS.Commands.add_cmd("removepet", M.remove_pet, [[
 "/cs removepet <name>" removes the pet with the given name.
 ]])
 
-CS.Commands.add_cmd("pethp", M.set_pet_hp, [[
+CS.Commands.add_cmd("pethp", cmd_set_pet_hp, [[
 "/cs pethp max" sets your active pet's current HP to their max HP.
 "/cs pethp <value>" sets your active pet's current HP to the given value.
 "/cs pethp max <name>" sets the pet with the given name's current HP to their max HP.

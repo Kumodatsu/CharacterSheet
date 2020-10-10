@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - The attribute icons in the stats frame no longer have a background.
 - The addon's version number is now included in save files, allowing future versions to handle older save formats.
 - A pet from the pet list can now be set to active. This shows their properties in the stats frame and allows one to omit a pet name in most pet related commands.
+- When using the UI, the chat will no longer get spammed by messages if the UI itself already provides feedback.
 - The command `/cs pethp` no longer requires a pet name, and the currently active pet will be selected when no name is specified.
 
 ## [0.4.0] - 2020-09-22
