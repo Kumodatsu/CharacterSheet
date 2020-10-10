@@ -11,9 +11,9 @@ M.ActivePet = nil
 M.OnStatsChanged     = CS.Event.create_event()
 -- Called when the current or max HP is changed.
 M.OnHPChanged        = CS.Event.create_event()
--- Called when the list of pets or a pet's properties is/are changed.
-M.OnActivePetChanged = CS.Event.create_event() 
 -- Called when the currently active pet is changed.
+M.OnActivePetChanged = CS.Event.create_event() 
+-- Called when the list of pets or a pet's properties is/are changed.
 M.OnPetsChanged      = CS.Event.create_event()
 
 local clamp_hp = function()
