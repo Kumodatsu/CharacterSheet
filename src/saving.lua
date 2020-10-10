@@ -25,7 +25,8 @@ M.LoadData = function()
     -- TRP settings
     if CS.Extensions.totalRP3 then
         CS.Extensions.totalRP3.UpdateTRPWithStats =
-            CS_Char_DB.TRP3_UpdateTRPWithStats or false
+            CS_Char_DB.TRP3_UpdateTRPWithStats or
+            CS.Extensions.totalRP3.UpdateTRPWithStats
     end
 end
 

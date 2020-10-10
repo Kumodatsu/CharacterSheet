@@ -3,6 +3,8 @@ if not TRP3_API then return end
 local addon_name, CS = ...
 local M = {}
 
+M.UpdateTRPWithStats = false
+
 M.set_ooc = function(content)
     content         = content or ""
     local character = TRP3_API.profile.getData "player/character"
