@@ -45,10 +45,13 @@ M.set_cur = function(content)
     end
 end
 
-local format_stats_string = function(hp, max_hp, str, dex, con, int, wis, cha)
+local format_stats_string = function(hp, max_hp, str, dex, con, int, wis, cha,
+        pet, pet_max_hp)
+    local pet_str = pet and
+        string.format("%s HP: %d/%d\n", pet.Name, pet.CurrentHP, pet_max_hp) or ""
     return string.format(
-        "HP: %d/%d\nSTR: %d / DEX: %d / CON: %d / INT: %d / WIS: %d / CHA: %d",
-        hp, max_hp, str, dex, con, int, wis, cha
+        "HP: %d/%d\n%sSTR: %d / DEX: %d / CON: %d / INT: %d / WIS: %d / CHA: %d",
+        hp, max_hp, pet_str, str, dex, con, int, wis, cha
     )
 end
 
@@ -65,12 +68,15 @@ local update_trp_stats = function()
         stats.CON,
         stats.INT,
         stats.WIS,
-        stats.CHA
+        stats.CHA,
+        CS.Charsheet.active_pet(),
+        CS.Charsheet.Stats:get_pet_max_hp()
     ))
 end
 
 CS.Charsheet.OnStatsChanged:add(update_trp_stats)
 CS.Charsheet.OnHPChanged:add(update_trp_stats)
+CS.Charsheet.OnActivePetChanged:add(update_trp_stats)
 
 local set_ooc_packed = function(packed_content)
     M.set_ooc(packed_content and table.concat(packed_content, " ") or "")
