@@ -128,6 +128,9 @@ M.set_pet_attack_attribute = function(attrib, name)
     if M.Pets[name] then
         M.Pets[name].Attack = attrib
         M.OnPetsChanged()
+        if name == M.ActivePet then
+            M.OnActivePetChanged()
+        end
     else
         return CS.Output.Print("You don't have a pet named %s.", name)
     end
@@ -270,6 +273,9 @@ M.set_pet_hp = function(value, name)
     end
     M.Pets[name].CurrentHP = value
     M.OnPetsChanged()
+    if name == M.ActivePet then
+        M.OnActivePetChanged()
+    end
     return string.format("%s's HP set to %d.", name, value)
 end
 
