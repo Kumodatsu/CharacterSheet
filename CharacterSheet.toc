@@ -15,6 +15,7 @@ src\util\set.lua
 src\util\string.lua
 src\util\event.lua
 
+src\version.lua
 src\output.lua
 
 src\commands.lua
