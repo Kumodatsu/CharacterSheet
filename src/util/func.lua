@@ -16,3 +16,19 @@ CS.skip_arg = function(f)
         return f()
     end
 end
+
+CS.switch = function(v)
+    return function(mapping)
+        return v and mapping[v] or nil
+    end
+end
+
+CS.switchf = function(v)
+    return function(mapping)
+        local r = v and mapping[v] or nil
+        if type(r) == "function" then
+            return r(v)
+        end
+        return r
+    end
+end
