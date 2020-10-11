@@ -20,6 +20,29 @@ M.Enum = function(enum)
                 end
             end
             return nil
+        end,
+
+        match = enum.match or function(value)
+            return function(mapping)
+                return mapping[value]
+            end
+        end,
+
+        matchf = enum.matchf or function(value)
+           return function(mapping)
+             local r = mapping[value]
+             if type(r) == "function" then
+               return r(value)
+             end
+             return r
+           end
+        end,
+
+        is_value = enum.is_value or function(value)
+            for k, v in pairs(enum) do
+                if value == v then return true end
+            end
+            return false
         end
     }
     mt.__index = mt
