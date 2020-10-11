@@ -12,6 +12,7 @@ src\util\math.lua
 src\util\type.lua
 src\util\table.lua
 src\util\set.lua
+src\util\string.lua
 src\util\event.lua
 
 src\output.lua
