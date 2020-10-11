@@ -8,7 +8,9 @@ M.LoadData = function()
     -- Character specific data
     CS_Char_DB = CS_Char_DB or {}
     
-    -- TODO: Detect outdated data formats
+    -- Detect outdated data formats
+    local char_version = CS.Version.from_str(CS_Char_DB.Version)
+    local old_trp      = char_version < CS.Version.from_str "0.4.2"
 
     -- Character stats
     CS.Charsheet.Stats     = CS.Stats.StatBlock.load(CS_Char_DB.Stats)
@@ -23,16 +25,24 @@ M.LoadData = function()
     CS.Interface.UIState = CS_Char_DB.UIState or CS.Interface.UIState
 
     -- TRP settings
-    if CS.Extensions.totalRP3 then
-        CS.Extensions.totalRP3.UpdateTRPWithStats =
-            CS_Char_DB.TRP3_UpdateTRPWithStats or
-            CS.Extensions.totalRP3.UpdateTRPWithStats
+    local ext_trp3 = CS.Extensions.totalRP3
+    if ext_trp3 then
+        local _TRP3_UpdateTRPWithStats = CS_Char_DB.TRP3_UpdateTRPWithStats
+        -- Check if a value from an old version needs to be reinterpreted
+        if old_trp and type(_TRP3_UpdateTRPWithStats) == "boolean" then
+            _TRP3_UpdateTRPWithStats = _TRP3_UpdateTRPWithStats
+                and ext_trp3.StatUpdateState.OOC
+                or  ext_trp3.StatUpdateState.None
+        end
+        ext_trp3.UpdateTRPWithStats =
+            _TRP3_UpdateTRPWithStats or
+            ext_trp3.UpdateTRPWithStats
     end
 end
 
 M.SaveData = function()
     -- Version. Used to detect outdated data formats
-    local version = GetAddOnMetadata(addon_name, "version")
+    local version = CS.Version.get_str()
     CS_DB.Version      = version
     CS_Char_DB.Version = version
 
