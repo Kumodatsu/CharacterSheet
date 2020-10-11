@@ -22,6 +22,10 @@ M.Version = Class {
         if a.Patch > b.Patch then return false end
         if a.Patch < b.Patch then return true end
         return false
+    end,
+
+    __tostring = function(self)
+        return string.format("%d.%d.%d", self.Major, self.Minor, self.Patch)
     end
 }
 
