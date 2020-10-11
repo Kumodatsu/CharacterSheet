@@ -34,5 +34,8 @@ src\extensions\extensions.lua
 src\extensions\totalRP3.lua
 
 src\saving\saving.lua
+src\saving\loading.lua
+src\saving\global.lua
+src\saving\character.lua
 
 src\main.lua
