@@ -23,7 +23,7 @@ Character specific data is stored in `World of Warcraft\_retail_\WTF\Account\<ac
 To make a backup of your data, copy these files somewhere safe.
 To restore the data, copy the backup files back to the aforementioned locations.
 
-## Usage (0.4.1)
+## Usage (0.4.2)
 At the moment, most of the functionality of the addon can be used through the UI.
 All of the functionality can be accessed through slash commands.
 All commands provided by the addon start with `/cs`.
@@ -60,9 +60,14 @@ While you have an active pet, the stats frame will display your pet's HP,
 as well as a button to roll for pet attacks.
 
 ### TRP3 interoperation
-You can optionally give the addon permission to interact with TRP3 if you have it.
+You can optionally give the addon permission to interact with TRP3 if you have
+it.
 By default, this is disabled.
-If you enable this, your TRP OOC information will automatically be updated to show your stats
-as well as your and your pet's HP whenever these change.
-This will replace whatever else you might have had in your OOC information, so make absolutely sure this is what you want!
-To enable and disable this option, use `/cs trpstats`.
+If you enable this, your TRP Currently or OOC information will automatically be
+updated to show your stats as well as your and your pet's HP whenever these
+change.
+This will replace whatever else you might have had there, so make absolutely
+sure this is what you want!
+To have your Currently updated, use `/cs trpstats cur`.
+To have your OOC updated, use `/cs trpstats ooc`.
+To disable this altogether, use `/cs trpstats off` (this is the default).
