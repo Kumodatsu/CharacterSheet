@@ -263,24 +263,3 @@ CS.Interface.Frame {
         }
     }
 }
-
-local toggle_frame = function(name)
-    if not name then
-        return CS.Output.Print "You must specify a frame to toggle."
-    end
-    name = name:lower()
-    if name == "stats" then
-        CS.Interface.Toggle(CS_StatsFrame)
-    elseif name == "tabs" then
-        CS.Interface.ToggleMainFrame()
-    elseif name == "edit" then
-        CS.Interface.Toggle(CS_EditFrame)
-    else
-        CS.Output.Print("\"%s\" is not a valid frame.", name)
-    end
-end
-
-CS.Commands.add_cmd("toggle", toggle_frame, [[
-"/cs toggle <frame>" toggles the specified UI frame on or off.
-<frame> must be one of: stats, tabs, edit
-]])
