@@ -3,7 +3,16 @@ if not TRP3_API then return end
 local addon_name, CS = ...
 local M = {}
 
-M.UpdateTRPWithStats = false
+local Enum   = CS.Type.Enum
+local switch = CS.switch
+
+M.StatUpdateState = Enum {
+    None      = 1,
+    Currently = 2,
+    OOC       = 3
+}
+
+M.UpdateTRPWithStats = M.StatUpdateState.None
 
 M.set_ooc = function(content)
     content         = content or ""
@@ -58,11 +67,13 @@ local format_stats_string = function(hp, max_hp, str, dex, con, int, wis, cha,
 end
 
 local update_trp_stats = function()
-    if not M.UpdateTRPWithStats then
-        return
-    end
+    local f = M.StatUpdateState.match(M.UpdateTRPWithStats) {
+        [M.StatUpdateState.Currently] = M.set_cur,
+        [M.StatUpdateState.OOC]       = M.set_ooc
+    }
+    if not f then return end
     local stats = CS.Charsheet.Stats
-    M.set_ooc(format_stats_string(
+    f(format_stats_string(
         CS.Charsheet.CurrentHP,
         stats:get_max_hp(),
         stats.STR,
@@ -88,17 +99,27 @@ local set_cur_packed = function(packed_content)
     M.set_cur(packed_content and table.concat(packed_content, " ") or "")
 end
 
-local toggle_stat_update = function()
-    M.UpdateTRPWithStats = not M.UpdateTRPWithStats
-    if M.UpdateTRPWithStats then
-        CS.Output.Print(
-            "TRP OOC information now WILL be overwritten by your stats."
-        )
-    else
-        CS.Output.Print(
-            "TRP OOC information now WILL NOT be overwritten by your stats."
-        )
+local set_stat_update = function(value)
+    value = value and value:lower() or ""
+    local state = switch(value) {
+        ["off"] = M.StatUpdateState.None,
+        ["cur"] = M.StatUpdateState.Currently,
+        ["ooc"] = M.StatUpdateState.OOC,
+    }
+    if not state then
+        return CS.Output.Print "The argument must be one of: off, cur, ooc"
     end
+    M.UpdateTRPWithStats = state
+    CS.Output.Print(
+        switch(state) {
+            [M.StatUpdateState.None] =
+                "Your TRP information now will not be overwritten by your stats.",
+            [M.StatUpdateState.Currently] =
+                "Your TRP Currently information now will be overwritten by your stats.",
+            [M.StatUpdateState.OOC] =
+                "Your TRP OOC information now will be overwritten by your stats."
+        }
+    )
 end
 
 CS.Commands.add_cmd("trpooc", set_ooc_packed, [[
@@ -111,10 +132,10 @@ CS.Commands.add_cmd("trpcur", set_cur_packed, [[
 "/cs trpcur <content>" sets your TRP Currently information to the given content.
 ]], true)
 
-CS.Commands.add_cmd("trpstats", toggle_stat_update, [[
-"/cs trpstats" toggles whether your stats are allowed to overwrite your TRP OOC information.
-When this is on, your TRP OOC information will be completely overwritten by your stats.
-This can not be undone, so make sure this is really what you want.
+CS.Commands.add_cmd("trpstats", set_stat_update, [[
+"/cs trpstats cur" will make your stats overwrite your TRP Currently whenever they're updated.
+"/cs trpstats ooc" will make your stats overwrite your TRP OOC whenever they're updated.
+"/cs trpstats off" will make your stats not overwrite any of your TRP information.
 ]])
 
 TRP3_API.module.registerModule({
