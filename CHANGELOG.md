@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.4] - 2020-10-14
+### Changed
+- Updated for World of Warcraft 9.0.1.
+
 ## [0.4.3] - 2020-10-11
 ### Changed
 - The command `/cs trpstats` now takes an argument to specify whether to use the TRP Currently, OOC or neither for displaying stats.

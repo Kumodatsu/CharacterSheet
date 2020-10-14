@@ -14,10 +14,13 @@ local register_events = function(frame, events)
 end
 
 CS.Interface.Frame = function(info, parent)
-    local frame  = CreateFrame("Frame", info.Global or nil, parent or UIParent)
+    local use_backdrop = info.Backdrop and BackdropTemplateMixin and true
+        or false
+    local frame  = CreateFrame("Frame", info.Global or nil, parent or UIParent,
+        use_backdrop and "BackdropTemplate" or nil)
     local width  = info.Width
     local height = info.Height
-    if info.Backdrop then
+    if use_backdrop then
         frame:SetBackdrop {
             bgFile   = info.Backdrop.Background,
             edgeFile = info.Backdrop.Edges,
