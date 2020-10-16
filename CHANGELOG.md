@@ -5,6 +5,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- The power level and stats in the edit frame now show a descriptive tooltip on mouseover.
+
 ### Fixed
 - When the active pet's max HP changes, this is now updated in the UI immediately.
 
