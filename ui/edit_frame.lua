@@ -92,7 +92,8 @@ CS.Interface.Frame {
             Events = {
                 [CS.OnAddonLoaded]            = { update_power },
                 [CS.Charsheet.OnStatsChanged] = { update_power }
-            }
+            },
+            Tooltip = "Your power level grants you additional skill points to allocate, and additional base health."
         },
 
         CS.Interface.Button {
