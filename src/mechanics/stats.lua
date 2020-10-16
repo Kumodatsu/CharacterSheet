@@ -53,8 +53,9 @@ M.StatBlock = Class {
     end,
 
     -- Validates the stat block, checking if any constraints are violated.
-    -- Returns true if the stat block is valid.
-    -- Returns false and an error (string) if the stat block is invalid.
+    -- Returns two values.
+    -- The first return value is true if the stat block is valid and false otherwise.
+    -- The second return value is a message with information about invalid or suboptimal states.
     validate = function(self)
         for attrib, val in self:attributes() do
             if val < M.StatMinVal then
@@ -69,7 +70,7 @@ M.StatBlock = Class {
         if remaining_sp < 0 then
             return false, "You have spent " .. -remaining_sp .. " too many SP."
         elseif remaining_sp > 0 then
-            return false, "You still have " .. remaining_sp .. " unspent SP."
+            return true, "You still have " .. remaining_sp .. " unspent SP."
         end
         return true
     end,

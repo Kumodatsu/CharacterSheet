@@ -50,8 +50,14 @@ M.set_stat = function(name, value)
     if not CS.Set.Contains(mutable_stats, name) then
         return string.format("%s is not a valid stat.", name)
     end
-    -- Modify the stat
+    -- Modify the stat if there are enough SP available
+    local old_value = M.Stats[name]
     M.Stats[name] = value
+    local valid, msg = M.Stats:validate()
+    if not valid then
+        M.Stats[name] = old_value
+        return msg
+    end
     M.OnStatsChanged()
     if name == "CON" then
         M.OnHPChanged()
@@ -173,11 +179,7 @@ end
 
 M.validate_stats = function()
     local valid, msg = M.Stats:validate()
-    if valid then
-        CS.Output.Print "Your stat block is valid."
-    else
-        CS.Output.Print(msg)
-    end
+    CS.Output.Print(msg or "Your stat block is valid.")
 end
 
 M.set_hp = function(value)

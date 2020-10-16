@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - The power level and stats in the edit frame now show a descriptive tooltip on mouseover.
 
+### Changed
+- It's no longer possible to spend more SP than available, making it impossible to create any invalid stat blocks.
+
 ### Fixed
 - When the active pet's max HP changes, this is now updated in the UI immediately.
 
