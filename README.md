@@ -23,7 +23,7 @@ Character specific data is stored in `World of Warcraft\_retail_\WTF\Account\<ac
 To make a backup of your data, copy these files somewhere safe.
 To restore the data, copy the backup files back to the aforementioned locations.
 
-## Usage (0.4.4)
+## Usage (0.4.5)
 At the moment, most of the functionality of the addon can be used through the UI.
 All of the functionality can be accessed through slash commands.
 All commands provided by the addon start with `/cs`.
@@ -40,6 +40,7 @@ At the bottom of the frame, the number of skill points you have left are display
 as well as values that are derived from your stats (HP and heal modifier).
 Use `/cs validate` to check if your stat block is valid, i.e. you have a valid distribution of SP.
 If your stat block is invalid, a message will be displayed telling you what should be changed.
+However, it should be impossible to create any invalid stat blocks.
 
 ### Using your stats
 Click a stat in your stat frame to roll with that stat's modifier.

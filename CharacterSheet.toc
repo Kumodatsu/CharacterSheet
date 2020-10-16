@@ -5,7 +5,7 @@
 ## OptionalDeps: TotalRP3
 ## SavedVariables: CS_DB
 ## SavedVariablesPerCharacter: CS_Char_DB
-## Version: 0.4.4
+## Version: 0.4.5
 
 src\util\func.lua
 src\util\math.lua
