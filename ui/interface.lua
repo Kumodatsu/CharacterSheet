@@ -13,6 +13,45 @@ local register_events = function(frame, events)
     end
 end
 
+local register_scripts = function(frame, scripts)
+    if not scripts then return end
+    for name, script in pairs(scripts) do
+        frame[name] = script
+        frame:SetScript(name, script)
+    end
+end
+
+local register_tooltip = function(frame, content)
+    if not content then return end
+    local on_enter = function(self)
+        GameTooltip:SetOwner(self, "ANCHOR_CURSOR")
+        GameTooltip:ClearLines()
+        GameTooltip:AddLine(content)
+        GameTooltip:Show()
+    end
+    local on_leave = function(self)
+        GameTooltip:Hide()
+    end
+    local original_on_enter = frame.OnEnter
+    local original_on_leave = frame.OnLeave
+    frame.OnEnter = not original_on_enter and on_enter or function(self)
+        original_on_enter(self)
+        on_enter(self)
+    end
+    frame.OnLeave = not original_on_leave and on_leave or function(self)
+        original_on_leave(self)
+        on_leave(self)
+    end
+    frame:SetScript("OnEnter", frame.OnEnter)
+    frame:SetScript("OnLeave", frame.OnLeave)
+end
+
+local register_all = function(frame, info)
+    register_events(frame, info.Events)
+    register_scripts(frame, info.Scripts)
+    register_tooltip(frame, info.Tooltip)
+end
+
 CS.Interface.Frame = function(info, parent)
     local use_backdrop = info.Backdrop and BackdropTemplateMixin and true
         or false
@@ -67,6 +106,7 @@ CS.Interface.Frame = function(info, parent)
         offset_x = info.Backdrop.Insets.Left
         offset_y = -info.Backdrop.Insets.Top
     end
+    
     local configure = function(content)
         content:SetParent(frame)
         local c_width = CS.Math.round(content:GetWidth())
@@ -89,7 +129,7 @@ CS.Interface.Frame = function(info, parent)
             configure(content)
         end
     end
-    register_events(frame, info.Events)
+    register_all(frame, info)
     return frame
 end
 
@@ -115,7 +155,7 @@ CS.Interface.Button = function(info)
         button:SetText(info.Text)
         button:GetFontString():SetPoint("CENTER", button, "CENTER", 0, 0)
     end
-    register_events(button, info.Events)
+    register_all(button, info)
     return button
 end
 
@@ -138,7 +178,7 @@ CS.Interface.StatusBar = function(info)
     bar.text:SetJustifyH "CENTER"
     bar.text:SetShadowOffset(1, -1)
     bar.text:SetTextColor(0.0, 1.0, 0.0)
-    register_events(bar, info.Events)
+    register_all(bar, info)
     return bar
 end
 
@@ -154,7 +194,7 @@ CS.Interface.Icon = function(info)
             info.TexCoords[3], info.TexCoords[4])
     end
     icon.texture:SetTexture(info.Texture)
-    register_events(bar, info.Events)
+    register_all(icon, info)
     return icon
 end
 
@@ -165,7 +205,7 @@ CS.Interface.Text = function(info)
     frame.text:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
     frame.text:SetPoint("CENTER", 0, 0)
     frame.text:SetText(info.Text or "")
-    register_events(frame, info.Events)
+    register_all(frame, info)
     return frame
 end
 
@@ -189,7 +229,7 @@ CS.Interface.Dropdown = function(info)
         end
     end)
 
-    register_events(dropdown, info.Events)
+    register_all(dropdown, info)
     return dropdown
 end
 
