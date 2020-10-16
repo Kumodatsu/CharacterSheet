@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Fixed
+- When the active pet's max HP changes, this is now updated in the UI immediately.
+
 ## [0.4.4] - 2020-10-14
 ### Changed
 - Updated for World of Warcraft 9.0.1.

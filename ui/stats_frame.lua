@@ -240,7 +240,8 @@ CS.Interface.Frame {
             Events      = {
                 [CS.OnAddonLoaded]                = { update_pet_hp_bar },
                 [CS.Charsheet.OnPetsChanged]      = { update_pet_hp_bar },
-                [CS.Charsheet.OnActivePetChanged] = { update_pet_hp_bar }
+                [CS.Charsheet.OnActivePetChanged] = { update_pet_hp_bar },
+                [CS.Charsheet.OnStatsChanged]     = { update_pet_hp_bar }
             }
         },
         CS.Interface.Button {
