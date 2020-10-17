@@ -1,5 +1,7 @@
 local addon_name, CS = ...
 
+local T = CS.Locale.GetLocaleTranslations()
+
 -- Will be loaded from file on addon load
 CS.Interface.UIState.EditFrameVisible = true
 
@@ -12,27 +14,27 @@ end
 
 local power_menu = {
     {
-        text = "Power Level",
+        text = T.POWER_LEVEL,
         isTitle = true,
         notCheckable = true
     }, {
-        text = "Novice",
+        text = T.NOVICE,
         func = function() CS.Charsheet.set_level "Novice" end,
         checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Novice end
     }, {
-        text = "Apprentice",
+        text = T.APPRENTICE,
         func = function() CS.Charsheet.set_level "Apprentice" end,
         checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Apprentice end
     }, {
-        text = "Adept",
+        text = T.ADEPT,
         func = function() CS.Charsheet.set_level "Adept" end,
         checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Adept end
     }, {
-        text = "Expert",
+        text = T.EXPERT,
         func = function() CS.Charsheet.set_level "Expert" end,
         checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Expert end
     }, {
-        text = "Master",
+        text = T.MASTER,
         func = function() CS.Charsheet.set_level "Master" end,
         checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Master end
     }
@@ -43,8 +45,7 @@ local update_power = function(self)
 end
 
 local update_derived = function(self)
-    self.text:SetText(string.format(
-        "HP: %d\nHeal mod: +%d\nSP: %d",
+    self.text:SetText(T.DERIVED_STATS(
         CS.Charsheet.Stats:get_max_hp(),
         CS.Charsheet.Stats:get_heal_modifier(),
         CS.Charsheet.Stats:get_remaining_sp()
@@ -93,7 +94,7 @@ CS.Interface.Frame {
                 [CS.OnAddonLoaded]            = { update_power },
                 [CS.Charsheet.OnStatsChanged] = { update_power }
             },
-            Tooltip = "Your power level grants you additional skill points to allocate, and additional base health."
+            Tooltip = T.DESC_POWER_LEVEL
         },
 
         CS.Interface.Button {
@@ -107,12 +108,12 @@ CS.Interface.Frame {
         CS.Interface.Text {
             Width  = 180 - 2 * 32,
             Height = 32,
-            Text   = "STR",
+            Text   = T.STR,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "STR" },
                 [CS.Charsheet.OnStatsChanged] = { update_stat "STR" }
             },
-            Tooltip = "Measuring physical power.\nStrength covers bodily prowess, and the extent of one's raw physical force.\nStrength typically governs attacks with conventional weapons - straight swords, axes, maces, two handers, etc.\nStrength can also influence one's ability to clear an obstacle with force, or intimidate an unruly individual."
+            Tooltip = T.DESC_STR
         },
         CS.Interface.Button {
             Width     = 32,
@@ -134,12 +135,12 @@ CS.Interface.Frame {
         CS.Interface.Text {
             Width  = 180 - 2 * 32,
             Height = 32,
-            Text   = "DEX",
+            Text   = T.DEX,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "DEX" },
                 [CS.Charsheet.OnStatsChanged] = { update_stat "DEX" }
             },
-            Tooltip = "Measuring agility.\nDexterity governs one's agility, reflexes, balance, and finesse.\nDexterity typically governs ranged weaponry and attacks, precision attacks, small weaponry like daggers, and finesse weapons like short-swords and some polearms."
+            Tooltip = T.DESC_DEX
         },
         CS.Interface.Button {
             Width     = 32,
@@ -161,12 +162,12 @@ CS.Interface.Frame {
         CS.Interface.Text {
             Width  = 180 - 2 * 32,
             Height = 32,
-            Text   = "CON",
+            Text   = T.CON,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "CON" },
                 [CS.Charsheet.OnStatsChanged] = { update_stat "CON" }
             },
-            Tooltip = "Measuring endurance.\nConstitution governs health, stamina, and vital force - influencing one's physical endurance and survivability.\nEvery point in Constitution adds one point to your maximum health."
+            Tooltip = T.DESC_CON
         },
         CS.Interface.Button {
             Width     = 32,
@@ -188,12 +189,12 @@ CS.Interface.Frame {
         CS.Interface.Text {
             Width  = 180 - 2 * 32,
             Height = 32,
-            Text   = "INT",
+            Text   = T.INT,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "INT" },
                 [CS.Charsheet.OnStatsChanged] = { update_stat "INT" }
             },
-            Tooltip = "Measuring reasoning and memory.\nGoverns mental acuity, accuracy of one's memory, and the ability to reason.\nInfluences traditional spellcasting via the arcane.\nOften influences one's ability to understand puzzles and conundrums."
+            Tooltip = T.DESC_INT
         },
         CS.Interface.Button {
             Width     = 32,
@@ -215,12 +216,12 @@ CS.Interface.Frame {
         CS.Interface.Text {
             Width  = 180 - 2 * 32,
             Height = 32,
-            Text   = "WIS",
+            Text   = T.WIS,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "WIS" },
                 [CS.Charsheet.OnStatsChanged] = { update_stat "WIS" }
             },
-            Tooltip = "Measuring perception and insight.\nGoverns one's world knowledge and awareness, perceptiveness, and intuition.\nInfluences one's ability to understand a foreign location, deduce an enemy's weaknesses, etc.\nAffects the power of spellcasters whose power is sought through faith (i.e. shaman, paladins and priests)."
+            Tooltip = T.DESC_WIS
         },
         CS.Interface.Button {
             Width     = 32,
@@ -242,12 +243,12 @@ CS.Interface.Frame {
         CS.Interface.Text {
             Width  = 180 - 2 * 32,
             Height = 32,
-            Text   = "CHA",
+            Text   = T.CHA,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "CHA" },
                 [CS.Charsheet.OnStatsChanged] = { update_stat "CHA" }
             },
-            Tooltip = "Measuring force of personality.\nGoverns one's ability to sway and influence others, either by confidence, eloquence, or otherwise.\nAffects the power of adventurers with summoned familiars or pets as primary attack methods (beast masters, demonologists, etc.).\nEvery two points above 10 in Charisma add one point to your healing modifier."
+            Tooltip = T.DESC_CHA
         },
         CS.Interface.Button {
             Width     = 32,
