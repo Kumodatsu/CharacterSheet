@@ -1,6 +1,8 @@
 local addon_name, CS = ...
 local M = {}
 
+local T = CS.Locale.GetLocaleTranslations()
+
 local Enum  = CS.Type.Enum
 local Class = CS.Type.Class
 
@@ -58,19 +60,15 @@ M.StatBlock = Class {
     -- The second return value is a message with information about invalid or suboptimal states.
     validate = function(self)
         for attrib, val in self:attributes() do
-            if val < M.StatMinVal then
-                return false,
-                    "Attribute " .. attrib .. " can't be lower than " .. M.StatMinVal .. "."
-            elseif val > M.StatMaxVal then
-                return false,
-                    "Attribute " .. attrib .. " can't be greater than " .. M.StatMaxVal .. "."
+            if val < M.StatMinVal or val > M.StatMaxVal then
+                return false, T.MSG_ATTRIB_RANGE(attrib, M.StatMinVal, M.StatMaxVal)
             end
         end
         local remaining_sp = self:get_remaining_sp()
         if remaining_sp < 0 then
-            return false, "You have spent " .. -remaining_sp .. " too many SP."
+            return false, T.MSG_TOO_MANY_SP(-remaining_sp)
         elseif remaining_sp > 0 then
-            return true, "You still have " .. remaining_sp .. " unspent SP."
+            return true, T.MSG_UNSPENT_SP(remaining_sp)
         end
         return true
     end,

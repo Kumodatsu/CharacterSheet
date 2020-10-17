@@ -65,5 +65,11 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     -- 1: name
     MSG_ACTIVE_PET_SET             = "%1$s is now your active pet.",
     MSG_ACTIVE_PET_UNSET           = "You no longer have an active pet.",
-    MSG_INVALID_NUMBER             = "You must specify a valid number."
+    MSG_INVALID_NUMBER             = "You must specify a valid number.",
+    -- 1: attribute, 2: min, 3: max
+    MSG_ATTRIB_RANGE               = "The attribute %1$s must be in the range [%2$d, %3$d].",
+    -- 1: SP
+    MSG_TOO_MANY_SP                = "You have spent %1$d too many SP.",
+    -- 1: SP
+    MSG_UNSPENT_SP                 = "You still have %1$d unspent SP.",
 }
