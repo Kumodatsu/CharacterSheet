@@ -1,6 +1,8 @@
 local _, CS = ...
 local M = {}
 
+local T = CS.Locale.GetLocaleTranslations()
+
 SLASH_CHARACTER_SHEET1 = "/cs"
 SLASH_CHARACTER_SHEET2 = "/charsheet"
 
@@ -30,13 +32,13 @@ M.execute_cmd = function(name, args)
             entry.Cmd(unpack(args))
         end
     else
-        CS.Output.Print("Unknown command: %s", name)
+        CS.Output.Print(T.MSG_UNKNOWN_COMMAND(name))
     end
 end
 
 M.add_cmd = function(name, f, description, packed)
     if CS.Table.has_key(M.cmds, name) then
-        CS.Output.Print("Duplicate command name: %s", name)
+        CS.Output.Print(T.ERROR_DUPLICATE_COMMAND(name))
     else
         if packed == nil then
             packed = false
@@ -54,7 +56,7 @@ SlashCmdList["CHARACTER_SHEET"] = function(msg)
     if success then
         M.execute_cmd(name, args)
     else
-        CS.Output.Print("Failed to parse command: %s", msg)
+        CS.Output.Print(T.ERROR_PARSE_COMMAND_FAILED(msg))
     end
 end
 
@@ -64,14 +66,14 @@ local list_help = function(name)
         if entry ~= nil then
             CS.Output.Print(entry.Description)
         else
-            CS.Output.Print("Unknown command: %s", name)
+            CS.Output.Print(T.MSG_UNKNOWN_COMMAND(name))
         end
     else
         CS.Output.Print("Available commands:")
         for k, v in pairs(M.cmds) do
             CS.Output.Print("/cs %s", k)
         end
-        CS.Output.Print("Use \"/cs help <command>\" to show an explanation of the specified command.")
+        CS.Output.Print(T.MSG_HELP_COMMAND)
     end
 end
 

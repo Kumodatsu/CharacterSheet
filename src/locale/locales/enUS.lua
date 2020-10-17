@@ -1,31 +1,32 @@
 local addon_name, CS = ...
 
 CS.Locale.Translations["enUS"] = CS.Locale.Translation {
-    POWER_LEVEL      = "Power Level",
-    NOVICE           = "Novice",
-    APPRENTICE       = "Apprentice",
-    ADEPT            = "Adept",
-    EXPERT           = "Expert",
-    MASTER           = "Master",
-    DESC_POWER_LEVEL = "Your power level grants you additional skill points to allocate, and additional base health.",
-    DESC_STR         = "Measuring physical power.\nStrength covers bodily prowess, and the extent of one's raw physical force.\nStrength typically governs attacks with conventional weapons - straight swords, axes, maces, two handers, etc.\nStrength can also influence one's ability to clear an obstacle with force, or intimidate an unruly individual.",
-    DESC_DEX         = "Measuring agility.\nDexterity governs one's agility, reflexes, balance, and finesse.\nDexterity typically governs ranged weaponry and attacks, precision attacks, small weaponry like daggers, and finesse weapons like short-swords and some polearms.",
-    DESC_CON         = "Measuring endurance.\nConstitution governs health, stamina, and vital force - influencing one's physical endurance and survivability.\nEvery point in Constitution adds one point to your maximum health.",
-    DESC_INT         = "Measuring reasoning and memory.\nGoverns mental acuity, accuracy of one's memory, and the ability to reason.\nInfluences traditional spellcasting via the arcane.\nOften influences one's ability to understand puzzles and conundrums.",
-    DESC_WIS         = "Measuring perception and insight.\nGoverns one's world knowledge and awareness, perceptiveness, and intuition.\nInfluences one's ability to understand a foreign location, deduce an enemy's weaknesses, etc.\nAffects the power of spellcasters whose power is sought through faith (i.e. shaman, paladins and priests).",
-    DESC_CHA         = "Measuring force of personality.\nGoverns one's ability to sway and influence others, either by confidence, eloquence, or otherwise.\nAffects the power of adventurers with summoned familiars or pets as primary attack methods (beast masters, demonologists, etc.).\nEvery two points above 10 in Charisma add one point to your healing modifier.",
-    STR              = "STR",
-    DEX              = "DEX",
-    CON              = "CON",
-    INT              = "INT",
-    WIS              = "WIS",
-    CHA              = "CHA",
-    HP               = "HP",
-    SP               = "SP",
-    ACTIVE           = "active",
+    POWER_LEVEL        = "Power Level",
+    NOVICE             = "Novice",
+    APPRENTICE         = "Apprentice",
+    ADEPT              = "Adept",
+    EXPERT             = "Expert",
+    MASTER             = "Master",
+    DESC_POWER_LEVEL   = "Your power level grants you additional skill points to allocate, and additional base health.",
+    DESC_STR           = "Measuring physical power.\nStrength covers bodily prowess, and the extent of one's raw physical force.\nStrength typically governs attacks with conventional weapons - straight swords, axes, maces, two handers, etc.\nStrength can also influence one's ability to clear an obstacle with force, or intimidate an unruly individual.",
+    DESC_DEX           = "Measuring agility.\nDexterity governs one's agility, reflexes, balance, and finesse.\nDexterity typically governs ranged weaponry and attacks, precision attacks, small weaponry like daggers, and finesse weapons like short-swords and some polearms.",
+    DESC_CON           = "Measuring endurance.\nConstitution governs health, stamina, and vital force - influencing one's physical endurance and survivability.\nEvery point in Constitution adds one point to your maximum health.",
+    DESC_INT           = "Measuring reasoning and memory.\nGoverns mental acuity, accuracy of one's memory, and the ability to reason.\nInfluences traditional spellcasting via the arcane.\nOften influences one's ability to understand puzzles and conundrums.",
+    DESC_WIS           = "Measuring perception and insight.\nGoverns one's world knowledge and awareness, perceptiveness, and intuition.\nInfluences one's ability to understand a foreign location, deduce an enemy's weaknesses, etc.\nAffects the power of spellcasters whose power is sought through faith (i.e. shaman, paladins and priests).",
+    DESC_CHA           = "Measuring force of personality.\nGoverns one's ability to sway and influence others, either by confidence, eloquence, or otherwise.\nAffects the power of adventurers with summoned familiars or pets as primary attack methods (beast masters, demonologists, etc.).\nEvery two points above 10 in Charisma add one point to your healing modifier.",
+    STR                = "STR",
+    DEX                = "DEX",
+    CON                = "CON",
+    INT                = "INT",
+    WIS                = "WIS",
+    CHA                = "CHA",
+    HP                 = "HP",
+    SP                 = "SP",
+    ACTIVE             = "active",
+    NATURAL            = "NATURAL",
+    AVAILABLE_COMMANDS = "Available commands:",
     -- 1: HP, 2: heal mod, 3: SP
-    DERIVED_STATS    = "HP: %1$d\nHeal mod: +%2$d\nSP: %3$d",
-    NATURAL          = "NATURAL",
+    DERIVED_STATS      = "HP: %1$d\nHeal mod: +%2$d\nSP: %3$d",
 
     MSG_POSITIVE_INTEGER           = "The value must be a positive integer.",
     -- 1: min, 2: max
@@ -75,6 +76,14 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     MSG_UNSPENT_SP                 = "You still have %1$d unspent SP.",
     MSG_RAID_ROLL_ENABLED          = "Raid roll messages are now ENABLED.",
     MSG_RAID_ROLL_DISABLED         = "Raid roll messages are now DISABLED.",
+    -- 1: command
+    MSG_UNKNOWN_COMMAND            = "Unknown command: %1$s",
+    MSG_HELP_COMMAND               = "Use \"/cs help <command>\" to show an explanation of the specified command.",
 
-    ERROR_PREFIX_UNAVAILABLE       = "The CharacterSheet addon could not register a message prefix. The addon may not work properly."
+    ERROR_PREFIX_UNAVAILABLE       = "The CharacterSheet addon could not register a message prefix. The addon may not work properly.",
+    -- 1: command
+    ERROR_DUPLICATE_COMMAND        = "Duplicate command name: %1$s",
+    -- 1: command
+    ERROR_PARSE_COMMAND_FAILED     = "Failed to parse command: %1$s"
+
 }
