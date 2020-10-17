@@ -9,4 +9,13 @@ M.match = function(str, pattern)
     return unpack(t)
 end
 
+M.iformat = function(format, ...)
+    local args, order = { ... }, {}
+    format = format:gsub("%%(%d+)%$", function(i)
+        table.insert(order, args[tonumber(i)])
+        return "%"
+    end)
+    return string.format(format, unpack(order))
+end
+
 CS.String = M
