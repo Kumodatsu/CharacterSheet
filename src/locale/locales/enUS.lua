@@ -25,6 +25,7 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     ACTIVE           = "active",
     -- 1: HP, 2: heal mod, 3: SP
     DERIVED_STATS    = "HP: %1$d\nHeal mod: +%2$d\nSP: %3$d",
+    NATURAL          = "NATURAL",
 
     MSG_POSITIVE_INTEGER           = "The value must be a positive integer.",
     -- 1: min, 2: max
@@ -72,4 +73,6 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     MSG_TOO_MANY_SP                = "You have spent %1$d too many SP.",
     -- 1: SP
     MSG_UNSPENT_SP                 = "You still have %1$d unspent SP.",
+    MSG_RAID_ROLL_ENABLED          = "Raid roll messages are now ENABLED.",
+    MSG_RAID_ROLL_DISABLED         = "Raid roll messages are now DISABLED.",
 }

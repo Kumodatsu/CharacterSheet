@@ -1,6 +1,8 @@
 local addon_name, CS = ...
 local M = {}
 
+local T = CS.Locale.GetLocaleTranslations()
+
 --[[
     Code for rolling dice, handling modifiers and showing the results in chat.
     Most of this code has been based on Skylar and Rennae's Dicemaster addon.
@@ -21,7 +23,7 @@ end
 
 M.Roll = function(lower, upper, mod, stat, tf)
     local roll_data = {
-        name  = UnitName("player"),
+        name  = UnitName "player",
         lower = tonumber(lower),
         upper = tonumber(upper),
         mod   = tonumber(mod) or 0,
@@ -35,9 +37,9 @@ end
 local toggle_raid_rolls = function()
     M.RaidRollsEnabled = not M.RaidRollsEnabled
     if M.RaidRollsEnabled then
-        CS.Output.Print("Raid roll messages are now ENABLED.")
+        CS.Output.Print(T.MSG_RAID_ROLL_ENABLED)
     else
-        CS.Output.Print("Raid roll messages are now DISABLED.")
+        CS.Output.Print(T.MSG_RAID_ROLL_DISABLED)
     end
 end
 
@@ -56,7 +58,7 @@ local on_system_message = function(message)
     roll  = tonumber(roll)
     lower = tonumber(lower)
     upper = tonumber(upper)
-    local name = UnitName("player")
+    local name = UnitName "player"
 
     if sender and sender == name then
         local mod  = 0
@@ -74,10 +76,10 @@ local on_system_message = function(message)
 
         local roll_str = ""
         if roll == lower then
-            roll_str = " (NATURAL 1)"
+            roll_str = string.format(" (%s 1)", T.NATURAL)
         elseif roll == upper then
             local range = upper - (lower - 1)
-            roll_str = string.format(" (NATURAL %d)", range)
+            roll_str = string.format(" (%s %d)", T.NATURAL, range)
         end
         if stat ~= nil and lower == 1 and upper == 20 and tf == nil then
             roll_str = string.format(" %s%s", stat, roll_str)
