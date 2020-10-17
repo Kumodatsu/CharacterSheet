@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- String localization. The addon now supports translated strings for other languages. However, English is currently still the only one available.
+
+### Removed
+- Keybind for toggling an obsolete UI frame.
+
+### Fixed
+- Keybinds for toggling UI frames now work again.
+
 ## [0.4.5] - 2020-10-16
 ### Added
 - The power level and stats in the edit frame now show a descriptive tooltip on mouseover.
