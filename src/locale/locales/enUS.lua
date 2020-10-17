@@ -84,6 +84,16 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     -- 1: command
     ERROR_DUPLICATE_COMMAND        = "Duplicate command name: %1$s",
     -- 1: command
-    ERROR_PARSE_COMMAND_FAILED     = "Failed to parse command: %1$s"
+    ERROR_PARSE_COMMAND_FAILED     = "Failed to parse command: %1$s",
+
+    KEYBIND_HEADER                 = "Character Sheet",
+    KEYBIND_INCREMENT_HP           = "Increment HP",
+    KEYBIND_DECREMENT_HP           = "Decrement HP",
+    KEYBIND_TOGGLE_MAIN_FRAME      = "Toggle main frame",
+    KEYBIND_TOGGLE_STATS_FRAME     = "Toggle stats frame",
+    KEYBIND_TOGGLE_EDIT_FRAME      = "Toggle edit frame",
+
+    -- 1: author, 2: title, 3: version
+    ADDON_INFO                     = "%1$s's %2$s, version %3$s"
 
 }
