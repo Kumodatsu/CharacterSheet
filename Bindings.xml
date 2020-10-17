@@ -5,13 +5,10 @@
     <Binding name="DECREMENT_HP">
         CS_API.Charsheet.decrement_hp()
     </Binding>
-    <Binding name="TOGGLE_MAIN_FRAME">
-        CS_API.Interface.ToggleMainFrame()
-    </Binding>
     <Binding name="TOGGLE_STATS_FRAME">
-        CS_API.Interface.ToggleStatsFrame()
+        CS_API.Interface.Toggle(CS_StatsFrame)
     </Binding>
     <Binding name="TOGGLE_EDIT_FRAME">
-        CS_API.Interface.ToggleEditFrame()
+        CS_API.Interface.Toggle(CS_EditFrame)
     </Binding>
 </Bindings>
