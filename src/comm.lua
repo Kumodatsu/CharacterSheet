@@ -1,12 +1,14 @@
 local addon_name, CS = ...
 local M = {}
 
+local T = CS.Locale.GetLocaleTranslations()
+
 -- Addon messages
 CS_MessagePrefix = "CS"
 local request_result =
     C_ChatInfo.RegisterAddonMessagePrefix(CS_MessagePrefix)
 if not request_result then
-    message "The CharacterSheet addon could not register a message prefix. The addon may not work properly."
+    message(T.ERROR_PREFIX_UNAVAILABLE)
 end
 
 CS.OnAddonMessageReceived:add(function(msg, channel, sender)

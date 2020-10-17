@@ -75,4 +75,6 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     MSG_UNSPENT_SP                 = "You still have %1$d unspent SP.",
     MSG_RAID_ROLL_ENABLED          = "Raid roll messages are now ENABLED.",
     MSG_RAID_ROLL_DISABLED         = "Raid roll messages are now DISABLED.",
+
+    ERROR_PREFIX_UNAVAILABLE       = "The CharacterSheet addon could not register a message prefix. The addon may not work properly."
 }
