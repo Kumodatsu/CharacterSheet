@@ -15,6 +15,9 @@ src\util\set.lua
 src\util\string.lua
 src\util\event.lua
 
+src\locale\locale.lua
+src\locale\locales\enUS.lua
+
 src\version.lua
 src\output.lua
 
