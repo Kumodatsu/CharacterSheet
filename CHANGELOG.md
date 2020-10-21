@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Keybinds for toggling UI frames now work again.
+- When lowering one's power level, stat values will now be reduced if one would
+not have enough SP for them anymore.
+This should now truly make it impossible to create invalid stat blocks.
 
 ## [0.4.5] - 2020-10-16
 ### Added

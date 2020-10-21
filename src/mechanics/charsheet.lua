@@ -172,10 +172,19 @@ end
 
 M.set_level = function(level_name)
     local level = CS.Stats.PowerLevel.from_string(level_name)
-    if level == nil then
+    if not level then
         return T.MSG_INVALID_POWER_LEVEL(level_name)
     end
     M.Stats.Level = level
+    -- If the change in level causes one to have fewer SP than they have spent,
+    -- reduce stats until the number of SP spent is valid again
+    local sp = M.Stats:get_remaining_sp()
+    for _, attribute in ipairs(CS.Stats.AttributeNames) do
+        while M.Stats[attribute] > CS.Stats.StatMinVal and sp < 0 do 
+            M.Stats[attribute] = M.Stats[attribute] - 1
+            sp = sp + 1
+        end
+    end
     M.OnStatsChanged()
     M.OnHPChanged()
     return T.MSG_POWER_LEVEL_SET(CS.Stats.PowerLevel.to_string(level))
