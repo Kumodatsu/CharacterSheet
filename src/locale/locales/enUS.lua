@@ -63,7 +63,7 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     MSG_NO_PETS                    = "You do not have any pets.",
     MSG_SET_PET_HP_ALLOWED_VALUES  = "The given value must be a positive integer and may not exceed your pet's max HP.",
     -- 1: name, 2: HP
-    MSG_PET_HP_SET                 = "%1$s's HP set to %2%d.",
+    MSG_PET_HP_SET                 = "%1$s's HP set to %2$d.",
     -- 1: name
     MSG_ACTIVE_PET_SET             = "%1$s is now your active pet.",
     MSG_ACTIVE_PET_UNSET           = "You no longer have an active pet.",
