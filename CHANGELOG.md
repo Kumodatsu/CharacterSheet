@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.4.7] - 2020-10-25
 ### Changed
-- Heal rolls are now use a d10 in combat and a d14 out of combat.
+- Heal rolls now use a d10 in combat and a d14 out of combat.
 
 ## [0.4.6] - 2020-10-21
 ### Added
