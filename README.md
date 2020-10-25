@@ -23,7 +23,7 @@ Character specific data is stored in `World of Warcraft\_retail_\WTF\Account\<ac
 To make a backup of your data, copy these files somewhere safe.
 To restore the data, copy the backup files back to the aforementioned locations.
 
-## Usage (0.4.6)
+## Usage (0.4.7)
 At the moment, most of the functionality of the addon can be used through the UI.
 All of the functionality can be accessed through slash commands.
 All commands provided by the addon start with `/cs`.
@@ -47,8 +47,8 @@ Click a stat in your stat frame to roll with that stat's modifier.
 The stat frame can be toggled on and off with the command `/cs toggle stats`.
 You can also use `/cs roll <stat>` to roll with the given stat modifier.
 For example, use `/cs roll str` to roll for Strength (1d20 + STR).
-Use `/cs heal` to roll for healing in combat (1d14 + heal mod)
-and `/cs heal safe` to roll for healing out of combat (1d18 + heal mod).
+Use `/cs heal` to roll for healing in combat (1d10 + heal mod)
+and `/cs heal safe` to roll for healing out of combat (1d14 + heal mod).
 The heal button will perform a combat heal roll.
 The minus and plus buttons next to the HP bar can be used to set your HP.
 

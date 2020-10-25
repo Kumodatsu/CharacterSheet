@@ -103,7 +103,7 @@ M.roll_heal = function(in_combat)
     end
     local mod   = M.Stats:get_heal_modifier()
     local lower = 1
-    local upper = in_combat and 14 or 18
+    local upper = in_combat and 10 or 14
     CS.Roll.Roll(lower, upper, mod)
 end
 
@@ -371,8 +371,8 @@ CS.Commands.add_cmd("stats", M.show_stats, [[
 ]])
 
 CS.Commands.add_cmd("heal", M.roll_heal, [[
-"/cs heal" and "/cs heal combat" perform a heal roll using a d14.
-"/cs heal safe" performs a heal roll using a d18.
+"/cs heal" and "/cs heal combat" perform a heal roll using a d10.
+"/cs heal safe" performs a heal roll using a d14.
 ]])
 
 CS.Commands.add_cmd("level", cmd_set_level, [[

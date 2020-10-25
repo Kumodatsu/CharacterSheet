@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.7] - 2020-10-25
+### Changed
+- Heal rolls are now use a d10 in combat and a d14 out of combat.
+
 ## [0.4.6] - 2020-10-21
 ### Added
 - String localization. The addon now supports translated strings for other languages. However, English is currently still the only one available.
