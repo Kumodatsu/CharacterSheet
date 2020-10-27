@@ -5,4 +5,6 @@ M.Print = function(format, ...)
     SendSystemMessage(string.format(format, ...))
 end
 
+CS.Print = M.Print
+
 CS.Output = M
