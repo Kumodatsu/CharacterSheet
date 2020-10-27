@@ -77,15 +77,11 @@ M.CharacterSheet = Class {
         self.OnPetChanged()
     end,
 
-    -- show_stats
-
     set_level = function(self, level)
         self.Stats.Level = level
         self.OnStatsChanged()
         self.OnHPChanged()
     end,
-
-    -- validate_stats
     
     set_hp = function(self, value)
         self.HP = value
@@ -101,9 +97,6 @@ M.CharacterSheet = Class {
         number = number or 1
         self:set_hp(self.HP - number)
     end,
-
-    -- add_pet / show_pets / remove_pet
-    --  / set_active_pet / active_pet / pet_exists
 
     toggle_pet = function(self, active)
         if active == nil then
