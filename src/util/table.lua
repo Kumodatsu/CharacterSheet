@@ -10,8 +10,15 @@ end
 -- t: table, k: T -> bool
 -- Returns true if the table t has a key k and the corresponding value is not
 -- nil; returns false otherwise.
-M.has_key = function(t, k)
-    return t[k] ~= nil
+M.has_key = function(t, key)
+    return t[key] ~= nil
+end
+
+M.has_value = function(t, value)
+    for k, v in pairs(t) do
+        if v == value then return true end
+    end
+    return false
 end
 
 M.is_empty = function(t)
