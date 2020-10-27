@@ -30,6 +30,7 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     DERIVED_STATS      = "HP: %1$d\nHeal mod: +%2$d\nSP: %3$d",
 
     MSG_POSITIVE_INTEGER           = "The value must be a positive integer.",
+    MSG_INTEGER                    = "The value must be an integer.",
     MSG_REQUIRE_VALUE              = "You must specify a value.",
     -- 1: min, 2: max
     MSG_RANGE                      = "The value must be in the range [%1$d, %2$d].",
