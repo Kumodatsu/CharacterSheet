@@ -18,4 +18,8 @@ M.half = function(x, mode)
     return nil
 end
 
+M.is_integer = function(x)
+    return math.floor(x) == x
+end
+
 CS.Math = M
