@@ -51,7 +51,7 @@ M.CharacterSheet = Class {
         end
 
         -- d20 + mdifier if a stat is specified
-        mod = (tonumber(mod) or 0) + self.Stats[name]
+        mod = (mod or 0) + self.Stats[name]
         CS.Roll.Roll(lower, upper, mod, name)
     end,
 
