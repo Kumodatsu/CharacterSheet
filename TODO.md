@@ -11,3 +11,4 @@ Plans for upcoming changes are documented in this file.
 - Add options for keeping track of and managing numbers and texts for event hosts.
 - Add an option to add temporary custom bars to the stats frame, for event-specific resources such as Insanity.
 - Add a UI frame for altering settings.
+- Do not display (raid) messages for unmodified rolls.
