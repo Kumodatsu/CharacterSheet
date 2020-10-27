@@ -63,6 +63,7 @@ M.Class = function(class)
         return savedata
     end
     local constructor = function(o)
+        o = o or {}
         setmetatable(o, class)
         return o
     end
