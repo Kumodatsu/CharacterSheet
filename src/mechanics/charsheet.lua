@@ -98,8 +98,7 @@ M.roll_heal = function(in_combat)
     elseif in_combat == "safe" then
         in_combat = false
     else
-        CS.Output.Print(T.MSG_ALLOWED_PARAMETERS("combat, safe"))
-        return
+        return CS.Output.Print(T.MSG_ALLOWED_PARAMETERS("combat, safe"))
     end
     local mod   = M.Stats:get_heal_modifier()
     local lower = 1
