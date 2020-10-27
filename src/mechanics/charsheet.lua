@@ -205,7 +205,7 @@ M.set_hp = function(value)
     else
         value = tonumber(value)
         if value == nil then
-            return T.MSG_SET_HP_ALLOWED_VALUE
+            return T.MSG_SET_HP_ALLOWED_VALUES
         end
     end
     if value < 0 or value > M.Stats:get_max_hp() or math.floor(value) ~= value then
