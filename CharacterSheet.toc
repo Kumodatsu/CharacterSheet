@@ -25,6 +25,7 @@ src\commands.lua
 
 src\mechanics\roll.lua
 src\mechanics\stats.lua
+src\mechanics\character_sheet.lua
 src\mechanics\charsheet.lua
 
 ui\interface.lua
