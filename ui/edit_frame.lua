@@ -7,7 +7,7 @@ CS.Interface.UIState.EditFrameVisible = true
 
 local update_stat = function(stat)
     return function(self)
-        local text = string.format("%s: %d", stat, CS.Charsheet.Stats[stat])
+        local text = string.format("%s: %d", stat, CS.Mechanics.Sheet.Stats[stat])
         self.text:SetText(text)
     end
 end
@@ -19,36 +19,36 @@ local power_menu = {
         notCheckable = true
     }, {
         text = T.NOVICE,
-        func = function() CS.Charsheet.set_level "Novice" end,
-        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Novice end
+        func = function() CS.Mechanics.Sheet:set_level(1) end,
+        checked = function() return CS.Mechanics.Sheet.Stats.Level == CS.Stats.PowerLevel.Novice end
     }, {
         text = T.APPRENTICE,
-        func = function() CS.Charsheet.set_level "Apprentice" end,
-        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Apprentice end
+        func = function() CS.Mechanics.Sheet:set_level(2) end,
+        checked = function() return CS.Mechanics.Sheet.Stats.Level == CS.Stats.PowerLevel.Apprentice end
     }, {
         text = T.ADEPT,
-        func = function() CS.Charsheet.set_level "Adept" end,
-        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Adept end
+        func = function() CS.Mechanics.Sheet:set_level(3) end,
+        checked = function() return CS.Mechanics.Sheet.Stats.Level == CS.Stats.PowerLevel.Adept end
     }, {
         text = T.EXPERT,
-        func = function() CS.Charsheet.set_level "Expert" end,
-        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Expert end
+        func = function() CS.Mechanics.Sheet:set_level(4) end,
+        checked = function() return CS.Mechanics.Sheet.Stats.Level == CS.Stats.PowerLevel.Expert end
     }, {
         text = T.MASTER,
-        func = function() CS.Charsheet.set_level "Master" end,
-        checked = function() return CS.Charsheet.Stats.Level == CS.Stats.PowerLevel.Master end
+        func = function() CS.Mechanics.Sheet:set_level(5) end,
+        checked = function() return CS.Mechanics.Sheet.Stats.Level == CS.Stats.PowerLevel.Master end
     }
 }
 
 local update_power = function(self)
-    self:SetText(CS.Stats.PowerLevel.to_string(CS.Charsheet.Stats.Level))
+    self:SetText(CS.Stats.PowerLevel.to_string(CS.Mechanics.Sheet.Stats.Level))
 end
 
 local update_derived = function(self)
     self.text:SetText(T.DERIVED_STATS(
-        CS.Charsheet.Stats:get_max_hp(),
-        CS.Charsheet.Stats:get_heal_modifier(),
-        CS.Charsheet.Stats:get_remaining_sp()
+        CS.Mechanics.Sheet.Stats:get_max_hp(),
+        CS.Mechanics.Sheet.Stats:get_heal_modifier(),
+        CS.Mechanics.Sheet.Stats:get_remaining_sp()
     ))
 end
 
@@ -92,7 +92,7 @@ CS.Interface.Frame {
             Menu   = power_menu,
             Events = {
                 [CS.OnAddonLoaded]            = { update_power },
-                [CS.Charsheet.OnStatsChanged] = { update_power }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_power }
             },
             Tooltip = T.DESC_POWER_LEVEL
         },
@@ -102,7 +102,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("STR", CS.Charsheet.Stats.STR - 1)
+                CS.Mechanics.Sheet:set_stat("STR", CS.Mechanics.Sheet.Stats.STR - 1)
             end
         },
         CS.Interface.Text {
@@ -111,7 +111,7 @@ CS.Interface.Frame {
             Text   = T.STR,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "STR" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat "STR" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "STR" }
             },
             Tooltip = T.DESC_STR
         },
@@ -120,7 +120,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("STR", CS.Charsheet.Stats.STR + 1)
+                CS.Mechanics.Sheet:set_stat("STR", CS.Mechanics.Sheet.Stats.STR + 1)
             end
         },
 
@@ -129,7 +129,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("DEX", CS.Charsheet.Stats.DEX - 1)
+                CS.Mechanics.Sheet:set_stat("DEX", CS.Mechanics.Sheet.Stats.DEX - 1)
             end
         },
         CS.Interface.Text {
@@ -138,7 +138,7 @@ CS.Interface.Frame {
             Text   = T.DEX,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "DEX" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat "DEX" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "DEX" }
             },
             Tooltip = T.DESC_DEX
         },
@@ -147,7 +147,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("DEX", CS.Charsheet.Stats.DEX + 1)
+                CS.Mechanics.Sheet:set_stat("DEX", CS.Mechanics.Sheet.Stats.DEX + 1)
             end
         },
 
@@ -156,7 +156,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("CON", CS.Charsheet.Stats.CON - 1)
+                CS.Mechanics.Sheet:set_stat("CON", CS.Mechanics.Sheet.Stats.CON - 1)
             end
         },
         CS.Interface.Text {
@@ -165,7 +165,7 @@ CS.Interface.Frame {
             Text   = T.CON,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "CON" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat "CON" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "CON" }
             },
             Tooltip = T.DESC_CON
         },
@@ -174,7 +174,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("CON", CS.Charsheet.Stats.CON + 1)
+                CS.Mechanics.Sheet:set_stat("CON", CS.Mechanics.Sheet.Stats.CON + 1)
             end
         },
 
@@ -183,7 +183,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("INT", CS.Charsheet.Stats.INT - 1)
+                CS.Mechanics.Sheet:set_stat("INT", CS.Mechanics.Sheet.Stats.INT - 1)
             end
         },
         CS.Interface.Text {
@@ -192,7 +192,7 @@ CS.Interface.Frame {
             Text   = T.INT,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "INT" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat "INT" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "INT" }
             },
             Tooltip = T.DESC_INT
         },
@@ -201,7 +201,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("INT", CS.Charsheet.Stats.INT + 1)
+                CS.Mechanics.Sheet:set_stat("INT", CS.Mechanics.Sheet.Stats.INT + 1)
             end
         },
 
@@ -210,7 +210,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("WIS", CS.Charsheet.Stats.WIS - 1)
+                CS.Mechanics.Sheet:set_stat("WIS", CS.Mechanics.Sheet.Stats.WIS - 1)
             end
         },
         CS.Interface.Text {
@@ -219,7 +219,7 @@ CS.Interface.Frame {
             Text   = T.WIS,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "WIS" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat "WIS" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "WIS" }
             },
             Tooltip = T.DESC_WIS
         },
@@ -228,7 +228,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("WIS", CS.Charsheet.Stats.WIS + 1)
+                CS.Mechanics.Sheet:set_stat("WIS", CS.Mechanics.Sheet.Stats.WIS + 1)
             end
         },
 
@@ -237,7 +237,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-PrevPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("CHA", CS.Charsheet.Stats.CHA - 1)
+                CS.Mechanics.Sheet:set_stat("CHA", CS.Mechanics.Sheet.Stats.CHA - 1)
             end
         },
         CS.Interface.Text {
@@ -246,7 +246,7 @@ CS.Interface.Frame {
             Text   = T.CHA,
             Events = {
                 [CS.OnAddonLoaded]            = { update_stat "CHA" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat "CHA" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "CHA" }
             },
             Tooltip = T.DESC_CHA
         },
@@ -255,7 +255,7 @@ CS.Interface.Frame {
             Height    = 32,
             Texture   = "Interface\\BUTTONS\\UI-SpellbookIcon-NextPage-Up.blp",
             OnClick   = function()
-                CS.Charsheet.set_stat("CHA", CS.Charsheet.Stats.CHA + 1)
+                CS.Mechanics.Sheet:set_stat("CHA", CS.Mechanics.Sheet.Stats.CHA + 1)
             end
         },
 
@@ -264,7 +264,7 @@ CS.Interface.Frame {
             Height = 48,
             Events = {
                 [CS.OnAddonLoaded]            = { update_derived },
-                [CS.Charsheet.OnStatsChanged] = { update_derived }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_derived }
             }
         }
     }

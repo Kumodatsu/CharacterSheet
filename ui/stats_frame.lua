@@ -4,8 +4,8 @@ local addon_name, CS = ...
 CS.Interface.UIState.StatsFrameVisible = true
 
 local update_hp_bar = function(self)
-    local hp     = CS.Charsheet.CurrentHP
-    local hp_max = CS.Charsheet.Stats:get_max_hp()
+    local hp     = CS.Mechanics.Sheet.HP
+    local hp_max = CS.Mechanics.Sheet.Stats:get_max_hp()
     local text   = string.format("%d/%d", hp, hp_max)
     self.text:SetText(text)
     self:SetMinMaxValues(0, hp_max)
@@ -13,10 +13,11 @@ local update_hp_bar = function(self)
 end
 
 local update_pet_hp_bar = function(self)
-    local pet    = CS.Charsheet.active_pet()
-    local hp     = pet and pet.CurrentHP or 0
-    local hp_max = pet and CS.Charsheet.Stats:get_pet_max_hp() or 0
-    local text   = string.format("%d/%d", hp, hp_max)
+    local sheet      = CS.Mechanics.Sheet
+    local pet_active = sheet.PetActive
+    local hp         = pet_active and sheet.PetHP or 0
+    local hp_max     = pet_active and sheet.Stats:get_pet_max_hp() or 0
+    local text       = string.format("%d/%d", hp, hp_max)
     self.text:SetText(text)
     self:SetMinMaxValues(0, hp_max)
     self:SetValue(hp)
@@ -24,7 +25,7 @@ end
 
 local update_stat_button = function(stat)
     return function(self)
-        local text = string.format("%s: %d", stat, CS.Charsheet.Stats[stat])
+        local text = string.format("%s: %d", stat, CS.Mechanics.Sheet.Stats[stat])
         self:SetText(text)
     end
 end
@@ -32,7 +33,7 @@ end
 local default_height = 20 + 6 * 32 + 2 * 24
 
 local toggle_pet_info = function()
-    local visible = CS.Charsheet.active_pet() and true or false
+    local visible = CS.Mechanics.Sheet.PetActive
     CS.Interface.Toggle(CS_PetHPBar_Decrement, visible)
     CS.Interface.Toggle(CS_PetHPBar, visible)
     CS.Interface.Toggle(CS_PetHPBar_Increment, visible)
@@ -78,7 +79,7 @@ CS.Interface.Frame {
                 CS.Interface.UIState.StatsFrameVisible = self:IsVisible()
             end
         },
-        [CS.Charsheet.OnActivePetChanged] = {
+        [CS.Mechanics.Sheet.OnPetToggled] = {
             toggle_pet_info
         }
     },
@@ -89,7 +90,9 @@ CS.Interface.Frame {
             Height    = 20,
             Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.25, 0.5 },
-            OnClick   = CS.skip_arg(CS.Charsheet.decrement_hp)
+            OnClick   = function(self)
+                CS.Mechanics.Sheet:decrement_hp()
+            end
         },
         CS.Interface.StatusBar {
             Orientation = "HORIZONTAL",
@@ -105,7 +108,7 @@ CS.Interface.Frame {
             },
             Events      = {
                 [CS.OnAddonLoaded]         = { update_hp_bar },
-                [CS.Charsheet.OnHPChanged] = { update_hp_bar }
+                [CS.Mechanics.Sheet.OnHPChanged] = { update_hp_bar }
             }
         },
         CS.Interface.Button {
@@ -113,7 +116,9 @@ CS.Interface.Frame {
             Height    = 20,
             Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.0, 0.25 },
-            OnClick   = CS.skip_arg(CS.Charsheet.increment_hp)
+            OnClick   = function(self)
+                CS.Mechanics.Sheet:increment_hp()
+            end
         },
         -- Stats
         CS.Interface.Icon {
@@ -125,10 +130,12 @@ CS.Interface.Frame {
             Width   = 110 - 32,
             Height  = 32,
             Text    = "STR",
-            OnClick = CS.fwd(CS.Charsheet.roll_stat, "STR"),
+            OnClick = function(self)
+                CS.Mechanics.Sheet:roll_stat "STR"
+            end,
             Events  = {
                 [CS.OnAddonLoaded]            = { update_stat_button "STR" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat_button "STR" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "STR" }
             }
         },
         CS.Interface.Icon {
@@ -140,10 +147,12 @@ CS.Interface.Frame {
             Width   = 110 - 32,
             Height  = 32,
             Text    = "DEX",
-            OnClick = CS.fwd(CS.Charsheet.roll_stat, "DEX"),
+            OnClick = function(self)
+                CS.Mechanics.Sheet:roll_stat "DEX"
+            end,
             Events  = {
                 [CS.OnAddonLoaded]            = { update_stat_button "DEX" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat_button "DEX" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "DEX" }
             }
         },
         CS.Interface.Icon {
@@ -155,10 +164,12 @@ CS.Interface.Frame {
             Width   = 110 - 32,
             Height  = 32,
             Text    = "CON",
-            OnClick = CS.fwd(CS.Charsheet.roll_stat, "CON"),
+            OnClick = function(self)
+                CS.Mechanics.Sheet:roll_stat "CON"
+            end,
             Events  = {
                 [CS.OnAddonLoaded]            = { update_stat_button "CON" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat_button "CON" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "CON" }
             }
         },
         CS.Interface.Icon {
@@ -170,10 +181,12 @@ CS.Interface.Frame {
             Width   = 110 - 32,
             Height  = 32,
             Text    = "INT",
-            OnClick = CS.fwd(CS.Charsheet.roll_stat, "INT"),
+            OnClick = function(self)
+                CS.Mechanics.Sheet:roll_stat "INT"
+            end,
             Events  = {
                 [CS.OnAddonLoaded]            = { update_stat_button "INT" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat_button "INT" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "INT" }
             }
         },
         CS.Interface.Icon {
@@ -185,10 +198,12 @@ CS.Interface.Frame {
             Width   = 110 - 32,
             Height  = 32,
             Text    = "WIS",
-            OnClick = CS.fwd(CS.Charsheet.roll_stat, "WIS"),
+            OnClick = function(self)
+                CS.Mechanics.Sheet:roll_stat "WIS"
+            end,
             Events  = {
                 [CS.OnAddonLoaded]            = { update_stat_button "WIS" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat_button "WIS" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "WIS" }
             }
         },
         CS.Interface.Icon {
@@ -200,10 +215,12 @@ CS.Interface.Frame {
             Width   = 110 - 32,
             Height  = 32,
             Text    = "CHA",
-            OnClick = CS.fwd(CS.Charsheet.roll_stat, "CHA"),
+            OnClick = function(self)
+                CS.Mechanics.Sheet:roll_stat "CHA"
+            end,
             Events  = {
                 [CS.OnAddonLoaded]            = { update_stat_button "CHA" },
-                [CS.Charsheet.OnStatsChanged] = { update_stat_button "CHA" }
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "CHA" }
             }
         },
         -- Heal button
@@ -213,7 +230,9 @@ CS.Interface.Frame {
             Text      = "Heal",
             Texture   = "Interface\\BUTTONS\\UI-DialogBox-Button-Gold-Up.blp",
             TexCoords = { 0.0, 1.0, 0.0, 0.6 },
-            OnClick   = CS.skip_arg(CS.Charsheet.roll_heal)
+            OnClick = function(self)
+                CS.Mechanics.Sheet:roll_heal()
+            end
         },
         -- Pet HP bar
         CS.Interface.Button {
@@ -222,7 +241,9 @@ CS.Interface.Frame {
             Height    = 20,
             Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.25, 0.5 },
-            OnClick   = CS.skip_arg(CS.Charsheet.decrement_pet_hp)
+            OnClick = function(self)
+                CS.Mechanics.Sheet:decrement_pet_hp()
+            end
         },
         CS.Interface.StatusBar {
             Global      = "CS_PetHPBar",
@@ -238,10 +259,10 @@ CS.Interface.Frame {
                 Color   = { 0.0, 0.35, 0.0, 1.0 }
             },
             Events      = {
-                [CS.OnAddonLoaded]                = { update_pet_hp_bar },
-                [CS.Charsheet.OnPetsChanged]      = { update_pet_hp_bar },
-                [CS.Charsheet.OnActivePetChanged] = { update_pet_hp_bar },
-                [CS.Charsheet.OnStatsChanged]     = { update_pet_hp_bar }
+                [CS.OnAddonLoaded]                  = { update_pet_hp_bar },
+                [CS.Mechanics.Sheet.OnPetToggled]   = { update_pet_hp_bar },
+                [CS.Mechanics.Sheet.OnPetChanged]   = { update_pet_hp_bar },
+                [CS.Mechanics.Sheet.OnStatsChanged] = { update_pet_hp_bar }
             }
         },
         CS.Interface.Button {
@@ -250,7 +271,9 @@ CS.Interface.Frame {
             Height    = 20,
             Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.0, 0.25 },
-            OnClick   = CS.skip_arg(CS.Charsheet.increment_pet_hp)
+            OnClick = function(self)
+                CS.Mechanics.Sheet:increment_pet_hp()
+            end
         },
         -- Pet attack button
         CS.Interface.Button {
@@ -260,7 +283,9 @@ CS.Interface.Frame {
             Text      = "Pet Attack",
             Texture   = "Interface\\BUTTONS\\UI-DialogBox-Button-Gold-Up.blp",
             TexCoords = { 0.0, 1.0, 0.0, 0.6 },
-            OnClick   = CS.skip_arg(CS.Charsheet.pet_attack)
+            OnClick   = function(self)
+                CS.Mechanics.Sheet:pet_attack()
+            end
         }
     }
 }

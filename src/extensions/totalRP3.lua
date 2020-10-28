@@ -57,9 +57,9 @@ M.set_cur = function(content)
 end
 
 local format_stats_string = function(hp, max_hp, str, dex, con, int, wis, cha,
-        pet, pet_max_hp)
-    local pet_str = pet and
-        string.format("%s HP: %d/%d\n", pet.Name, pet.CurrentHP, pet_max_hp) or ""
+        pet_active, pet_hp, pet_max_hp)
+    local pet_str = pet_active and
+        string.format("Pet HP: %d/%d\n", pet_hp, pet_max_hp) or ""
     return string.format(
         "HP: %d/%d\n%sSTR: %d / DEX: %d / CON: %d / INT: %d / WIS: %d / CHA: %d",
         hp, max_hp, pet_str, str, dex, con, int, wis, cha
@@ -72,9 +72,10 @@ local update_trp_stats = function()
         [M.StatUpdateState.OOC]       = M.set_ooc
     }
     if not f then return end
-    local stats = CS.Charsheet.Stats
+    local sheet = CS.Mechanics.Sheet
+    local stats = sheet.Stats
     f(format_stats_string(
-        CS.Charsheet.CurrentHP,
+        sheet.HP,
         stats:get_max_hp(),
         stats.STR,
         stats.DEX,
@@ -82,14 +83,15 @@ local update_trp_stats = function()
         stats.INT,
         stats.WIS,
         stats.CHA,
-        CS.Charsheet.active_pet(),
-        CS.Charsheet.Stats:get_pet_max_hp()
+        sheet.PetActive,
+        sheet.PetHP,
+        stats:get_pet_max_hp()
     ))
 end
 
-CS.Charsheet.OnStatsChanged:add(update_trp_stats)
-CS.Charsheet.OnHPChanged:add(update_trp_stats)
-CS.Charsheet.OnActivePetChanged:add(update_trp_stats)
+CS.Mechanics.Sheet.OnStatsChanged:add(update_trp_stats)
+CS.Mechanics.Sheet.OnHPChanged:add(update_trp_stats)
+CS.Mechanics.Sheet.OnPetChanged:add(update_trp_stats)
 
 local set_ooc_packed = function(packed_content)
     M.set_ooc(packed_content and table.concat(packed_content, " ") or "")

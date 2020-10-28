@@ -1,9 +1,9 @@
 <Bindings>
     <Binding name="INCREMENT_HP" header="CHARACTER_SHEET">
-        CS_API.Charsheet.increment_hp()
+        CS_API.Mechanics.Sheet:increment_hp()
     </Binding>
     <Binding name="DECREMENT_HP">
-        CS_API.Charsheet.decrement_hp()
+        CS_API.Mechanics.Sheet:decrement_hp()
     </Binding>
     <Binding name="TOGGLE_STATS_FRAME">
         CS_API.Interface.Toggle(CS_StatsFrame)
