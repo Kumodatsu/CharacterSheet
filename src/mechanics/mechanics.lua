@@ -24,6 +24,7 @@ local cmd_set = function(attribute, value)
     end
 
     M.Sheet:set_stat(attribute, value)
+    CS.Output.Print(T.MSG_STAT_SET(attribute, value))
 end
 
 local cmd_roll = function(attribute, mod)
@@ -95,6 +96,9 @@ local cmd_level = function(level)
     end
 
     M.Sheet:set_level(level)
+    CS.Output.Print(T.MSG_POWER_LEVEL_SET(
+        CS.Stats.PowerLevel.to_string(level)
+    ))
 end
 
 local cmd_validate = function()
@@ -120,6 +124,7 @@ local cmd_hp = function(value)
     end
 
     M.Sheet:set_hp(value)
+    CS.Output.Print(T.MSG_HP_SET(value))
 end
 
 local cmd_pet = function()
