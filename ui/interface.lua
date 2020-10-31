@@ -264,6 +264,14 @@ local toggle_frame = function(name)
     end
 end
 
+--[[
+local b = NamePlate1.UnitFrame.healthBar
+b.text = b:CreateFontString(nil, "ARTWORK")
+b.text:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
+b.text:SetPoint("CENTER", 0, 0)
+b.text:SetText("xyz")
+]]
+
 CS.Commands.add_cmd("toggle", toggle_frame, [[
 "/cs toggle <frame>" toggles the specified UI frame on or off.
 <frame> must be one of: stats, edit
