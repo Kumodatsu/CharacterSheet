@@ -25,6 +25,8 @@ CS.OnAddonUnloading       = M.create_event()
 CS.OnAddonMessageReceived = M.create_event()
 CS.OnRaidRosterUpdate     = M.create_event()
 CS.OnGroupRosterUpdate    = M.create_event()
+CS.OnNamePlateUnitAdded   = M.create_event()
+CS.OnNamePlateUnitRemoved = M.create_event()
 
 -- Event handling
 local frame_events = CreateFrame("FRAME", "CS_EventFrame")
@@ -34,7 +36,9 @@ local event_names = {
     "PLAYER_LOGOUT",
     "CHAT_MSG_ADDON",
     "RAID_ROSTER_UPDATE",
-    "GROUP_ROSTER_UPDATE"
+    "GROUP_ROSTER_UPDATE",
+    "NAME_PLATE_UNIT_ADDED",
+    "NAME_PLATE_UNIT_REMOVED"
 }
 
 for _, event_name in ipairs(event_names) do
@@ -57,6 +61,10 @@ frame_events.OnEvent = function(self, event, arg1, arg2, arg3, arg4)
         CS.OnRaidRosterUpdate()
     elseif event == "GROUP_ROSTER_UPDATE" then
         CS.OnGroupRosterUpdate()
+    elseif event == "NAME_PLATE_UNIT_ADDED" then
+        CS.OnNamePlateUnitAdded(arg1)
+    elseif event == "NAME_PLATE_UNIT_REMOVED" then
+        CS.OnNamePlateUnitRemoved(arg1)
     end
 end
 
