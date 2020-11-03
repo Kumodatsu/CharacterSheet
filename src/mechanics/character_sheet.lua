@@ -108,7 +108,7 @@ M.CharacterSheet = Class {
 
     set_pet_hp = function(self, value)
         self.PetHP = value
-        M.OnPetChanged()
+        self.OnPetChanged()
     end,
 
     increment_pet_hp = function(self, number)
