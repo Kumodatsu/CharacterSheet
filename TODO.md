@@ -13,3 +13,4 @@ Plans for upcoming changes are documented in this file.
 - Add a UI frame for altering settings.
 - Do not display (raid) messages for unmodified rolls.
 - Add character sheet health bar to nameplates of other people who have the addon.
+- Allow health to go down to the knocked out limit (-5) instead of 0.
