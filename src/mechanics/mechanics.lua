@@ -168,56 +168,56 @@ local cmd_setpetatk = function(attribute)
     CS.Print(T.MSG_PET_ATK_SET(attribute))
 end
 
-CS.Commands.add_cmd("_set", cmd_set, [[
+CS.Commands.add_cmd("set", cmd_set, [[
 "/cs set <stat> <value>" sets the given stat to a given value.
 For example: "/cs set str 15"
 ]])
 
-CS.Commands.add_cmd("_roll", cmd_roll, [[
+CS.Commands.add_cmd("roll", cmd_roll, [[
 "/cs roll <stat>" rolls with the given stat.
 "/cs roll <stat> <mod>" rolls with the given stat and an additional modifier.
 For example: "/cs roll str" or "/cs roll int 5" or "/cs roll cha -2"
 ]])
 
-CS.Commands.add_cmd("_stats", cmd_stats, [[
+CS.Commands.add_cmd("stats", cmd_stats, [[
 "/cs stats" shows the stats you have and their values.
 ]])
 
-CS.Commands.add_cmd("_heal", cmd_heal, [[
+CS.Commands.add_cmd("heal", cmd_heal, [[
 "/cs heal" and "/cs heal combat" perform a heal roll using a d10.
 "/cs heal safe" performs a heal roll using a d14.
 ]])
 
-CS.Commands.add_cmd("_level", cmd_level, [[
+CS.Commands.add_cmd("level", cmd_level, [[
 "/cs level <level>" sets your character's power level to the specified level.
 <level> must be one of novice, apprentice, adept, expert, master.
 ]])
 
-CS.Commands.add_cmd("_validate", cmd_validate, [[
+CS.Commands.add_cmd("validate", cmd_validate, [[
 "/cs validate" checks whether your stat block is valid.
 ]])
 
-CS.Commands.add_cmd("_hp", cmd_hp, [[
+CS.Commands.add_cmd("hp", cmd_hp, [[
 "/cs hp max" sets your current HP to your max HP.
 "/cs hp <value>" sets your current HP to the given value.
 ]])
 
-CS.Commands.add_cmd("_pet", cmd_pet, [[
+CS.Commands.add_cmd("pet", cmd_pet, [[
 "/cs pet" toggles your pet.
 ]])
 
-CS.Commands.add_cmd("_pethp", cmd_pethp, [[
+CS.Commands.add_cmd("pethp", cmd_pethp, [[
 "/cs pethp max" sets your active pet's current HP to their max HP.
 "/cs pethp <value>" sets your active pet's current HP to the given value.
 "/cs pethp max <name>" sets the pet with the given name's current HP to their max HP.
 "/cs pethp <value> <name>" sets the pet with the given name's current HP to the given value.
 ]])
 
-CS.Commands.add_cmd("_petatk", cmd_petatk, [[
+CS.Commands.add_cmd("petatk", cmd_petatk, [[
 "/cs petatk" performs a pet attack roll and displays the final damage number.
 ]])
 
-CS.Commands.add_cmd("_setpetatk", cmd_setpetatk, [[
+CS.Commands.add_cmd("setpetatk", cmd_setpetatk, [[
 "/cs setpetatk <attribute>" sets your pet attack attribute to the given attribute.
 ]])
 
