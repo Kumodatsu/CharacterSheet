@@ -93,7 +93,7 @@ local cmd_level = function(level)
     end
 
     M.Sheet:set_level(level)
-    CS.Output.Print(T.MSG_POWER_LEVEL_SET(
+    CS.Print(T.MSG_POWER_LEVEL_SET(
         CS.Stats.PowerLevel.to_string(level)
     ))
 end

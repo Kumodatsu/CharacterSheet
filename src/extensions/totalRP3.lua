@@ -170,10 +170,10 @@ local set_stat_update = function(value)
         ["ooc"] = M.StatUpdateState.OOC,
     }
     if not state then
-        return CS.Output.Print "The argument must be one of: off, cur, ooc"
+        return CS.Print "The argument must be one of: off, cur, ooc"
     end
     M.UpdateTRPWithStats = state
-    CS.Output.Print(
+    CS.Print(
         switch(state) {
             [M.StatUpdateState.None] =
                 "Your TRP information now will not be overwritten by your stats.",

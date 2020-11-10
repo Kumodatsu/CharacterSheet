@@ -287,7 +287,7 @@ end
 
 local toggle_frame = function(name)
     if not name then
-        return CS.Output.Print "You must specify a frame to toggle."
+        return CS.Print "You must specify a frame to toggle."
     end
     name = name:lower()
     if name == "stats" then
@@ -295,7 +295,7 @@ local toggle_frame = function(name)
     elseif name == "edit" then
         CS.Interface.Toggle(CS_EditFrame)
     else
-        CS.Output.Print("\"%s\" is not a valid frame.", name)
+        CS.Print("\"%s\" is not a valid frame.", name)
     end
 end
 

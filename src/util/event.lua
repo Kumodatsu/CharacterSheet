@@ -59,7 +59,7 @@ frame_events.OnEvent = function(self, event, arg1, arg2, arg3, arg4)
         -- CS.Saving.SaveData()
     elseif event == "CHAT_MSG_SYSTEM" then
         CS.OnSystemMessageReceived(arg1)
-    elseif event == "CHAT_MSG_ADDON" and arg1 == CS_MessagePrefix then
+    elseif event == "CHAT_MSG_ADDON" and CS_MessagePrefix and arg1 == CS_MessagePrefix then
         CS.OnAddonMessageReceived(arg2, arg3, arg4)
     elseif event == "RAID_ROSTER_UPDATE" then
         CS.OnRaidRosterUpdate()

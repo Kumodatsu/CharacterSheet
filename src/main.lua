@@ -20,7 +20,7 @@ local show_version = function()
     local author  = GetAddOnMetadata(addon_name, "author")
     local title   = GetAddOnMetadata(addon_name, "title")
     local version = GetAddOnMetadata(addon_name, "version")
-    CS.Output.Print(T.ADDON_INFO(author, title, version))
+    CS.Print(T.ADDON_INFO(author, title, version))
 end
 
 CS.Commands.add_cmd("version", show_version, [[

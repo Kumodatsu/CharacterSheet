@@ -32,13 +32,13 @@ M.execute_cmd = function(name, args)
             entry.Cmd(unpack(args))
         end
     else
-        CS.Output.Print(T.MSG_UNKNOWN_COMMAND(name))
+        CS.Print(T.MSG_UNKNOWN_COMMAND(name))
     end
 end
 
 M.add_cmd = function(name, f, description, packed)
     if CS.Table.has_key(M.cmds, name) then
-        CS.Output.Print(T.ERROR_DUPLICATE_COMMAND(name))
+        CS.Print(T.ERROR_DUPLICATE_COMMAND(name))
     else
         if packed == nil then
             packed = false
@@ -56,7 +56,7 @@ SlashCmdList["CHARACTER_SHEET"] = function(msg)
     if success then
         M.execute_cmd(name, args)
     else
-        CS.Output.Print(T.ERROR_PARSE_COMMAND_FAILED(msg))
+        CS.Print(T.ERROR_PARSE_COMMAND_FAILED(msg))
     end
 end
 
@@ -64,16 +64,16 @@ local list_help = function(name)
     if name ~= nil then
         local entry = M.cmds[name]
         if entry ~= nil then
-            CS.Output.Print(entry.Description)
+            CS.Print(entry.Description)
         else
-            CS.Output.Print(T.MSG_UNKNOWN_COMMAND(name))
+            CS.Print(T.MSG_UNKNOWN_COMMAND(name))
         end
     else
-        CS.Output.Print("Available commands:")
+        CS.Print("Available commands:")
         for k, v in pairs(M.cmds) do
-            CS.Output.Print("/cs %s", k)
+            CS.Print("/cs %s", k)
         end
-        CS.Output.Print(T.MSG_HELP_COMMAND)
+        CS.Print(T.MSG_HELP_COMMAND)
     end
 end
 

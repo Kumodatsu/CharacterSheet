@@ -48,9 +48,9 @@ end
 local toggle_raid_rolls = function()
     M.RaidRollsEnabled = not M.RaidRollsEnabled
     if M.RaidRollsEnabled then
-        CS.Output.Print(T.MSG_RAID_ROLL_ENABLED)
+        CS.Print(T.MSG_RAID_ROLL_ENABLED)
     else
-        CS.Output.Print(T.MSG_RAID_ROLL_DISABLED)
+        CS.Print(T.MSG_RAID_ROLL_DISABLED)
     end
 end
 
@@ -119,7 +119,7 @@ local on_system_message = function(message)
             return SendChatMessage(roll_str, "PARTY")
         end
     end
-    CS.Output.Print(roll_str)
+    CS.Print(roll_str)
 end
 
 CS.OnSystemMessageReceived:add(on_system_message)
