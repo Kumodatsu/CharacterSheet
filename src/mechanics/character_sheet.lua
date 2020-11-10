@@ -3,7 +3,9 @@ local M = {}
 
 local T = CS.Locale.GetLocaleTranslations()
 
-local Class = CS.Type.Class
+local Class    = CS.Type.Class
+local Roll     = CS.Roll.Roll
+local RollType = CS.Roll.RollType
 
 M.SafeHealRollDie   = 14
 M.CombatHealRollDie = 10
@@ -61,23 +63,24 @@ M.CharacterSheet = Class {
 
         -- Natural d20 if no stat is specified
         if not name then
-            return CS.Roll.Roll(lower, upper)
+            return Roll(RollType.Raw, lower, upper)
         end
 
         -- d20 + mdifier if a stat is specified
         mod = (mod or 0) + self.Stats[name]
-        CS.Roll.Roll(lower, upper, mod, name)
+        Roll(RollType.Stat, lower, upper, mod, name)
     end,
 
     roll_heal = function(self, in_combat)
         local mod   = self.Stats:get_heal_modifier()
         local lower = 1
         local upper = in_combat and M.CombatHealRollDie or M.SafeHealRollDie
-        CS.Roll.Roll(lower, upper, mod)
+        Roll(RollType.Heal, lower, upper, mod)
     end,
     
     pet_attack = function(self)
-        CS.Roll.Roll(
+        Roll(
+            RollType.Pet,
             1,
             20,
             self.Stats[self.PetAttribute],

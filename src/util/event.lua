@@ -20,13 +20,14 @@ M.create_event = function()
     return event
 end
 
-CS.OnAddonLoaded          = M.create_event()
-CS.OnAddonUnloading       = M.create_event()
-CS.OnAddonMessageReceived = M.create_event()
-CS.OnRaidRosterUpdate     = M.create_event()
-CS.OnGroupRosterUpdate    = M.create_event()
-CS.OnNamePlateUnitAdded   = M.create_event()
-CS.OnNamePlateUnitRemoved = M.create_event()
+CS.OnAddonLoaded           = M.create_event()
+CS.OnAddonUnloading        = M.create_event()
+CS.OnSystemMessageReceived = M.create_event()
+CS.OnAddonMessageReceived  = M.create_event()
+CS.OnRaidRosterUpdate      = M.create_event()
+CS.OnGroupRosterUpdate     = M.create_event()
+CS.OnNamePlateUnitAdded    = M.create_event()
+CS.OnNamePlateUnitRemoved  = M.create_event()
 
 -- Event handling
 local frame_events = CreateFrame("FRAME", "CS_EventFrame")
@@ -34,6 +35,7 @@ local frame_events = CreateFrame("FRAME", "CS_EventFrame")
 local event_names = {
     "ADDON_LOADED",
     "PLAYER_LOGOUT",
+    "CHAT_MSG_SYSTEM",
     "CHAT_MSG_ADDON",
     "RAID_ROSTER_UPDATE",
     "GROUP_ROSTER_UPDATE",
@@ -55,6 +57,8 @@ frame_events.OnEvent = function(self, event, arg1, arg2, arg3, arg4)
         CS.OnAddonUnloading()
         CS.SavedData.save_data()
         -- CS.Saving.SaveData()
+    elseif event == "CHAT_MSG_SYSTEM" then
+        CS.OnSystemMessageReceived(arg1)
     elseif event == "CHAT_MSG_ADDON" and arg1 == CS_MessagePrefix then
         CS.OnAddonMessageReceived(arg2, arg3, arg4)
     elseif event == "RAID_ROSTER_UPDATE" then
