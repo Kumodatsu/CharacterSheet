@@ -79,7 +79,7 @@ CS.Interface.Frame {
                 CS.Interface.UIState.StatsFrameVisible = self:IsVisible()
             end
         },
-        [CS.Mechanics.Sheet.OnPetToggled] = {
+        [CS.CharacterSheet.OnPetToggled] = {
             toggle_pet_info
         }
     },
@@ -107,8 +107,8 @@ CS.Interface.Frame {
                 Color   = { 0.0, 0.35, 0.0, 1.0 }
             },
             Events      = {
-                [CS.OnAddonLoaded]         = { update_hp_bar },
-                [CS.Mechanics.Sheet.OnHPChanged] = { update_hp_bar }
+                [CS.OnAddonLoaded]              = { update_hp_bar },
+                [CS.CharacterSheet.OnHPChanged] = { update_hp_bar }
             }
         },
         CS.Interface.Button {
@@ -134,8 +134,8 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "STR"
             end,
             Events  = {
-                [CS.OnAddonLoaded]            = { update_stat_button "STR" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "STR" }
+                [CS.OnAddonLoaded]                 = { update_stat_button "STR" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "STR" }
             }
         },
         CS.Interface.Icon {
@@ -151,8 +151,8 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "DEX"
             end,
             Events  = {
-                [CS.OnAddonLoaded]            = { update_stat_button "DEX" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "DEX" }
+                [CS.OnAddonLoaded]                 = { update_stat_button "DEX" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "DEX" }
             }
         },
         CS.Interface.Icon {
@@ -168,8 +168,8 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "CON"
             end,
             Events  = {
-                [CS.OnAddonLoaded]            = { update_stat_button "CON" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "CON" }
+                [CS.OnAddonLoaded]                 = { update_stat_button "CON" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "CON" }
             }
         },
         CS.Interface.Icon {
@@ -185,8 +185,8 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "INT"
             end,
             Events  = {
-                [CS.OnAddonLoaded]            = { update_stat_button "INT" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "INT" }
+                [CS.OnAddonLoaded]                 = { update_stat_button "INT" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "INT" }
             }
         },
         CS.Interface.Icon {
@@ -202,8 +202,8 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "WIS"
             end,
             Events  = {
-                [CS.OnAddonLoaded]            = { update_stat_button "WIS" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "WIS" }
+                [CS.OnAddonLoaded]                 = { update_stat_button "WIS" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "WIS" }
             }
         },
         CS.Interface.Icon {
@@ -219,8 +219,8 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "CHA"
             end,
             Events  = {
-                [CS.OnAddonLoaded]            = { update_stat_button "CHA" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat_button "CHA" }
+                [CS.OnAddonLoaded]                 = { update_stat_button "CHA" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "CHA" }
             }
         },
         -- Heal button
@@ -259,10 +259,10 @@ CS.Interface.Frame {
                 Color   = { 0.0, 0.35, 0.0, 1.0 }
             },
             Events      = {
-                [CS.OnAddonLoaded]                  = { update_pet_hp_bar },
-                [CS.Mechanics.Sheet.OnPetToggled]   = { update_pet_hp_bar },
-                [CS.Mechanics.Sheet.OnPetChanged]   = { update_pet_hp_bar },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_pet_hp_bar }
+                [CS.OnAddonLoaded]                 = { update_pet_hp_bar },
+                [CS.CharacterSheet.OnPetToggled]   = { update_pet_hp_bar },
+                [CS.CharacterSheet.OnPetChanged]   = { update_pet_hp_bar },
+                [CS.CharacterSheet.OnStatsChanged] = { update_pet_hp_bar }
             }
         },
         CS.Interface.Button {

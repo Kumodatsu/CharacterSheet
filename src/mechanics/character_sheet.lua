@@ -5,21 +5,21 @@ local T = CS.Locale.GetLocaleTranslations()
 
 local Class = CS.Type.Class
 
+-- Called when a stat or the power level is changed.
+M.OnStatsChanged = CS.Event.create_event()
+-- Called when the current or max HP is changed.
+M.OnHPChanged    = CS.Event.create_event()
+-- Called when the pet is toggled on or off.
+M.OnPetToggled   = CS.Event.create_event()
+-- Called when the pet HP or pet attack attribute is changed.
+M.OnPetChanged   = CS.Event.create_event()
+
 M.CharacterSheet = Class {
     Stats        = CS.Stats.StatBlock.new(),
     HP           = 16,
     PetActive    = false,
     PetHP        = 8,
     PetAttribute = "CHA",
-
-    -- Called when a stat or the power level is changed.
-    OnStatsChanged = CS.Event.create_event(),
-    -- Called when the current or max HP is changed.
-    OnHPChanged    = CS.Event.create_event(),
-    -- Called when the pet is toggled on or off.
-    OnPetToggled   = CS.Event.create_event(),
-    -- Called when the pet HP or pet attack attribute is changed.
-    OnPetChanged   = CS.Event.create_event(),
 
     clamp_hp = function(self)
         local hp_max = self.Stats:get_max_hp()
@@ -34,9 +34,9 @@ M.CharacterSheet = Class {
 
     set_stat = function(self, name, value)
         self.Stats[name] = value
-        self.OnStatsChanged()
+        M.OnStatsChanged()
         if name == "CON" then
-            self.OnHPChanged()
+            M.OnHPChanged()
         end
     end,
 
@@ -74,18 +74,18 @@ M.CharacterSheet = Class {
 
     set_pet_attribute = function(self, attribute)
         self.PetAttribute = attribute
-        self.OnPetChanged()
+        M.OnPetChanged()
     end,
 
     set_level = function(self, level)
         self.Stats.Level = level
-        self.OnStatsChanged()
-        self.OnHPChanged()
+        M.OnStatsChanged()
+        M.OnHPChanged()
     end,
     
     set_hp = function(self, value)
         self.HP = value
-        self.OnHPChanged()
+        M.OnHPChanged()
     end,
 
     increment_hp = function(self, number)
@@ -103,12 +103,12 @@ M.CharacterSheet = Class {
             active = not self.PetActive
         end
         self.PetActive = active
-        self.OnPetToggled(active)
+        M.OnPetToggled(active)
     end,
 
     set_pet_hp = function(self, value)
         self.PetHP = value
-        self.OnPetChanged()
+        M.OnPetChanged()
     end,
 
     increment_pet_hp = function(self, number)

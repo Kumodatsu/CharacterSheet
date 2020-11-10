@@ -89,9 +89,9 @@ local update_trp_stats = function()
     ))
 end
 
-CS.Mechanics.Sheet.OnStatsChanged:add(update_trp_stats)
-CS.Mechanics.Sheet.OnHPChanged:add(update_trp_stats)
-CS.Mechanics.Sheet.OnPetChanged:add(update_trp_stats)
+CS.CharacterSheet.OnStatsChanged:add(update_trp_stats)
+CS.CharacterSheet.OnHPChanged:add(update_trp_stats)
+CS.CharacterSheet.OnPetChanged:add(update_trp_stats)
 
 local set_ooc_packed = function(packed_content)
     M.set_ooc(packed_content and table.concat(packed_content, " ") or "")

@@ -91,8 +91,8 @@ CS.Interface.Frame {
             Height = 32,
             Menu   = power_menu,
             Events = {
-                [CS.OnAddonLoaded]            = { update_power },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_power }
+                [CS.OnAddonLoaded]                 = { update_power },
+                [CS.CharacterSheet.OnStatsChanged] = { update_power }
             },
             Tooltip = T.DESC_POWER_LEVEL
         },
@@ -110,8 +110,8 @@ CS.Interface.Frame {
             Height = 32,
             Text   = T.STR,
             Events = {
-                [CS.OnAddonLoaded]            = { update_stat "STR" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "STR" }
+                [CS.OnAddonLoaded]                 = { update_stat "STR" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat "STR" }
             },
             Tooltip = T.DESC_STR
         },
@@ -137,8 +137,8 @@ CS.Interface.Frame {
             Height = 32,
             Text   = T.DEX,
             Events = {
-                [CS.OnAddonLoaded]            = { update_stat "DEX" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "DEX" }
+                [CS.OnAddonLoaded]                 = { update_stat "DEX" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat "DEX" }
             },
             Tooltip = T.DESC_DEX
         },
@@ -164,8 +164,8 @@ CS.Interface.Frame {
             Height = 32,
             Text   = T.CON,
             Events = {
-                [CS.OnAddonLoaded]            = { update_stat "CON" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "CON" }
+                [CS.OnAddonLoaded]                 = { update_stat "CON" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat "CON" }
             },
             Tooltip = T.DESC_CON
         },
@@ -191,8 +191,8 @@ CS.Interface.Frame {
             Height = 32,
             Text   = T.INT,
             Events = {
-                [CS.OnAddonLoaded]            = { update_stat "INT" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "INT" }
+                [CS.OnAddonLoaded]                 = { update_stat "INT" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat "INT" }
             },
             Tooltip = T.DESC_INT
         },
@@ -218,8 +218,8 @@ CS.Interface.Frame {
             Height = 32,
             Text   = T.WIS,
             Events = {
-                [CS.OnAddonLoaded]            = { update_stat "WIS" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "WIS" }
+                [CS.OnAddonLoaded]                 = { update_stat "WIS" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat "WIS" }
             },
             Tooltip = T.DESC_WIS
         },
@@ -245,8 +245,8 @@ CS.Interface.Frame {
             Height = 32,
             Text   = T.CHA,
             Events = {
-                [CS.OnAddonLoaded]            = { update_stat "CHA" },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_stat "CHA" }
+                [CS.OnAddonLoaded]                 = { update_stat "CHA" },
+                [CS.CharacterSheet.OnStatsChanged] = { update_stat "CHA" }
             },
             Tooltip = T.DESC_CHA
         },
@@ -263,8 +263,8 @@ CS.Interface.Frame {
             Width  = 180,
             Height = 48,
             Events = {
-                [CS.OnAddonLoaded]            = { update_derived },
-                [CS.Mechanics.Sheet.OnStatsChanged] = { update_derived }
+                [CS.OnAddonLoaded]                 = { update_derived },
+                [CS.CharacterSheet.OnStatsChanged] = { update_derived }
             }
         }
     }
