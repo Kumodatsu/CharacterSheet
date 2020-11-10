@@ -42,6 +42,7 @@ local toggle_pet_info = function()
     CS_StatsFrame:SetHeight(default_height + delta)
 end
 
+local in_combat = false
 
 CS.Interface.Frame {
     Global     = "CS_StatsFrame",
@@ -224,14 +225,27 @@ CS.Interface.Frame {
             }
         },
         -- Heal button
+        CS.Interface.Checkbox {
+            Width    = 24,
+            Height   = 24,
+            Enabled  = {
+                Texture = "Interface\\CURSOR\\Attack.blp"
+            },
+            Disabled = {
+                Texture = "Interface\\CURSOR\\UnableAttack.blp"
+            },
+            OnClick = function(self)
+                in_combat = not in_combat
+            end
+        },
         CS.Interface.Button {
-            Width     = 110,
+            Width     = 110 - 24,
             Height    = 24,
             Text      = "Heal",
             Texture   = "Interface\\BUTTONS\\UI-DialogBox-Button-Gold-Up.blp",
             TexCoords = { 0.0, 1.0, 0.0, 0.6 },
             OnClick = function(self)
-                CS.Mechanics.Sheet:roll_heal()
+                CS.Mechanics.Sheet:roll_heal(in_combat)
             end
         },
         -- Pet HP bar

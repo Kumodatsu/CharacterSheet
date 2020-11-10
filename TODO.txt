@@ -6,7 +6,7 @@ Plans for upcoming changes are documented in this file.
 [X] Do not display (raid) messages for unmodified rolls.
 [X] Concatenate stats and TRP info instead of replacing it.
 [X] Add a UI frame for altering settings.
-[ ] Add an option for out of combat heal rolls to the UI.
+[X] Add an option for out of combat heal rolls to the UI.
 [ ] Decouple character sheets from characters, allowing one to make multiple character sheets on a character and also load them from other characters.
 [ ] Add an option to set the pet attack attribute in the UI.
 [ ] Add an option to add temporary custom bars to the stats frame, for event-specific resources such as Insanity.
