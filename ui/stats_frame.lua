@@ -229,10 +229,12 @@ CS.Interface.Frame {
             Width    = 24,
             Height   = 24,
             Enabled  = {
-                Texture = "Interface\\CURSOR\\Attack.blp"
+                Texture = "Interface\\CURSOR\\UnableAttack.blp",
+                Color   = { 1.0, 0.0, 0.0, 1.0 }
             },
             Disabled = {
-                Texture = "Interface\\CURSOR\\UnableAttack.blp"
+                Texture = "Interface\\CURSOR\\UnableAttack.blp",
+                Color   = { 0.0, 1.0, 0.0, 1.0 }
             },
             OnClick = function(self)
                 in_combat = not in_combat
