@@ -5,6 +5,10 @@ local T = CS.Locale.GetLocaleTranslations()
 
 local Class = CS.Type.Class
 
+M.SafeHealRollDie   = 14
+M.CombatHealRollDie = 10
+M.KnockOutValue     = -5
+
 -- Called when a stat or the power level is changed.
 M.OnStatsChanged = CS.Event.create_event()
 -- Called when the current or max HP is changed.
@@ -68,7 +72,7 @@ M.CharacterSheet = Class {
     roll_heal = function(self, in_combat)
         local mod   = self.Stats:get_heal_modifier()
         local lower = 1
-        local upper = in_combat and 10 or 14
+        local upper = in_combat and M.CombatHealRollDie or M.SafeHealRollDie
         CS.Roll.Roll(lower, upper, mod)
     end,
     
@@ -105,7 +109,7 @@ M.CharacterSheet = Class {
     end,
     
     set_hp = function(self, value)
-        if value < -5 or value > self.Stats:get_max_hp() then
+        if value < M.KnockOutValue or value > self.Stats:get_max_hp() then
             return false, T.MSG_SET_HP_ALLOWED_VALUES
         end
         self.HP = value
@@ -132,7 +136,7 @@ M.CharacterSheet = Class {
     end,
 
     set_pet_hp = function(self, value)
-        if value < -5 or value > self.Stats:get_pet_max_hp() then
+        if value < M.KnockOutValue or value > self.Stats:get_pet_max_hp() then
             return false, T.MSG_SET_PET_HP_ALLOWED_VALUES
         end
         self.PetHP = value
