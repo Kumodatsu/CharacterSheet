@@ -174,6 +174,12 @@ CS.Interface.Checkbox = function(info)
                 texture_info.TexCoords[4]
             )
         end
+        if texture_info.Color then
+            local color      = texture_info.Color or { 1.0, 1.0, 1.0, 1.0 }
+            local r, g, b, a = unpack(color)
+            button.texture:SetVertexColor(r, g, b, a)
+            -- CS.Print("%.2f, %.2f, %.2f, %.2f", r, g, b, a)
+        end
         button.texture:SetTexture(texture_info.Texture)
         if info.OnClick then
             info.OnClick(self)
@@ -186,7 +192,12 @@ CS.Interface.Checkbox = function(info)
         button.texture:SetHeight(info.Height)
         if info.Disabled.TexCoords then
             button.texture:SetTexCoord(info.TexCoords[1], info.TexCoords[2],
-            info.TexCoords[3], info.TexCoords[4])
+                info.TexCoords[3], info.TexCoords[4])
+        end
+        if info.Disabled.Color then
+            local color      = info.Disabled.Color or { 1.0, 1.0, 1.0, 1.0 }
+            local r, g, b, a = unpack(color)
+            button.texture:SetVertexColor(r, g, b, a)
         end
         button.texture:SetTexture(info.Disabled.Texture)
     end
