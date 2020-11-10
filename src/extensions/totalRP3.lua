@@ -15,6 +15,11 @@ M.StatUpdateState = Enum {
 
 M.UpdateTRPWithStats = M.StatUpdateState.None
 
+local stat_patterns = {
+    "^HP: %-?%d+/%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+",
+    "^HP: %-?%d+/%d+\nPet HP: %-?%d+/%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+"
+}
+
 M.set_ooc = function(content)
     content         = content or ""
     local character = TRP3_API.profile.getData "player/character"
@@ -91,16 +96,11 @@ local format_stats_string = function(hp, max_hp, str, dex, con, int, wis, cha,
     )
 end
 
-local replace_stats = function(old, stats)
-    local patterns = {
-        "^HP: %-?%d+/%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+",
-        "^HP: %-?%d+/%d+\nPet HP: %-?%d+/%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+"
-    }
-    local content = old
-    for _, pattern in ipairs(patterns) do
-        local s, e = old:find(pattern)
+local content_without_stats = function(content)
+    for _, pattern in ipairs(stat_patterns) do
+        local s, e = content:find(pattern)
         if s then
-            content = old:sub(e + 1)
+            content = content:sub(e + 1)
             break
         end
     end
@@ -108,7 +108,21 @@ local replace_stats = function(old, stats)
     if s then
         content = content:sub(e + 1)
     end
+    return content
+end
+
+local replace_stats = function(content, stats)
+    content = content_without_stats(content)
     return stats .. "\n\n" .. content
+end
+
+local clear_stats = function()
+    for _, content_type in
+            ipairs { M.StatUpdateState.Currently, M.StatUpdateState.OOC } do
+        local content = M.get(content_type)
+        content = content_without_stats(content)
+        M.set(content_type, content)
+    end
 end
 
 local update_trp_stats = function()
@@ -185,6 +199,10 @@ CS.Commands.add_cmd("trpstats", set_stat_update, [[
 "/cs trpstats cur" will make your stats overwrite your TRP Currently whenever they're updated.
 "/cs trpstats ooc" will make your stats overwrite your TRP OOC whenever they're updated.
 "/cs trpstats off" will make your stats not overwrite any of your TRP information.
+]])
+
+CS.Commands.add_cmd("trpclearstats", clear_stats, [[
+"/cs trpclearstats" removes your stats from your TRP info if they are there, leaving the rest of the contents intact.
 ]])
 
 TRP3_API.module.registerModule({
