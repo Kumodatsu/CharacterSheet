@@ -100,6 +100,11 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     KEYBIND_TOGGLE_STATS_FRAME     = "Toggle stats frame",
     KEYBIND_TOGGLE_EDIT_FRAME      = "Toggle edit frame",
 
+    SETTING_RAID_ROLLS             = "Raid Rolls",
+    SETTING_RAID_ROLLS_DESC        = "When enabled and in a party or raid, the results of rolls with modifiers will be displayed in party/raid chat.",
+    SETTING_TRP_STATS              = "TRP Stats",
+    SETTING_TRP_STATS_DESC         = "When set to Currently or OOC, your stats and HP will automatically be put in front of your TRP Currently or OOC information respectively whenever they change.",
+
     -- 1: author, 2: title, 3: version
     ADDON_INFO                     = "%1$s's %2$s, version %3$s"
 
