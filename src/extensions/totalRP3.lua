@@ -3,8 +3,9 @@ if not TRP3_API then return end
 local addon_name, CS = ...
 local M = {}
 
-local Enum   = CS.Type.Enum
-local switch = CS.switch
+local Enum    = CS.Type.Enum
+local switch  = CS.switch
+local switchf = CS.switchf
 
 M.StatUpdateState = Enum {
     None      = 1,
@@ -35,6 +36,11 @@ M.set_ooc = function(content)
     end
 end
 
+M.get_ooc = function()
+    local character = TRP3_API.profile.getData "player/character"
+    return character.CO
+end
+
 M.set_cur = function(content)
     content         = content or ""
     local character = TRP3_API.profile.getData "player/character"
@@ -56,6 +62,25 @@ M.set_cur = function(content)
     end
 end
 
+M.get_cur = function()
+    local character = TRP3_API.profile.getData "player/character"
+    return character.CU
+end
+
+M.set = function(content_type, content)
+    switchf(content_type) {
+        [M.StatUpdateState.Currently] = function() M.set_cur(content) end,
+        [M.StatUpdateState.OOC]       = function() M.set_ooc(content) end
+    }
+end
+
+M.get = function(content_type)
+    return switchf(content_type) {
+        [M.StatUpdateState.Currently] = M.get_cur,
+        [M.StatUpdateState.OOC]       = M.get_ooc
+    }
+end
+
 local format_stats_string = function(hp, max_hp, str, dex, con, int, wis, cha,
         pet_active, pet_hp, pet_max_hp)
     local pet_str = pet_active and
@@ -66,15 +91,35 @@ local format_stats_string = function(hp, max_hp, str, dex, con, int, wis, cha,
     )
 end
 
-local update_trp_stats = function()
-    local f = M.StatUpdateState.match(M.UpdateTRPWithStats) {
-        [M.StatUpdateState.Currently] = M.set_cur,
-        [M.StatUpdateState.OOC]       = M.set_ooc
+local replace_stats = function(old, stats)
+    local patterns = {
+        "^HP: %-?%d+/%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+",
+        "^HP: %-?%d+/%d+\nPet HP: %-?%d+/%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+"
     }
-    if not f then return end
+    local content = old
+    for _, pattern in ipairs(patterns) do
+        local s, e = old:find(pattern)
+        if s then
+            content = old:sub(e + 1)
+            break
+        end
+    end
+    local s, e = content:find "^\n+"
+    if s then
+        content = content:sub(e + 1)
+    end
+    return stats .. "\n\n" .. content
+end
+
+local update_trp_stats = function()
+    if M.UpdateTRPWithStats == M.StatUpdateState.None then
+        return
+    end
     local sheet = CS.Mechanics.Sheet
     local stats = sheet.Stats
-    f(format_stats_string(
+
+    local content = M.get(M.UpdateTRPWithStats)
+    local stats_str = format_stats_string(
         sheet.HP,
         stats:get_max_hp(),
         stats.STR,
@@ -86,7 +131,9 @@ local update_trp_stats = function()
         sheet.PetActive,
         sheet.PetHP,
         stats:get_pet_max_hp()
-    ))
+    )
+    local new_content = replace_stats(content, stats_str)
+    M.set(M.UpdateTRPWithStats, new_content)
 end
 
 CS.CharacterSheet.OnStatsChanged:add(update_trp_stats)
