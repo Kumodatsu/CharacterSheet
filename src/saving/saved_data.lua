@@ -2,6 +2,8 @@ local addon_name, CS = ...
 CS.SavedData = {}
 local M = CS.SavedData
 
+local T = CS.Locale.GetLocaleTranslations()
+
 local release_page = "https://github.com/Kumodatsu/CharacterSheet/releases"
 
 local do_save = true
