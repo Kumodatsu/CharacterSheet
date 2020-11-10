@@ -4,6 +4,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+- Command: `/cs pet`. This toggles your pet. This replaces the old system where you had to fiddle with pet names and lists and active pets.
+
+### Removed
+- The pet list.
+- Commands: `/cs addpet`, `/cs pets`, `/cs setpet` and `/cs removepet`. These are no longer necessary.
+- Command: `/cs half`. This command didn't really serve a purpose.
+
+### Changed
+- The saving system has been updated. This means that older saves will no longer work, but saves made from this version onwards should now always be compatible with any future versions.
+- Unmodified (raw) rolls no longer show a (raid) message with the result, as this is redundant.
+- The commands `/cs pethp`, `/cs petatk` and `/cs setpetatk` no longer accept a pet name is an argument.
+
 ## [0.4.7] - 2020-10-25
 ### Changed
 - Heal rolls now use a d10 in combat and a d14 out of combat.
