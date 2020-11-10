@@ -94,6 +94,9 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     KEYBIND_HEADER                 = "Character Sheet",
     KEYBIND_INCREMENT_HP           = "Increment HP",
     KEYBIND_DECREMENT_HP           = "Decrement HP",
+    KEYBIND_INCREMENT_PET_HP       = "Increment pet HP",
+    KEYBIND_DECREMENT_PET_HP       = "Decrement pet HP",
+    KEYBIND_TOGGLE_PET             = "Toggle pet",
     KEYBIND_TOGGLE_STATS_FRAME     = "Toggle stats frame",
     KEYBIND_TOGGLE_EDIT_FRAME      = "Toggle edit frame",
 

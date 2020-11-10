@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Command: `/cs pet`. This toggles your pet. This replaces the old system where you had to fiddle with pet names and lists and active pets.
 - Command: `/cs trpclearstats`. This removes your stats from your TRP info if they are there while leaving the rest of the contents intact.
+- Keybinds for toggling your pet and incrementing and decrementing pet HP.
 
 ### Removed
 - The pet list.
