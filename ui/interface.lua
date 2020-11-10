@@ -159,6 +159,41 @@ CS.Interface.Button = function(info)
     return button
 end
 
+CS.Interface.Checkbox = function(info)
+    local button = CreateFrame("Button", info.Global or nil, nil)
+    button.checked = false
+    button:SetSize(info.Width, info.Height)
+    button:SetScript("OnClick", function(self)
+        button.checked = not button.checked
+        local texture_info = button.checked and info.Enabled or info.Disabled
+        if texture_info.TexCoords then
+            button.texture:SetTexCoord(
+                texture_info.TexCoords[1],
+                texture_info.TexCoords[2],
+                texture_info.TexCoords[3],
+                texture_info.TexCoords[4]
+            )
+        end
+        button.texture:SetTexture(texture_info.Texture)
+        if info.OnClick then
+            info.OnClick(self)
+        end
+    end)
+    if info.Enabled and info.Disabled then
+        button.texture = button:CreateTexture()
+        button.texture:SetPoint("CENTER", button, "CENTER", 0, 0)
+        button.texture:SetWidth(info.Width)
+        button.texture:SetHeight(info.Height)
+        if info.Disabled.TexCoords then
+            button.texture:SetTexCoord(info.TexCoords[1], info.TexCoords[2],
+            info.TexCoords[3], info.TexCoords[4])
+        end
+        button.texture:SetTexture(info.Disabled.Texture)
+    end
+    register_all(button, info)
+    return button
+end
+
 CS.Interface.StatusBar = function(info)
     local bar = CreateFrame("StatusBar", info.Global or nil, nil)
     bar:SetOrientation(info.Orientation)
