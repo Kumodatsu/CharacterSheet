@@ -33,11 +33,21 @@ M.CharacterSheet = Class {
     end,
 
     set_stat = function(self, name, value)
+        if value < CS.Stats.StatMinVal or value > CS.Stats.StatMaxVal then
+            return false, T.MSG_RANGE(CS.Stats.StatMinVal, CS.Stats.StatMaxVal)
+        end
+        local old_value = self.Stats[name]
         self.Stats[name] = value
+        local valid, msg = self.Stats:validate()
+        if not valid then
+            self.Stats[name] = old_value
+            return false, msg
+        end
         M.OnStatsChanged()
         if name == "CON" then
             M.OnHPChanged()
         end
+        return true
     end,
 
     roll_stat = function(self, name, mod)
@@ -75,27 +85,42 @@ M.CharacterSheet = Class {
     set_pet_attribute = function(self, attribute)
         self.PetAttribute = attribute
         M.OnPetChanged()
+        return true
     end,
 
     set_level = function(self, level)
         self.Stats.Level = level
+        -- If the change in level causes one to have fewer SP than they have spent,
+        -- reduce stats until the number of SP spent is valid again
+        local sp = self.Stats:get_remaining_sp()
+        for _, attribute in ipairs(CS.Stats.AttributeNames) do
+            while self.Stats[attribute] > CS.Stats.StatMinVal and sp < 0 do 
+                self.Stats[attribute] = self.Stats[attribute] - 1
+                sp = sp + 1
+            end
+        end
         M.OnStatsChanged()
         M.OnHPChanged()
+        return true
     end,
     
     set_hp = function(self, value)
+        if value < -5 or value > self.Stats:get_max_hp() then
+            return false, T.MSG_SET_HP_ALLOWED_VALUES
+        end
         self.HP = value
         M.OnHPChanged()
+        return true
     end,
 
     increment_hp = function(self, number)
         number = number or 1
-        self:set_hp(self.HP + number)
+        return self:set_hp(self.HP + number)
     end,
 
     decrement_hp = function(self, number)
         number = number or 1
-        self:set_hp(self.HP - number)
+        return self:set_hp(self.HP - number)
     end,
 
     toggle_pet = function(self, active)
@@ -107,18 +132,22 @@ M.CharacterSheet = Class {
     end,
 
     set_pet_hp = function(self, value)
+        if value < -5 or value > self.Stats:get_pet_max_hp() then
+            return false, T.MSG_SET_PET_HP_ALLOWED_VALUES
+        end
         self.PetHP = value
         M.OnPetChanged()
+        return true
     end,
 
     increment_pet_hp = function(self, number)
         number = number or 1
-        self:set_pet_hp(self.PetHP + number)
+        return self:set_pet_hp(self.PetHP + number)
     end,
 
     decrement_pet_hp = function(self, number)
         number = number or 1
-        self:set_pet_hp(self.PetHP - number)
+        return self:set_pet_hp(self.PetHP - number)
     end
     
 }

@@ -19,12 +19,9 @@ local cmd_set = function(attribute, value)
     if not value then
         return CS.Print(T.MSG_REQUIRE_VALUE)
     end
-    if value < CS.Stats.StatMinVal or value > CS.Stats.StatMaxVal then
-        return CS.Print(T.MSG_RANGE(CS.Stats.StatMinVal, CS.Stats.StatMaxVal))
-    end
 
-    M.Sheet:set_stat(attribute, value)
-    CS.Output.Print(T.MSG_STAT_SET(attribute, value))
+    local success, msg = M.Sheet:set_stat(attribute, value)
+    CS.Print(success and T.MSG_STAT_SET(attribute, value) or msg)
 end
 
 local cmd_roll = function(attribute, mod)
@@ -117,14 +114,13 @@ local cmd_hp = function(value)
         if not value then
             return CS.Print(T.MSG_SET_HP_ALLOWED_PARAMETERS)
         end
+        if not CS.Math.is_integer(value) then
+            return CS.Print(T.MSG_SET_HP_ALLOWED_VALUES)
+        end
     end
-    if value < 0 or value > M.Sheet.Stats:get_max_hp()
-            or not CS.Math.is_integer(value) then
-        return CS.Print(T.MSG_SET_HP_ALLOWED_VALUES)
-    end
-
-    M.Sheet:set_hp(value)
-    CS.Output.Print(T.MSG_HP_SET(value))
+    
+    local success, msg = M.Sheet:set_hp(value)
+    CS.Print(success and T.MSG_HP_SET(value) or msg)
 end
 
 local cmd_pet = function()
@@ -142,13 +138,13 @@ local cmd_pethp = function(value)
         if not value then
             return CS.Print(T.MSG_SET_HP_ALLOWED_PARAMETERS)
         end
-    end
-    if value < 0 or value > M.Sheet.Stats:get_pet_max_hp()
-            or not CS.Math.is_integer(value) then
-        return CS.Print(T.MSG_SET_PET_HP_ALLOWED_VALUES)
+        if not CS.Math.is_integer(value) then
+            return CS.Print(T.MSG_SET_PET_HP_ALLOWED_VALUES)
+        end
     end
 
-    M.Sheet:set_pet_hp(value)
+    local success, msg = M.Sheet:set_pet_hp(value)
+    CS.Print(success and T.MSG_PET_HP_SET("Pet", value) or msg)
 end
 
 local cmd_petatk = function()
