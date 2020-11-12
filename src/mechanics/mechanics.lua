@@ -60,6 +60,14 @@ local cmd_stats = function()
             M.Sheet.Stats:get_pet_max_hp()
         )
     end
+    for name, resource in pairs(M.Sheet.Resources) do
+        CS.Print(
+            "%s: %d/%d",
+            name,
+            resource.Value,
+            resource:get_max()
+        )
+    end
     CS.Print("%s: %d", T.STR, M.Sheet.Stats.STR)
     CS.Print("%s: %d", T.DEX, M.Sheet.Stats.DEX)
     CS.Print("%s: %d", T.CON, M.Sheet.Stats.CON)
@@ -164,6 +172,56 @@ local cmd_setpetatk = function(attribute)
     CS.Print(T.MSG_PET_ATK_SET(attribute))
 end
 
+local cmd_addresource = function(name, min, max)
+    -- Check if a name is specified
+    if not name then
+        return CS.Print(T.MSG_REQUIRE_RESOURCE_NAME)
+    end
+    -- Check if the given values are valid
+    min = tonumber(min)
+    max = tonumber(max)
+    if not min or not max then
+        return CS.Print(T.MSG_REQUIRE_VALUE)
+    end
+    local success, msg = M.Sheet:add_resource(CS.Resource.Resource.new {
+        Name  = name,
+        Value = max,
+
+        get_min = function()
+            return min
+        end,
+
+        get_max = function()
+            return max
+        end
+    })
+    CS.Print(success and T.MSG_RESOURCE_ADDED(name) or msg)
+end
+
+local cmd_removeresource = function(name)
+    -- Check if a name is specified
+    if not name then
+        return CS.Print(T.MSG_REQUIRE_RESOURCE_NAME)
+    end
+    local success, msg = M.Sheet:remove_resource(name)
+    CS.Print(success and T.MSG_RESOURCE_REMOVED(name) or msg)
+end
+
+local cmd_setresource = function(name, value)
+    -- Check if a name is specified
+    if not name then
+        return CS.Print(T.MSG_REQUIRE_RESOURCE_NAME)
+    end
+    -- Check if the given value is valid
+    value = tonumber(value)
+    if not value then
+        return CS.Print(T.MSG_REQUIRE_VALUE)
+    end
+
+    local success, msg = M.Sheet:set_resource(name, value)
+    CS.Print(success and T.MSG_RESOURCE_SET(name, value) or msg)
+end
+
 CS.Commands.add_cmd("set", cmd_set, [[
 "/cs set <stat> <value>" sets the given stat to a given value.
 For example: "/cs set str 15"
@@ -215,6 +273,18 @@ CS.Commands.add_cmd("petatk", cmd_petatk, [[
 
 CS.Commands.add_cmd("setpetatk", cmd_setpetatk, [[
 "/cs setpetatk <attribute>" sets your pet attack attribute to the given attribute.
+]])
+
+CS.Commands.add_cmd("addresource", cmd_addresource, [[
+"/cs addresource <name> <min> <max>" adds a resource with the given name and minimum and maximum values.
+]])
+
+CS.Commands.add_cmd("removeresource", cmd_removeresource, [[
+"/cs removeresource <name>" removes the resource with the given name if it exists.
+]])
+
+CS.Commands.add_cmd("setresource", cmd_setresource, [[
+"/cs setresource <name> <value>" sets the resource with the given name to the specified value. 
 ]])
 
 CS.Mechanics = M

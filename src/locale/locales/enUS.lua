@@ -82,6 +82,19 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     -- 1: command
     MSG_UNKNOWN_COMMAND            = "Unknown command: %1$s",
     MSG_HELP_COMMAND               = "Use \"/cs help <command>\" to show an explanation of the specified command.",
+    -- 1: resource name
+    MSG_DUPLICATE_RESOURCE         = "You already have a resource named \"%1$s\".",
+    -- 1: resource name
+    MSG_RESOURCE_DOESNT_EXIST      = "You do not have a resource named \"%1$s\".",
+    -- 1: resource name, 2: min, 3: max
+    MSG_RESOURCE_ALLOWED_VALUES    = "The resource %1$s must be in the range [%2$d, %3$d].",
+    MSG_REQUIRE_RESOURCE_NAME      = "You must specify a resource name.",
+    -- 1: resource name, 2: value
+    MSG_RESOURCE_SET               = "Resource %1$s set to %2$d.",
+    -- 1: resource name
+    MSG_RESOURCE_ADDED             = "Resource \"%1$s\" added.",
+    -- 1: resource name
+    MSG_RESOURCE_REMOVED           = "Resource \"%1$s\" removed.",
 
     ERROR_PREFIX_UNAVAILABLE       = "The CharacterSheet addon could not register a message prefix. The addon may not work properly.",
     -- 1: save version, 2: current version, 3: release page link

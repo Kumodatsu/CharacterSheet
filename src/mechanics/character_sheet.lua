@@ -12,13 +12,15 @@ M.CombatHealRollDie = 10
 M.KnockOutValue     = -5
 
 -- Called when a stat or the power level is changed.
-M.OnStatsChanged = CS.Event.create_event()
+M.OnStatsChanged    = CS.Event.create_event()
 -- Called when the current or max HP is changed.
-M.OnHPChanged    = CS.Event.create_event()
+M.OnHPChanged       = CS.Event.create_event()
 -- Called when the pet is toggled on or off.
-M.OnPetToggled   = CS.Event.create_event()
+M.OnPetToggled      = CS.Event.create_event()
 -- Called when the pet HP or pet attack attribute is changed.
-M.OnPetChanged   = CS.Event.create_event()
+M.OnPetChanged      = CS.Event.create_event()
+-- Called when a resource is added, removed or changed.
+M.OnResourceChanged = CS.Event.create_event()
 
 M.CharacterSheet = Class {
     Stats        = CS.Stats.StatBlock.new(),
@@ -26,6 +28,7 @@ M.CharacterSheet = Class {
     PetActive    = false,
     PetHP        = 8,
     PetAttribute = "CHA",
+    Resources    = {},
 
     clamp_hp = function(self)
         local hp_max = self.Stats:get_max_hp()
@@ -155,8 +158,55 @@ M.CharacterSheet = Class {
     decrement_pet_hp = function(self, number)
         number = number or 1
         return self:set_pet_hp(self.PetHP - number)
-    end
+    end,
+
+    add_resource = function(self, resource)
+        if self.Resources[resource.Name] then
+            return false, T.MSG_DUPLICATE_RESOURCE(resource.Name)
+        end
+        self.Resources[resource.Name] = resource
+        M.OnResourceChanged(resource.Name)
+        return true
+    end,
+
+    remove_resource = function(self, resource_name)
+        if not self.Resources[resource_name] then
+            return false, T.MSG_RESOURCE_DOESNT_EXIST(resource_name)
+        end
+        self.Resources[resource_name] = nil
+        M.OnResourceChanged(resource_name)
+        return true
+    end,
     
+    set_resource = function(self, resource_name, value)
+        local resource = self.Resources[resource_name] 
+        if not resource then
+            return false, T.MSG_RESOURCE_DOESNT_EXIST(resource_name)
+        end
+        local min = resource:get_min()
+        local max = resource:get_max()
+        if value < min or value > max then
+            return false, T.MSG_RESOURCE_ALLOWED_VALUES(resource_name, min, max)
+        end
+        resource.Value = value
+        M.OnResourceChanged(resource_name)
+        return true
+    end,
+
+    increment_resource = function(self, resource_name, number)
+        number = number or 1
+        local resource = self.Resources[resource_name]
+        return self:set_resource(
+            resource_name,
+            resource and resource.Value + number or 0
+        )
+    end,
+
+    decrement_resource = function(self, resource_name, number)
+        number = number or 1
+        return self:increment_resource(resource_name, -number)
+    end
+
 }
 
 CS.CharacterSheet = M
