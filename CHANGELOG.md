@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - The saving system has been updated. This means that older saves will no longer work, but saves made from this version onwards should now always be compatible with any future versions.
+- Your HP and pet HP can now go all the way down to the knock out limit (-5).
 - Unmodified (raw) rolls no longer show a (raid) message with the result, as this is redundant.
 - The commands `/cs pethp`, `/cs petatk` and `/cs setpetatk` no longer accept a pet name is an argument.
 - When automatically displaying stats in your TRP is enabled, the stats will now be placed before your TRP content instead of replacing it.
