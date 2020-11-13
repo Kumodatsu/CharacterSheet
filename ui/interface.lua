@@ -223,7 +223,8 @@ CS.Interface.StatusBar = function(info)
     bar.text:SetFont("Fonts\\FRIZQT__.TTF", 16, "OUTLINE")
     bar.text:SetJustifyH "CENTER"
     bar.text:SetShadowOffset(1, -1)
-    bar.text:SetTextColor(0.0, 1.0, 0.0)
+    local text_color = info.TextColor or { 1.0, 1.0, 1.0 }
+    bar.text:SetTextColor(unpack(text_color))
     register_all(bar, info)
     return bar
 end
