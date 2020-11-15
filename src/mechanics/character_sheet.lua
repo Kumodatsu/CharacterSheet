@@ -32,8 +32,8 @@ M.CharacterSheet = Class {
 
     clamp_hp = function(self)
         local hp_max = self.Stats:get_max_hp()
-        if self.HP > hpmax then
-            self:set_hp(hpmax)
+        if self.HP > hp_max then
+            self:set_hp(hp_max)
         end
         local pet_hp_max = self.Stats:get_pet_max_hp()
         if self.PetHP > pet_hp_max then
@@ -54,6 +54,7 @@ M.CharacterSheet = Class {
         end
         M.OnStatsChanged()
         if name == "CON" then
+            self:clamp_hp()
             M.OnHPChanged()
         end
         return true
@@ -109,6 +110,7 @@ M.CharacterSheet = Class {
                 sp = sp + 1
             end
         end
+        self:clamp_hp()
         M.OnStatsChanged()
         M.OnHPChanged()
         return true
