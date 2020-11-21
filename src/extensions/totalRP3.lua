@@ -17,7 +17,9 @@ M.UpdateTRPWithStats = M.StatUpdateState.None
 
 local stat_patterns = {
     "^HP: %-?%d+/%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+",
-    "^HP: %-?%d+/%d+\nPet HP: %-?%d+/%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+"
+    "^HP: %-?%d+/%d+\nPet HP: %-?%d+/%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+",
+    "^HP: %-?%d+/%d+\nPet HP: %-?%d+/%d+\n[_%w%-%.]+: %-?%d+/%-?%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+",
+    "^HP: %-?%d+/%d+\n[_%w%-%.]+: %-?%d+/%-?%d+\nSTR: %d+ / DEX: %d+ / CON: %d+ / INT: %d+ / WIS: %d+ / CHA: %d+"
 }
 
 M.set_ooc = function(content)
@@ -87,12 +89,14 @@ M.get = function(content_type)
 end
 
 local format_stats_string = function(hp, max_hp, str, dex, con, int, wis, cha,
-        pet_active, pet_hp, pet_max_hp)
+        pet_active, pet_hp, pet_max_hp, resource)
     local pet_str = pet_active and
         string.format("Pet HP: %d/%d\n", pet_hp, pet_max_hp) or ""
+    local res_str = resource and
+        string.format("%s: %d/%d\n", resource.Name, resource.Value, resource.Max) or ""
     return string.format(
-        "HP: %d/%d\n%sSTR: %d / DEX: %d / CON: %d / INT: %d / WIS: %d / CHA: %d",
-        hp, max_hp, pet_str, str, dex, con, int, wis, cha
+        "HP: %d/%d\n%s%sSTR: %d / DEX: %d / CON: %d / INT: %d / WIS: %d / CHA: %d",
+        hp, max_hp, pet_str, res_str, str, dex, con, int, wis, cha
     )
 end
 
@@ -144,7 +148,8 @@ local update_trp_stats = function()
         stats.CHA,
         sheet.PetActive,
         sheet.PetHP,
-        stats:get_pet_max_hp()
+        stats:get_pet_max_hp(),
+        sheet.Resource
     )
     local new_content = replace_stats(content, stats_str)
     M.set(M.UpdateTRPWithStats, new_content)
@@ -153,6 +158,7 @@ end
 CS.CharacterSheet.OnStatsChanged:add(update_trp_stats)
 CS.CharacterSheet.OnHPChanged:add(update_trp_stats)
 CS.CharacterSheet.OnPetChanged:add(update_trp_stats)
+CS.CharacterSheet.OnResourceChanged:add(update_trp_stats)
 
 local set_ooc_packed = function(packed_content)
     M.set_ooc(packed_content and table.concat(packed_content, " ") or "")
