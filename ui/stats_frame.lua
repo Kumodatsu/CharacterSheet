@@ -39,7 +39,39 @@ local toggle_pet_info = function()
     CS.Interface.Toggle(CS_PetHPBar_Increment, visible)
     CS.Interface.Toggle(CS_PetAttackButton, visible)
     local delta = visible and (20 + 24) or 0
+    delta = delta + (CS.Mechanics.Sheet.Resource and 20 or 0)
     CS_StatsFrame:SetHeight(default_height + delta)
+end
+
+local update_resource = function(self)
+    local resource = CS.Mechanics.Sheet.Resource
+    local visible  = resource ~= nil
+    CS.Interface.Toggle(CS_ResourceBar_Decrement, visible)
+    CS.Interface.Toggle(CS_ResourceBar, visible)
+    CS.Interface.Toggle(CS_ResourceBar_Increment, visible)
+    local delta = visible and (20) or 0
+    delta = delta + (CS.Mechanics.Sheet.PetActive and 20 + 24 or 0)
+    CS_StatsFrame:SetHeight(default_height + delta)
+    
+    if not resource then
+        
+        return
+    end
+    
+    local color = resource.Color or { 1.0, 1.0, 1.0, 1.0 }
+    local text_color = resource.TextColor or { 1.0, 1.0, 1.0, 1.0 }
+    CS_ResourceBar:SetStatusBarColor(color[1], color[2], color[3], color[4])
+    CS_ResourceBar.background:SetVertexColor(0.2 * color[1], 0.2 * color[2],
+        0.2 * color[3], 1.0)
+    CS_ResourceBar.text:SetTextColor(text_color[1], text_color[2],
+        text_color[3], text_color[4])
+    
+    local v     = resource.Value
+    local v_max = resource.Max
+    local text  = string.format("%d/%d", v, v_max)
+    self.text:SetText(text)
+    self:SetMinMaxValues(0, v_max)
+    self:SetValue(v)
 end
 
 local in_combat = false
@@ -99,6 +131,7 @@ CS.Interface.Frame {
             Orientation = "HORIZONTAL",
             Width       = 70,
             Height      = 20,
+            TextColor   = { 0.0, 1.0, 0.0, 1.0 },
             Foreground = {
                 Texture = "Interface\\TARGETINGFRAME\\UI-StatusBar",
                 Color   = { 0.1, 0.9, 0.3, 1.0 }
@@ -119,6 +152,45 @@ CS.Interface.Frame {
             TexCoords = { 0.0, 0.5, 0.0, 0.25 },
             OnClick   = function(self)
                 CS.Mechanics.Sheet:increment_hp()
+            end
+        },
+        -- Resource bar
+        CS.Interface.Button {
+            Global    = "CS_ResourceBar_Decrement",
+            Width     = 20,
+            Height    = 20,
+            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            TexCoords = { 0.0, 0.5, 0.25, 0.5 },
+            OnClick   = function(self)
+                CS.Mechanics.Sheet:decrement_resource()
+            end
+        },
+        CS.Interface.StatusBar {
+            Global      = "CS_ResourceBar",
+            Orientation = "HORIZONTAL",
+            Width       = 70,
+            Height      = 20,
+            Foreground = {
+                Texture = "Interface\\TARGETINGFRAME\\UI-StatusBar",
+                Color   = { 0.1, 0.3, 0.9, 1.0 }
+            },
+            Background  = {
+                Texture = "Interface\\TARGETINGFRAME\\UI-StatusBar",
+                Color   = { 0.0, 0.0, 0.35, 1.0 }
+            },
+            Events      = {
+                [CS.OnAddonLoaded]                    = { update_resource },
+                [CS.CharacterSheet.OnResourceChanged] = { update_resource }
+            }
+        },
+        CS.Interface.Button {
+            Global    = "CS_ResourceBar_Increment",
+            Width     = 20,
+            Height    = 20,
+            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            TexCoords = { 0.0, 0.5, 0.0, 0.25 },
+            OnClick   = function(self)
+                CS.Mechanics.Sheet:increment_resource()
             end
         },
         -- Stats
@@ -264,6 +336,7 @@ CS.Interface.Frame {
             Orientation = "HORIZONTAL",
             Width       = 70,
             Height      = 20,
+            TextColor   = { 0.0, 1.0, 0.0, 1.0 },
             Foreground = {
                 Texture = "Interface\\TARGETINGFRAME\\UI-StatusBar",
                 Color   = { 0.4, 0.9, 0.3, 1.0 }

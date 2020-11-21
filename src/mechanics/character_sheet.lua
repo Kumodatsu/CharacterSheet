@@ -28,7 +28,7 @@ M.CharacterSheet = Class {
     PetActive    = false,
     PetHP        = 8,
     PetAttribute = "CHA",
-    Resources    = {},
+    Resource     = nil,
 
     clamp_hp = function(self)
         local hp_max = self.Stats:get_max_hp()
@@ -162,51 +162,50 @@ M.CharacterSheet = Class {
         return self:set_pet_hp(self.PetHP - number)
     end,
 
-    add_resource = function(self, resource)
-        if self.Resources[resource.Name] then
-            return false, T.MSG_DUPLICATE_RESOURCE(resource.Name)
-        end
-        self.Resources[resource.Name] = resource
-        M.OnResourceChanged(resource.Name)
+    add_resource = function(self, name, min, max, color, text_color)
+        self.Resource = {
+            Name      = name,
+            Value     = max,
+            Min       = min,
+            Max       = max,
+            Color     = color,
+            TextColor = text_color
+        }
+        M.OnResourceChanged()
         return true
     end,
 
-    remove_resource = function(self, resource_name)
-        if not self.Resources[resource_name] then
-            return false, T.MSG_RESOURCE_DOESNT_EXIST(resource_name)
+    remove_resource = function(self)
+        if not self.Resource then
+            return false, T.MSG_NO_RESOURCE
         end
-        self.Resources[resource_name] = nil
-        M.OnResourceChanged(resource_name)
+        self.Resource = nil
+        M.OnResourceChanged()
         return true
     end,
     
-    set_resource = function(self, resource_name, value)
-        local resource = self.Resources[resource_name] 
-        if not resource then
-            return false, T.MSG_RESOURCE_DOESNT_EXIST(resource_name)
+    set_resource = function(self, value)
+        if not self.Resource then
+            return false, T.MSG_NO_RESOURCE
         end
-        local min = resource:get_min()
-        local max = resource:get_max()
-        if value < min or value > max then
-            return false, T.MSG_RESOURCE_ALLOWED_VALUES(resource_name, min, max)
+        if value < self.Resource.Min or value > self.Resource.Max then
+            return false, T.MSG_RANGE(min, max)
         end
-        resource.Value = value
-        M.OnResourceChanged(resource_name)
+        self.Resource.Value = value
+        M.OnResourceChanged()
         return true
     end,
 
-    increment_resource = function(self, resource_name, number)
+    increment_resource = function(self, number)
         number = number or 1
-        local resource = self.Resources[resource_name]
         return self:set_resource(
-            resource_name,
-            resource and resource.Value + number or 0
+            self.Resource and self.Resource.Value + number or 0
         )
     end,
 
-    decrement_resource = function(self, resource_name, number)
+    decrement_resource = function(self, number)
         number = number or 1
-        return self:increment_resource(resource_name, -number)
+        return self:increment_resource(-number)
     end
 
 }
