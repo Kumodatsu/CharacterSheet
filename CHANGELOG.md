@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Command: `/cs half`. This command didn't really serve a purpose.
 
 ### Changed
+- Updated for World of Warcraft 9.0.2.
 - The saving system has been updated. This means that older saves will no longer work, but saves made from this version onwards should now always be compatible with any future versions.
 - Your HP and pet HP can now go all the way down to the knock out limit (-5).
 - Unmodified (raw) rolls no longer show a (raid) message with the result, as this is redundant.
