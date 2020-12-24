@@ -50,7 +50,8 @@ M.preprocess_data = function()
         -- update. In this case the save file is left unchanged to prevent loss
         -- of data.
         do_save = false
-        return message(T.ERROR_TIME_TRAVEL(CS_DB.Version, current_version, release_page))
+        return message(T.ERROR_TIME_TRAVEL(CS_DB.Version, current_version,
+            release_page))
     end
 end
 
@@ -62,8 +63,9 @@ M.load_data = function()
 
     -- Character
     local realm, character = M.get_character_info()
-    CS_DB.Characters[realm]            = CS_DB.Characters[realm]            or {}
-    CS_DB.Characters[realm][character] = CS_DB.Characters[realm][character] or {}
+    CS_DB.Characters[realm] = CS_DB.Characters[realm] or {}
+    CS_DB.Characters[realm][character] =
+        CS_DB.Characters[realm][character] or {}
     local char_db = CS_DB.Characters[realm][character]
     char_db.Settings = char_db.Settings or {}
 
@@ -71,7 +73,7 @@ M.load_data = function()
     CS.Interface.UIState = char_db.UIState or CS.Interface.UIState
 
     -- Character sheet
-    CS.Mechanics.Sheet       = CS.CharacterSheet.CharacterSheet.load(char_db.Sheet)
+    CS.Mechanics.Sheet = CS.CharacterSheet.CharacterSheet.load(char_db.Sheet)
     CS.Mechanics.Sheet.Stats = CS.Stats.StatBlock.load(CS.Mechanics.Sheet.Stats)
 
     -- TRP3 settings
@@ -94,8 +96,9 @@ M.save_data = function()
 
     -- Character
     local realm, character = M.get_character_info()
-    CS_DB.Characters[realm]            = CS_DB.Characters[realm]            or {}
-    CS_DB.Characters[realm][character] = CS_DB.Characters[realm][character] or {}
+    CS_DB.Characters[realm] = CS_DB.Characters[realm] or {}
+    CS_DB.Characters[realm][character] =
+        CS_DB.Characters[realm][character] or {}
     local char_db = CS_DB.Characters[realm][character]
 
     -- Character settings

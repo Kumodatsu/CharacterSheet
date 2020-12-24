@@ -30,7 +30,11 @@ end
 
 local update_stat_button = function(stat)
     return function(self)
-        local text = string.format("%s: %d", stat, CS.Mechanics.Sheet.Stats[stat])
+        local text = string.format(
+            "%s: %d",
+            stat,
+            CS.Mechanics.Sheet.Stats[stat]
+        )
         self:SetText(text)
     end
 end
@@ -176,7 +180,8 @@ CS.Interface.Frame {
         CS.Interface.Button {
             Width     = 20,
             Height    = 20,
-            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            Texture   =
+                "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.25, 0.5 },
             OnClick   = function(self)
                 CS.Mechanics.Sheet:decrement_hp()
@@ -203,7 +208,8 @@ CS.Interface.Frame {
         CS.Interface.Button {
             Width     = 20,
             Height    = 20,
-            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            Texture   =
+                "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.0, 0.25 },
             OnClick   = function(self)
                 CS.Mechanics.Sheet:increment_hp()
@@ -214,7 +220,8 @@ CS.Interface.Frame {
             Global    = "CS_ResourceBar_Decrement",
             Width     = 20,
             Height    = 20,
-            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            Texture   =
+                "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.25, 0.5 },
             OnClick   = function(self)
                 CS.Mechanics.Sheet:decrement_resource()
@@ -242,7 +249,8 @@ CS.Interface.Frame {
             Global    = "CS_ResourceBar_Increment",
             Width     = 20,
             Height    = 20,
-            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            Texture   =
+                "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.0, 0.25 },
             OnClick   = function(self)
                 CS.Mechanics.Sheet:increment_resource()
@@ -264,8 +272,12 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "STR"
             end,
             Events  = {
-                [CS.OnAddonLoaded]                 = { update_stat_button "STR" },
-                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "STR" }
+                [CS.OnAddonLoaded] = {
+                    update_stat_button "STR"
+                },
+                [CS.CharacterSheet.OnStatsChanged] = {
+                    update_stat_button "STR"
+                }
             }
         },
         CS.Interface.Icon {
@@ -283,8 +295,12 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "DEX"
             end,
             Events  = {
-                [CS.OnAddonLoaded]                 = { update_stat_button "DEX" },
-                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "DEX" }
+                [CS.OnAddonLoaded] = {
+                    update_stat_button "DEX"
+                },
+                [CS.CharacterSheet.OnStatsChanged] = {
+                    update_stat_button "DEX"
+                }
             }
         },
         CS.Interface.Icon {
@@ -302,8 +318,12 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "CON"
             end,
             Events  = {
-                [CS.OnAddonLoaded]                 = { update_stat_button "CON" },
-                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "CON" }
+                [CS.OnAddonLoaded] = {
+                    update_stat_button "CON"
+                },
+                [CS.CharacterSheet.OnStatsChanged] = {
+                    update_stat_button "CON"
+                }
             }
         },
         CS.Interface.Icon {
@@ -321,8 +341,12 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "INT"
             end,
             Events  = {
-                [CS.OnAddonLoaded]                 = { update_stat_button "INT" },
-                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "INT" }
+                [CS.OnAddonLoaded] = {
+                    update_stat_button "INT"
+                },
+                [CS.CharacterSheet.OnStatsChanged] = {
+                    update_stat_button "INT"
+                }
             }
         },
         CS.Interface.Icon {
@@ -340,8 +364,12 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "WIS"
             end,
             Events  = {
-                [CS.OnAddonLoaded]                 = { update_stat_button "WIS" },
-                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "WIS" }
+                [CS.OnAddonLoaded] = {
+                    update_stat_button "WIS"
+                },
+                [CS.CharacterSheet.OnStatsChanged] = {
+                    update_stat_button "WIS"
+                }
             }
         },
         CS.Interface.Icon {
@@ -359,8 +387,12 @@ CS.Interface.Frame {
                 CS.Mechanics.Sheet:roll_stat "CHA"
             end,
             Events  = {
-                [CS.OnAddonLoaded]                 = { update_stat_button "CHA" },
-                [CS.CharacterSheet.OnStatsChanged] = { update_stat_button "CHA" }
+                [CS.OnAddonLoaded] = {
+                    update_stat_button "CHA"
+                },
+                [CS.CharacterSheet.OnStatsChanged] = {
+                    update_stat_button "CHA"
+                }
             }
         },
         -- Heal button
@@ -394,7 +426,8 @@ CS.Interface.Frame {
             Global    = "CS_PetHPBar_Decrement",
             Width     = 20,
             Height    = 20,
-            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            Texture   =
+                "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.25, 0.5 },
             OnClick = function(self)
                 CS.Mechanics.Sheet:decrement_pet_hp()
@@ -425,7 +458,8 @@ CS.Interface.Frame {
             Global    = "CS_PetHPBar_Increment",
             Width     = 20,
             Height    = 20,
-            Texture   = "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
+            Texture   =
+                "Interface\\ACHIEVEMENTFRAME\\UI-ACHIEVEMENT-PLUSMINUS.BLP",
             TexCoords = { 0.0, 0.5, 0.0, 0.25 },
             OnClick = function(self)
                 CS.Mechanics.Sheet:increment_pet_hp()
