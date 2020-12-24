@@ -1,3 +1,8 @@
+--[[
+    The interface code is going to need some major refactoring.
+    Just looking at the hacky stuff going on in this file makes me nauseous.
+]]
+
 local addon_name, CS = ...
 
 -- Will be loaded from file on addon load
@@ -32,31 +37,81 @@ end
 
 local default_height = 20 + 6 * 32 + 2 * 24
 
+local get_required_height = function()
+    local height = default_height
+    local elems  = { CS_ResourceBar, CS_PetHPBar, CS_PetAttackButton }
+    for _, elem in ipairs(elems) do
+        if elem:IsVisible() then
+            height = height + elem:GetHeight()
+        end
+    end
+    return height
+end
+
 local toggle_pet_info = function()
     local visible = CS.Mechanics.Sheet.PetActive
     CS.Interface.Toggle(CS_PetHPBar_Decrement, visible)
     CS.Interface.Toggle(CS_PetHPBar, visible)
     CS.Interface.Toggle(CS_PetHPBar_Increment, visible)
     CS.Interface.Toggle(CS_PetAttackButton, visible)
-    local delta = visible and (20 + 24) or 0
-    delta = delta + (CS.Mechanics.Sheet.Resource and 20 or 0)
-    CS_StatsFrame:SetHeight(default_height + delta)
+    CS_StatsFrame:SetHeight(get_required_height())
+end
+
+local elem_offsets = nil
+
+local init_offsets = function()
+    local elems = {
+        CS_CombatButton,
+        CS_HealButton,
+        CS_PetHPBar_Decrement,
+        CS_PetHPBar,
+        CS_PetHPBar_Increment,
+        CS_PetAttackButton
+    }
+    for _, stat in ipairs { "STR", "DEX", "CON", "INT", "WIS", "CHA" } do
+        table.insert(elems, _G["CS_StatIcon_"   .. stat])
+        table.insert(elems, _G["CS_StatButton_" .. stat])
+    end
+
+    if elem_offsets then return elems end
+
+    elem_offsets = {}
+    for _, elem in ipairs(elems) do
+        local _, _, _, x, y = elem:GetPoint(1)
+        elem_offsets[elem]  = { x = x, y = y }
+    end
+
+    return elems
 end
 
 local update_resource = function(self)
     local resource = CS.Mechanics.Sheet.Resource
     local visible  = resource ~= nil
-    CS.Interface.Toggle(CS_ResourceBar_Decrement, visible)
-    CS.Interface.Toggle(CS_ResourceBar, visible)
-    CS.Interface.Toggle(CS_ResourceBar_Increment, visible)
-    local delta = visible and (20) or 0
-    delta = delta + (CS.Mechanics.Sheet.PetActive and 20 + 24 or 0)
-    CS_StatsFrame:SetHeight(default_height + delta)
-    
-    if not resource then
-        
-        return
+    local elems    = {
+        CS_ResourceBar_Decrement,
+        CS_ResourceBar,
+        CS_ResourceBar_Increment
+    }
+    for _, elem in ipairs(elems) do
+        CS.Interface.Toggle(elem, visible)
     end
+    CS_StatsFrame:SetHeight(get_required_height())
+    
+    elems = init_offsets()
+
+    local offset = visible and 0 or 20
+
+    for _, elem in ipairs(elems) do
+        elem:SetPoint(
+            "TOPLEFT",
+            CS_StatsFrame,
+            "TOPLEFT",
+            elem_offsets[elem].x,
+            elem_offsets[elem].y + offset
+        )
+    end
+
+    if not resource then return end
     
     local color = resource.Color or { 1.0, 1.0, 1.0, 1.0 }
     local text_color = resource.TextColor or { 1.0, 1.0, 1.0, 1.0 }
@@ -195,11 +250,13 @@ CS.Interface.Frame {
         },
         -- Stats
         CS.Interface.Icon {
+            Global  = "CS_StatIcon_STR",
             Width   = 32,
             Height  = 32,
             Texture = "Interface\\ICONS\\Pet_Type_Beast.blp"
         },
         CS.Interface.Button {
+            Global  = "CS_StatButton_STR",
             Width   = 110 - 32,
             Height  = 32,
             Text    = "STR",
@@ -212,11 +269,13 @@ CS.Interface.Frame {
             }
         },
         CS.Interface.Icon {
+            Global  = "CS_StatIcon_DEX",
             Width   = 32,
             Height  = 32,
             Texture = "Interface\\ICONS\\Pet_Type_Flying.blp"
         },
         CS.Interface.Button {
+            Global  = "CS_StatButton_DEX",
             Width   = 110 - 32,
             Height  = 32,
             Text    = "DEX",
@@ -229,11 +288,13 @@ CS.Interface.Frame {
             }
         },
         CS.Interface.Icon {
+            Global  = "CS_StatIcon_CON",
             Width   = 32,
             Height  = 32,
             Texture = "Interface\\ICONS\\Pet_Type_Humanoid.blp"
         },
         CS.Interface.Button {
+            Global  = "CS_StatButton_CON",
             Width   = 110 - 32,
             Height  = 32,
             Text    = "CON",
@@ -246,11 +307,13 @@ CS.Interface.Frame {
             }
         },
         CS.Interface.Icon {
+            Global  = "CS_StatIcon_INT",
             Width   = 32,
             Height  = 32,
             Texture = "Interface\\ICONS\\Pet_Type_Mechanical.blp"
         },
         CS.Interface.Button {
+            Global  = "CS_StatButton_INT",
             Width   = 110 - 32,
             Height  = 32,
             Text    = "INT",
@@ -263,11 +326,13 @@ CS.Interface.Frame {
             }
         },
         CS.Interface.Icon {
+            Global  = "CS_StatIcon_WIS",
             Width   = 32,
             Height  = 32,
             Texture = "Interface\\ICONS\\Pet_Type_Dragon.blp"
         },
         CS.Interface.Button {
+            Global  = "CS_StatButton_WIS",
             Width   = 110 - 32,
             Height  = 32,
             Text    = "WIS",
@@ -280,11 +345,13 @@ CS.Interface.Frame {
             }
         },
         CS.Interface.Icon {
+            Global  = "CS_StatIcon_CHA",
             Width   = 32,
             Height  = 32,
             Texture = "Interface\\ICONS\\Pet_Type_Magical.blp"
         },
         CS.Interface.Button {
+            Global  = "CS_StatButton_CHA",
             Width   = 110 - 32,
             Height  = 32,
             Text    = "CHA",
@@ -298,6 +365,7 @@ CS.Interface.Frame {
         },
         -- Heal button
         CS.Interface.Checkbox {
+            Global  = "CS_CombatButton",
             Width    = 24,
             Height   = 24,
             Enabled  = {
@@ -311,6 +379,7 @@ CS.Interface.Frame {
             end
         },
         CS.Interface.Button {
+            Global    = "CS_HealButton",
             Width     = 110 - 24,
             Height    = 24,
             Text      = "Heal",
