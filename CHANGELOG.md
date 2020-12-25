@@ -19,6 +19,9 @@ These are used to manage custom resources.
 - Window for changing the addon's settings in the Interface menu.
 - Button for toggling combat on and off in the stats frame. This affects heal
 rolls.
+- When your save file is from a newer version of the addon than the one you are
+currently using, the save file will be ignored until you update the addon to
+prevent loss of data.
 
 ### Removed
 - The pet list.
