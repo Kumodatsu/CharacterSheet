@@ -4,6 +4,7 @@ local M = CS.SavedData
 
 local T = CS.Locale.GetLocaleTranslations()
 
+local do_load = true
 local do_save = true
 
 -- Returns the current character's realm and name.
@@ -47,6 +48,7 @@ M.preprocess_data = function()
         -- one probably accidentally installed an older version while trying to
         -- update. In this case the save file is left unchanged to prevent loss
         -- of data.
+        do_load = false
         do_save = false
         return message(T.ERROR_TIME_TRAVEL(CS_DB.Version, current_version))
     end
@@ -54,6 +56,8 @@ end
 
 -- Load the saved data. The data is assumed to be in the latest expected format.
 M.load_data = function()
+    if not do_load then return end
+
     -- Global settings
     CS.Roll.RaidRollsEnabled = CS_DB.GlobalSettings.RaidRollsEnabled
         or CS.Roll.RaidRollsEnabled
