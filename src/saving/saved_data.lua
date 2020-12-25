@@ -4,8 +4,6 @@ local M = CS.SavedData
 
 local T = CS.Locale.GetLocaleTranslations()
 
-local release_page = "https://github.com/Kumodatsu/CharacterSheet/releases"
-
 local do_save = true
 
 -- Returns the current character's realm and name.
@@ -50,8 +48,7 @@ M.preprocess_data = function()
         -- update. In this case the save file is left unchanged to prevent loss
         -- of data.
         do_save = false
-        return message(T.ERROR_TIME_TRAVEL(CS_DB.Version, current_version,
-            release_page))
+        return message(T.ERROR_TIME_TRAVEL(CS_DB.Version, current_version))
     end
 end
 

@@ -98,8 +98,8 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     MSG_NO_RESOURCE                = "You do not have a resource.",
 
     ERROR_PREFIX_UNAVAILABLE       = "The CharacterSheet addon could not register a message prefix. The addon may not work properly.",
-    -- 1: save version, 2: current version, 3: release page link
-    ERROR_TIME_TRAVEL              = "Your CharacterSheet save file is from a newer version of the addon (%1$s) than the currently installed version (%2$s).\nMaybe something went wrong when updating the addon.\nTry getting the latest version from %3$s",
+    -- 1: save version, 2: current version
+    ERROR_TIME_TRAVEL              = "Your CharacterSheet save file is from a newer version of the addon (%1$s) than the currently installed version (%2$s).\nMaybe something went wrong when updating the addon.",
     -- 1: command
     ERROR_DUPLICATE_COMMAND        = "Duplicate command name: %1$s",
     -- 1: command
