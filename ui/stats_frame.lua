@@ -6,7 +6,7 @@
 local addon_name, CS = ...
 
 -- Will be loaded from file on addon load
-CS.Interface.UIState.StatsFrameVisible = true
+CS.Interface.UIState.StatsFrameVisible = false
 
 local update_hp_bar = function(self)
     local hp     = CS.Mechanics.Sheet.HP

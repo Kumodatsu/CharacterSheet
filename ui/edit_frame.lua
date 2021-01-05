@@ -3,7 +3,7 @@ local addon_name, CS = ...
 local T = CS.Locale.GetLocaleTranslations()
 
 -- Will be loaded from file on addon load
-CS.Interface.UIState.EditFrameVisible = true
+CS.Interface.UIState.EditFrameVisible = false
 
 local update_stat = function(stat)
     return function(self)
