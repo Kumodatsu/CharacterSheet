@@ -83,7 +83,8 @@ CS.Interface.Frame = function(info, parent)
         frame:SetHeight(height)
     end
     info.Point = info.Point or { "CENTER", UIParent, "CENTER" }
-    frame:SetPoint(info.Point[1], info.Point[2], info.Point[3])
+    frame:SetPoint(info.Point[1], info.Point[2], info.Point[3], info.Point[4],
+        info.Point[5])
     if info.Movable then
         frame:EnableMouse(true)
         frame:SetMovable(true)

@@ -152,7 +152,7 @@ CS.Interface.Frame {
     },
     Width      = 110,
     Height     = default_height,
-    Point      = { "CENTER", UIParent, "CENTER" },
+    Point      = { "CENTER", UIParent, "CENTER", -145, 0 },
     Movable    = true,
     Clamped    = true,
     Events     = {
