@@ -1,2 +1,5 @@
 local addon_name, CS = ...
-CS.Extensions = {}
+
+CS_API = {
+    
+}
