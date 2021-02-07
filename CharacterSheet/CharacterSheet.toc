@@ -5,6 +5,9 @@
 ## SavedVariables: CS_DB
 ## Version: 0.6.0
 
+src\util.lua
+src\version.lua
 src\main.lua
 
 api\api.lua
+api\version.lua
