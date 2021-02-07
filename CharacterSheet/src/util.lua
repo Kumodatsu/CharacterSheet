@@ -2,7 +2,7 @@
 
 local addon_name, CS = ...
 
-local CS.Util = {}
+CS.Util = {}
 
 --- Gets the matches with a pattern from a string.
 -- @tparam string str The string to match against the pattern.
