@@ -18,12 +18,15 @@ end
 -- @treturn number A number which is equal to 0 if a = b; or less than 0 if a < b; or
 -- greater than 0 if a > b.
 CS.CompareVersions = function(a, b)
-    assert()
     local a_major, a_minor, a_patch = CS.Util.StrMatch(a, "%d+")
     local b_major, b_minor, b_patch = CS.Util.StrMatch(b, "%d+")
     a_major, a_minor, a_patch, b_major, b_minor, b_patch =
         tonumber(a_major), tonumber(a_minor), tonumber(a_patch),
         tonumber(b_major), tonumber(b_minor), tonumber(b_patch)
+    assert(
+        a_major and a_minor and a_patch and b_major and b_minor and b_patch,
+        "invalid version string"
+    )
     if a_major > b_major then return  1 end
     if a_major < b_major then return -1 end
     if a_minor > b_minor then return  1 end
