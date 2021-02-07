@@ -6,6 +6,6 @@
 ## OptionalDeps: TotalRP3, Ace3
 ## X-Embeds: Ace3
 ## SavedVariables: CS_UI_DB
-## Version: 0.1.0
+## Version: 0.6.0
 
 src\main.lua
