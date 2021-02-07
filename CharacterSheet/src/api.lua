@@ -1,5 +1,0 @@
-local addon_name, CS = ...
-
-CS_API = {
-    
-}
