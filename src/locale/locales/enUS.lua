@@ -97,6 +97,11 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     MSG_INVALID_COLOR              = "You must specify a valid color.",
     MSG_NO_RESOURCE                = "You do not have a resource.",
 
+    MSG_TRP_STATS_ARGS             = "The argument must be one of: off, cur, ooc",
+    MSG_TRP_STATS_NONE             = "Your stats will now not appear in your TRP.",
+    MSG_TRP_STATS_CURRENTLY        = "Your stats will now appear in your TRP Currently information.",
+    MSG_TRP_STATS_OOC              = "Your stats will now appear in your TRP OOC information.",
+
     ERROR_PREFIX_UNAVAILABLE       = "The CharacterSheet addon could not register a message prefix. The addon may not work properly.",
     -- 1: save version, 2: current version
     ERROR_TIME_TRAVEL              = "Your CharacterSheet save file is from a newer version of the addon (%1$s) than the currently installed version (%2$s).\nMaybe something went wrong when updating the addon.",
@@ -118,6 +123,9 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     SETTING_RAID_ROLLS_DESC        = "When enabled and in a party or raid, the results of rolls with modifiers will be displayed in party/raid chat.",
     SETTING_TRP_STATS              = "TRP Stats",
     SETTING_TRP_STATS_DESC         = "When set to Currently or OOC, your stats and HP will automatically be put in front of your TRP Currently or OOC information respectively whenever they change.",
+    SETTING_TRP_STATS_DISABLED     = "Disabled",
+    SETTING_TRP_STATS_CURRENTLY    = "Currently",
+    SETTING_TRP_STATS_OOC          = "OOC",
 
     -- 1: author, 2: title, 3: version
     ADDON_INFO                     = "%1$s's %2$s, version %3$s"

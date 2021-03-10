@@ -7,6 +7,8 @@ local Enum    = CS.Type.Enum
 local switch  = CS.switch
 local switchf = CS.switchf
 
+local T = CS.Locale.GetLocaleTranslations()
+
 M.StatUpdateState = Enum {
     None      = 1,
     Currently = 2,
@@ -176,17 +178,17 @@ local set_stat_update = function(value)
         ["ooc"] = M.StatUpdateState.OOC,
     }
     if not state then
-        return CS.Print "The argument must be one of: off, cur, ooc"
+        return CS.Print(T.MSG_TRP_STATS_ARGS)
     end
     M.UpdateTRPWithStats = state
     CS.Print(
         switch(state) {
             [M.StatUpdateState.None] =
-                "Your TRP information now will not be overwritten by your stats.",
+                T.MSG_TRP_STATS_NONE,
             [M.StatUpdateState.Currently] =
-                "Your TRP Currently information now will be overwritten by your stats.",
+                T.MSG_TRP_STATS_CURRENTLY,
             [M.StatUpdateState.OOC] =
-                "Your TRP OOC information now will be overwritten by your stats."
+                T.MSG_TRP_STATS_OOC
         }
     )
 end

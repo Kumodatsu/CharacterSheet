@@ -85,9 +85,9 @@ if trp3 then
             trp3.UpdateTRPWithStats = value
         end,
         values = {
-            [StatUpdateState.None]      = "Disabled",
-            [StatUpdateState.Currently] = "Currently",
-            [StatUpdateState.OOC]       = "OOC"
+            [StatUpdateState.None]      = T.SETTING_TRP_STATS_DISABLED,
+            [StatUpdateState.Currently] = T.SETTING_TRP_STATS_CURRENTLY,
+            [StatUpdateState.OOC]       = T.SETTING_TRP_STATS_OOC
         }
     }
 end
