@@ -13,8 +13,11 @@ Click on it, then click on "CharacterSheet.zip" to download.
 
 ### How to install
 The downloaded zip file contains a single folder called "CharacterSheet".
-Drop this folder (not the zip file itself!) into your AddOns folder `World of Warcraft\_retail_\Interface\AddOns`.
-If you run the game now, it should be working.
+Drop this folder (not the zip file itself!) into your AddOns folder
+`World of Warcraft\_retail_\Interface\AddOns`.
+You can test if everything went well by running the command `/cs version`.
+If you see the addon's version in (the general tab of) your chat, the addon
+should be working correctly.
 
 ### How to make backups
 The addon saves your data into your World of Warcraft folder.
