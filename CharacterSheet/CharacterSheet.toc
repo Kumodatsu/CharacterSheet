@@ -1,0 +1,9 @@
+## Interface: 90005
+## Title: Character Sheet
+## Notes: Management and automation for an RP character sheet system.
+## Author: Kumodatsu
+## OptionalDeps: TotalRP3
+## SavedVariables: CS_DB
+## Version: 0.5.3
+
+src\main.lua
