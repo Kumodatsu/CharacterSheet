@@ -6,4 +6,4 @@
 ## SavedVariables: CS_DB
 ## Version: 0.5.3
 
-src\main.lua
+CharacterSheet.xml
