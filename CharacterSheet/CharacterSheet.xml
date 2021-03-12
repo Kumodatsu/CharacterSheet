@@ -7,6 +7,7 @@
 	<Script  file="src/Core/Locale.lua"/>
     <Include file="Locales.xml"/>
     
+    <Script file="src/Core/Event.lua"/>
     <Script file="src/Core/Output.lua"/>
 	<Script file="src/Core/Command.lua"/>
 
