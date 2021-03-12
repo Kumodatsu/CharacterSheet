@@ -11,6 +11,8 @@
     <Script file="src/Core/Output.lua"/>
 	<Script file="src/Core/Command.lua"/>
 
+    <Script file="src/Mechanics/Roll.lua"/>
+
 	<Script file="src/Main.lua"/>
 
 </Ui>

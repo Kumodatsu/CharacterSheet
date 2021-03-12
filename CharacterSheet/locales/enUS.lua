@@ -136,6 +136,9 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     CMD_DESC_HELP = multiline [[
         "/cs help" shows the list of commands.
         "/cs help <command>" shows an explanation of the specified command.
+    ]],
+    CMD_DESC_RAID_ROLLS = multiline [[
+        "/cs raidrolls" toggles raid roll messages on and off.
     ]]
 
 }
