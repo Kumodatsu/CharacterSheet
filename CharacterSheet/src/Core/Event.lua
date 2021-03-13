@@ -53,12 +53,12 @@ end
 
 frame_events.OnEvent = function(self, event, arg1, arg2, arg3, arg4)
     if event == "ADDON_LOADED" and arg1 == addon_name then
-        -- CS.SavedData.preprocess_data()
-        -- CS.SavedData.load_data()
+        CS.Storage.preprocess_data()
+        CS.Storage.load_data()
         CS.Events.OnAddonLoaded()
     elseif event == "PLAYER_LOGOUT" then
         CS.Events.OnAddonUnloading()
-        -- CS.SavedData.save_data()
+        CS.Storage.save_data()
     elseif event == "CHAT_MSG_SYSTEM" then
         CS.Events.OnSystemMessageReceived(arg1)
     elseif event == "CHAT_MSG_ADDON" and CS_MessagePrefix

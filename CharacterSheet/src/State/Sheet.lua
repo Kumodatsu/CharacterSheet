@@ -13,6 +13,10 @@ M.get_character_sheet = function()
     return current_character_sheet
 end
 
+M.set_character_sheet = function(sheet)
+    current_character_sheet = sheet
+end
+
 local cmd_set = function(attribute, value)
     -- Check if the given attribute is valid
     if not attribute then
