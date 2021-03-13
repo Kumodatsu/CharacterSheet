@@ -8,3 +8,4 @@
 ## Version: 0.5.3
 
 src/Interface.lua
+src/Frames/StatsFrame.lua

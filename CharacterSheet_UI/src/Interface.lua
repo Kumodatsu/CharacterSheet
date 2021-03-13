@@ -302,16 +302,16 @@ local toggle_frame = function(name)
     if not name then
         return CS_API.print "You must specify a frame to toggle."
     end
-    --[[
     name = name:lower()
     if name == "stats" then
-        CS.Interface.Toggle(CS_StatsFrame)
+        M.Toggle(CS_UI_StatsFrame)
+    --[[
     elseif name == "edit" then
-        CS.Interface.Toggle(CS_EditFrame)
-    else
-        CS.Print("\"%s\" is not a valid frame.", name)
-    end
+        M.Toggle(CS_EditFrame)
     ]]
+    else
+        CS_API.print("\"%s\" is not a valid frame.", name)
+    end
 end
 
 CS_API.Command.add_cmd("toggle", toggle_frame, [[
