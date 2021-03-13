@@ -8,8 +8,22 @@ local T = CS.Locale.GetLocaleTranslations()
 
 local RollType = CS.Mechanics.Roll.RollType
 
-M.StatMinValue = 5
-M.StatMaxValue = 24
+M.StatMinValue      =  5
+M.StatMaxValue      = 24
+M.SafeHealRollDie   = 14
+M.CombatHealRollDie = 10
+M.KnockOutValue     = -5
+
+-- Called when a stat or the power level is changed.
+CS.Events.OnStatsChanged    = CS.Event.create_event()
+-- Called when the current or max HP is changed.
+CS.Events.OnHPChanged       = CS.Event.create_event()
+-- Called when the pet is toggled on or off.
+CS.Events.OnPetToggled      = CS.Event.create_event()
+-- Called when the pet HP or pet attack attribute is changed.
+CS.Events.OnPetChanged      = CS.Event.create_event()
+-- Called when a resource is added, removed or changed.
+CS.Events.OnResourceChanged = CS.Event.create_event()
 
 M.PowerLevel = {
     Novice     = 1,
@@ -37,15 +51,20 @@ M.get_hp_bonus = function(level)
 end
 
 M.create_stat_block = function(level, str, dex, con, int, wis, cha)
-    return {
-        STR   = str or 13,
-        DEX   = dex or 13,
-        CON   = con or 13,
-        INT   = int or 13,
-        WIS   = wis or 13,
-        CHA   = cha or 13,
+    local stat_block = {
+        STR   = str   or 13,
+        DEX   = dex   or 13,
+        CON   = con   or 13,
+        INT   = int   or 13,
+        WIS   = wis   or 13,
+        CHA   = cha   or 13,
         Level = level or M.PowerLevel.Apprentice
     }
+    local valid, msg = M.validate(stat_block)
+    if not valid then
+        return false, msg
+    end
+    return true, stat_block
 end
 
 M.get_attributes = function(stat_block)
@@ -79,7 +98,7 @@ M.get_max_hp = function(stat_block)
 end
 
 M.get_pet_max_hp = function(stat_block)
-    return math.ceil(get_max_hp(stat_block) / 2)
+    return math.ceil(M.get_max_hp(stat_block) / 2)
 end
 
 M.get_potential_sp = function(stat_block)
@@ -100,4 +119,155 @@ end
 
 M.get_heal_modifier = function(stat_block)
     return math.floor(math.max(0, stat_block.CHA - 10) / 2)
+end
+
+M.create_character_sheet = function(stat_block, pet_active, pet_attribute,
+        hp, pet_hp)
+    if not stat_block then
+        local valid, error_or_value = M.create_stat_block()
+        if not valid then
+            return false, error_or_value
+        end
+        stat_block = error_or_value
+    end
+    local sheet = {
+        StatBlock    = stat_block,
+        PetActive    = pet_active    or false,
+        PetAttribute = pet_attribtue or "CHA"
+    }
+    sheet.HP    = hp     or M.get_max_hp(sheet.StatBlock)
+    sheet.PetHP = pet_hp or M.get_pet_max_hp(sheet.StatBlock)
+    return true, sheet
+end
+
+M.clamp_hp = function(sheet)
+    local hp_max = M.get_max_hp(sheet.StatBlock)
+    if sheet.HP > hp_max then
+        M.set_hp(sheet, hp_max)
+    end
+    local pet_hp_max = M.get_pet_max_hp(sheet.StatBlock)
+    if sheet.PetHP > pet_hp_max then
+        M.set_pet_hp(pet_hp_max)
+    end
+end
+
+M.set_stat = function(sheet, attribute, value)
+    if value < M.StatMinValue or value > M.StatMaxValue then
+        return false, T.MSG_RANGE(M.StatMinValue, M.StatMaxValue)
+    end
+    local old_value = sheet.StatBlock[attribute]
+    sheet.StatBlock[attribute] = value
+    local valid, msg = M.validate(sheet.StatBlock)
+    if not valid then
+        sheet.StatBlock[attribute] = old_value
+        return false, msg
+    end
+    CS.Events.OnStatsChanged()
+    if attribute == "CON" then
+        M.clamp_hp(sheet)
+        CS.Events.OnHPChanged()
+    end
+    return true
+end
+
+M.set_pet_attribute = function(sheet, attribute)
+    sheet.PetAttribute = attribute
+    CS.Events.OnPetChanged()
+    return true
+end
+
+M.toggle_pet = function(sheet, active)
+    if active == nil then
+        active = not sheet.PetActive
+    end
+    sheet.PetActive = active
+    M.OnPetToggled(active)
+end
+
+M.set_level = function(sheet, level)
+    sheet.StatBlock.Level = level
+    -- If the change in level causes one to have fewer SP than they have spent,
+    -- reduce stats until the number of SP spent is valid again
+    local sp = M.get_remaining_sp(sheet.StatBlock)
+    for _, attribute in ipairs(M.AttributeNames) do
+        while sheet.StatBlock[attribute] > M.StatMinValue and sp < 0 do
+            sheet.StatBlock[attribute] = sheet.StatBlock[attribute] - 1
+            sp = sp + 1
+        end
+    end
+    M.clamp_hp(sheet)
+    CS.Events.OnStatsChanged()
+    CS.Events.OnHPChanged()
+    return true
+end
+
+M.set_hp = function(sheet, hp)
+    if hp < M.KnockOutValue or hp > M.get_max_hp(sheet.StatBlock) then
+        return false, T.MSG_SET_HP_ALLOWED_VALUES
+    end
+    sheet.HP = hp
+    CS.Events.OnHPChanged()
+    return true
+end
+
+M.increment_hp = function(sheet, number)
+    number = number or 1
+    return M.set_hp(sheet, sheet.HP + number)
+end
+
+M.decrement_hp = function(sheet, number)
+    number = number or 1
+    return M.set_hp(sheet, sheet.HP - number)
+end
+
+M.set_pet_hp = function(sheet, hp)
+    if hp < M.KnockOutValue or hp > M.get_pet_max_hp(sheet.StatBlock) then
+        return false, T.MSG_SET_PET_HP_ALLOWED_VALUES
+    end
+    sheet.PetHP = hp
+    M.OnPetChanged()
+    return true
+end
+
+M.increment_pet_hp = function(sheet, number)
+    number = number or 1
+    return M.set_pet_hp(sheet, sheet.PetHP + number)
+end
+
+M.decrement_pet_hp = function(sheet, number)
+    number = number or 1
+    return M.set_pet_hp(sheet, sheet.PetHP - number)
+end
+
+-- Rolls
+
+M.roll_stat = function(sheet, attribute, modifier)
+    local lower = 1
+    local upper = 20
+
+    -- Natural d20 if no attribute is specified
+    if not attribute then
+        return CS.Mechanics.Roll.Roll(RollType.Raw, lower, upper)
+    end
+
+    -- d20 + mdifier if an attribute is specified
+    modifier = (modifier or 0) + sheet.StatBlock[attribute]
+    CS.Mechanics.Roll.Roll(RollType.Stat, lower, upper, modifier, attribute)
+end
+
+M.roll_heal = function(sheet, in_combat)
+    local modifier = M.get_heal_modifier(sheet.StatBlock)
+    local lower    = 1
+    local upper    = in_combat and M.CombatHealRollDie or M.SafeHealRollDie
+    CS.Mechanics.Roll.Roll(RollType.Heal, lower, upper, modifier)
+end
+
+M.roll_pet_attack = function(sheet)
+    CS.Mechanics.Roll.Roll(
+        RollType.Pet,
+        1,
+        20,
+        sheet.StatBlock[sheet.PetAttribute],
+        function(x) return math.ceil(x / 2) end
+    )
 end
