@@ -56,7 +56,7 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     MSG_POWER_LEVEL_SET            = "Power level set to %1$s.",
     MSG_VALID_STAT_BLOCK           = "Your stat block is valid.",
     MSG_SET_HP_ALLOWED_PARAMETERS  = "The given value must be a number or \"max\".",
-    MSG_SET_HP_ALLOWED_VALUES      = "The given value must be a positive integer and may not exceed your max HP.",
+    MSG_SET_HP_ALLOWED_VALUES      = "The given value must be between the knock out limit and your max HP (inclusive).",
     -- 1: HP
     MSG_HP_SET                     = "HP set to %1$d.",
     MSG_MISSING_PET_NAME           = "You must specify a name for your pet.",
@@ -67,9 +67,9 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     -- 1: name
     MSG_PET_REMOVED                = "Removed pet %1$s.",
     MSG_NO_PETS                    = "You do not have any pets.",
-    MSG_SET_PET_HP_ALLOWED_VALUES  = "The given value must be a positive integer and may not exceed your pet's max HP.",
-    -- 1: name, 2: HP
-    MSG_PET_HP_SET                 = "%1$s's HP set to %2$d.",
+    MSG_SET_PET_HP_ALLOWED_VALUES  = "The given value must be between the knock out limit and your pet's max HP (inclusive).",
+    -- 1: HP
+    MSG_PET_HP_SET                 = "Pet HP set to %1$d.",
     -- 1: name
     MSG_ACTIVE_PET_SET             = "%1$s is now your active pet.",
     MSG_ACTIVE_PET_UNSET           = "You no longer have an active pet.",
@@ -142,6 +142,48 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     ]],
     CMD_DESC_VERSION = multiline [[
         "/cs version" shows the addon's current version number.
+    ]],
+    CMD_DESC_SET = multiline [[
+        "/cs set <stat> <value>" sets the given stat to a given value.
+        For example: "/cs set str 15"
+    ]],
+    CMD_DESC_ROLL = multiline [[
+        "/cs roll <stat>" rolls with the given stat.
+        "/cs roll <stat> <mod>" rolls with the given stat and an additional modifier.
+        For example: "/cs roll str" or "/cs roll int 5" or "/cs roll cha -2"
+    ]],
+    CMD_DESC_STATS = multiline [[
+        "/cs stats" shows the stats you have and their values.
+    ]],
+    CMD_DESC_HEAL = multiline [[
+        "/cs heal" and "/cs heal combat" perform a heal roll using a d10.
+        "/cs heal safe" performs a heal roll using a d14.
+    ]],
+    CMD_DESC_LEVEL = multiline [[
+        "/cs level <level>" sets your character's power level to the specified level.
+        <level> must be one of novice, apprentice, adept, expert, master.
+    ]],
+    CMD_DESC_VALIDATE = multiline [[
+        "/cs validate" checks whether your stat block is valid.
+    ]],
+    CMD_DESC_HP = multiline [[
+        "/cs hp max" sets your current HP to your max HP.
+        "/cs hp <value>" sets your current HP to the given value.
+    ]],
+    CMD_DESC_PET = multiline [[
+        "/cs pet" toggles your pet.
+    ]],
+    CMD_DESC_PETHP = multiline [[
+        "/cs pethp max" sets your active pet's current HP to their max HP.
+        "/cs pethp <value>" sets your active pet's current HP to the given value.
+        "/cs pethp max <name>" sets the pet with the given name's current HP to their max HP.
+        "/cs pethp <value> <name>" sets the pet with the given name's current HP to the given value.
+    ]],
+    CMD_DESC_PETATK = multiline [[
+        "/cs petatk" performs a pet attack roll and displays the final damage number.
+    ]],
+    CMD_DESC_SETPETATK = multiline [[
+        "/cs setpetatk <attribute>" sets your pet attack attribute to the given attribute.
     ]]
 
 }

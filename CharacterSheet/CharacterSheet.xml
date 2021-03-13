@@ -14,6 +14,8 @@
     <Script file="src/Mechanics/Roll.lua"/>
     <Script file="src/Mechanics/Stats.lua"/>
 
+    <Script file="src/State/Sheet.lua"/>
+
 	<Script file="src/Main.lua"/>
 
 </Ui>

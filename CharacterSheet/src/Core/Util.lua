@@ -35,3 +35,7 @@ M.compare_versions = function(a, b)
     if a_patch < b_patch then return -1 end
     return 0
 end
+
+M.is_integer = function(x)
+    return math.floor(x) == x
+end

@@ -25,6 +25,8 @@ CS.Events.OnPetChanged      = CS.Event.create_event()
 -- Called when a resource is added, removed or changed.
 CS.Events.OnResourceChanged = CS.Event.create_event()
 
+M.AttributeNames = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
+
 M.PowerLevel = {
     Novice     = 1,
     Apprentice = 2,
@@ -33,13 +35,28 @@ M.PowerLevel = {
     Master     = 5
 }
 
-M.AttributeNames = { "STR", "DEX", "CON", "INT", "WIS", "CHA" }
-
 M.is_valid_attribute = function(name)
     for _, attrib in ipairs(M.AttributeNames) do
         if attrib == name then return true end
     end
     return false
+end
+
+M.power_level_name = function(level)
+    return ({
+        "Novice", "Apprentice", "Adept", "Expert", "Master"
+    })[level]
+end
+
+M.power_level_from_name = function(name)
+    name = name:lower()
+    return ({
+        ["novice"]     = 1,
+        ["apprentice"] = 2,
+        ["adept"]      = 3,
+        ["expert"]     = 4,
+        ["master"]     = 5
+    })[name]
 end
 
 M.get_sp_bonus = function(level)
@@ -181,7 +198,7 @@ M.toggle_pet = function(sheet, active)
         active = not sheet.PetActive
     end
     sheet.PetActive = active
-    M.OnPetToggled(active)
+    CS.Events.OnPetToggled(active)
 end
 
 M.set_level = function(sheet, level)
@@ -225,7 +242,7 @@ M.set_pet_hp = function(sheet, hp)
         return false, T.MSG_SET_PET_HP_ALLOWED_VALUES
     end
     sheet.PetHP = hp
-    M.OnPetChanged()
+    CS.Events.OnPetChanged()
     return true
 end
 
@@ -268,6 +285,7 @@ M.roll_pet_attack = function(sheet)
         1,
         20,
         sheet.StatBlock[sheet.PetAttribute],
+        sheet.PetAttribute,
         function(x) return math.ceil(x / 2) end
     )
 end
