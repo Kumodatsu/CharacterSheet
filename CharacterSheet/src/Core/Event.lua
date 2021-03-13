@@ -24,6 +24,7 @@ end
 
 CS.Events = {
     OnAddonLoaded           = M.create_event(),
+    AfterAddonLoaded        = M.create_event(),
     OnAddonUnloading        = M.create_event(),
     OnSystemMessageReceived = M.create_event(),
     OnAddonMessageReceived  = M.create_event(),
@@ -38,6 +39,7 @@ local frame_events = CreateFrame("FRAME", "CS_EventFrame")
 
 local event_names = {
     "ADDON_LOADED",
+    "PLAYER_LOGIN",
     "PLAYER_LOGOUT",
     "CHAT_MSG_SYSTEM",
     "CHAT_MSG_ADDON"
@@ -56,6 +58,8 @@ frame_events.OnEvent = function(self, event, arg1, arg2, arg3, arg4)
         CS.Storage.preprocess_data()
         CS.Storage.load_data()
         CS.Events.OnAddonLoaded()
+    elseif event == "PLAYER_LOGIN" then
+        CS.Events.AfterAddonLoaded()
     elseif event == "PLAYER_LOGOUT" then
         CS.Events.OnAddonUnloading()
         CS.Storage.save_data()

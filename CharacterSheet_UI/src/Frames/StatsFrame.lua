@@ -10,7 +10,6 @@ local S         = CS_API.Mechanics.Stats
 local get_sheet = CS_API.State.Sheet.get_character_sheet
 local I         = CS_UI.Interface
 
-
 local update_hp_bar = function(self)
     local sheet  = get_sheet()
     local hp     = sheet.HP
@@ -54,7 +53,7 @@ I.Frame {
     Movable    = true,
     Clamped    = true,
     Events     = {
-        [E.OnAddonLoaded]    = {
+        [E.AfterAddonLoaded]    = {
             function(self)
                 if stats_frame_visible then
                     self:Show()
@@ -100,7 +99,7 @@ I.Frame {
                 Color   = { 0.0, 0.35, 0.0, 1.0 }
             },
             Events      = {
-                [E.OnAddonLoaded]              = { update_hp_bar },
+                [E.AfterAddonLoaded]              = { update_hp_bar },
                 [E.OnHPChanged] = { update_hp_bar }
             }
         },
@@ -141,7 +140,7 @@ I.Frame {
                 Color   = { 0.0, 0.0, 0.35, 1.0 }
             },
             Events      = {
-                [E.OnAddonLoaded]                    = { update_resource },
+                [E.AfterAddonLoaded]                    = { update_resource },
                 [E.OnResourceChanged] = { update_resource }
             }
         },
@@ -172,7 +171,7 @@ I.Frame {
                 S.roll_stat(get_sheet(), "STR")
             end,
             Events  = {
-                [E.OnAddonLoaded] = {
+                [E.AfterAddonLoaded] = {
                     update_stat_button "STR"
                 },
                 [E.OnStatsChanged] = {
@@ -195,7 +194,7 @@ I.Frame {
                 S.roll_stat(get_sheet(), "DEX")
             end,
             Events  = {
-                [E.OnAddonLoaded] = {
+                [E.AfterAddonLoaded] = {
                     update_stat_button "DEX"
                 },
                 [E.OnStatsChanged] = {
@@ -218,7 +217,7 @@ I.Frame {
                 S.roll_stat(get_sheet(), "CON")
             end,
             Events  = {
-                [E.OnAddonLoaded] = {
+                [E.AfterAddonLoaded] = {
                     update_stat_button "CON"
                 },
                 [E.OnStatsChanged] = {
@@ -241,7 +240,7 @@ I.Frame {
                 S.roll_stat(get_sheet(), "INT")
             end,
             Events  = {
-                [E.OnAddonLoaded] = {
+                [E.AfterAddonLoaded] = {
                     update_stat_button "INT"
                 },
                 [E.OnStatsChanged] = {
@@ -264,7 +263,7 @@ I.Frame {
                 S.roll_stat(get_sheet(), "WIS")
             end,
             Events  = {
-                [E.OnAddonLoaded] = {
+                [E.AfterAddonLoaded] = {
                     update_stat_button "WIS"
                 },
                 [E.OnStatsChanged] = {
@@ -287,7 +286,7 @@ I.Frame {
                 S.roll_stat(get_sheet(), "CHA")
             end,
             Events  = {
-                [E.OnAddonLoaded] = {
+                [E.AfterAddonLoaded] = {
                     update_stat_button "CHA"
                 },
                 [E.OnStatsChanged] = {
@@ -349,7 +348,7 @@ I.Frame {
                 Color   = { 0.0, 0.35, 0.0, 1.0 }
             },
             Events      = {
-                [E.OnAddonLoaded]                 = { update_pet_hp_bar },
+                [E.AfterAddonLoaded]                 = { update_pet_hp_bar },
                 [E.OnPetToggled]   = { update_pet_hp_bar },
                 [E.OnPetChanged]   = { update_pet_hp_bar },
                 [E.OnStatsChanged] = { update_pet_hp_bar }
