@@ -39,3 +39,7 @@ end
 M.is_integer = function(x)
     return math.floor(x) == x
 end
+
+M.round = function(x)
+    return math.floor(x + 0.5)
+end

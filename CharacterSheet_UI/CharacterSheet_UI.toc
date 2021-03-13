@@ -1,0 +1,10 @@
+## Interface: 90005
+## Title: Character Sheet UI
+## Notes: UI for the Character Sheet addon.
+## Author: Kumodatsu
+## OptionalDeps: TotalRP3
+## RequiredDeps: CharacterSheet
+## SavedVariables: CS_UI_DB
+## Version: 0.5.3
+
+src/Interface.lua
