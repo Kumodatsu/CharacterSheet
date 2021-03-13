@@ -139,6 +139,9 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     ]],
     CMD_DESC_RAID_ROLLS = multiline [[
         "/cs raidrolls" toggles raid roll messages on and off.
+    ]],
+    CMD_DESC_VERSION = multiline [[
+        "/cs version" shows the addon's current version number.
     ]]
 
 }

@@ -75,4 +75,12 @@ local list_help = function(name)
     CS.print(entry.Description)
 end
 
-M.add_cmd("help", list_help, T.CMD_DESC_HELP)
+local show_version = function()
+    local author  = GetAddOnMetadata(addon_name, "author")
+    local title   = GetAddOnMetadata(addon_name, "title")
+    local version = GetAddOnMetadata(addon_name, "version")
+    CS.print(T.ADDON_INFO(author, title, version))
+end
+
+M.add_cmd("help",    list_help,    T.CMD_DESC_HELP)
+M.add_cmd("version", show_version, T.CMD_DESC_VERSION)
