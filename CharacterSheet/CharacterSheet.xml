@@ -12,6 +12,7 @@
 	<Script file="src/Core/Command.lua"/>
 
     <Script file="src/Mechanics/Roll.lua"/>
+    <Script file="src/Mechanics/Stats.lua"/>
 
 	<Script file="src/Main.lua"/>
 
