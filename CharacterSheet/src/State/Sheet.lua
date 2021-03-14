@@ -1,3 +1,7 @@
+--- Module containing the state of the current character sheet.
+-- @module CS.State.Sheet
+-- @alias M
+
 local addon_name, CS = ...
 CS.State = CS.State or {}
 CS.State.Sheet = {}
@@ -9,10 +13,18 @@ local T = CS.Locale.GetLocaleTranslations()
 
 local current_character_sheet = CS.Mechanics.Stats.create_character_sheet()
 
+--[[--
+    Gets the current character sheet.
+    @treturn table The current character sheet.
+]]
 M.get_character_sheet = function()
     return current_character_sheet
 end
 
+--[[--
+    Sets the current character sheet.
+    @tparam table sheet The character sheet.
+]]
 M.set_character_sheet = function(sheet)
     current_character_sheet = sheet
 end
