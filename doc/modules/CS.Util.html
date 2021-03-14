@@ -1,0 +1,286 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/CS.Output.html">CS.Output</a></li>
+  <li><strong>CS.Util</strong></li>
+  <li><a href="../modules/CS.Mechanics.Roll.html">CS.Mechanics.Roll</a></li>
+  <li><a href="../modules/CS.Mechanics.Stats.html">CS.Mechanics.Stats</a></li>
+  <li><a href="../modules/CS.State.Sheet.html">CS.State.Sheet</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>CS.Util</code></h1>
+<p>Various utility functions.</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#match">match (str, pattern)</a></td>
+	<td class="summary">Gets the matches of a pattern in a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#iformat">iformat (format[, ...])</a></td>
+	<td class="summary">Formats a string with values in an order independent way.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#multiline">multiline (str)</a></td>
+	<td class="summary">Removes indentation and initial line breaks from a string.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#compare_versions">compare_versions (a, b)</a></td>
+	<td class="summary">Compares two version strings.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#is_integer">is_integer (x)</a></td>
+	<td class="summary">Checks if a value is an integer.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#round">round (x)</a></td>
+	<td class="summary">Rounds a value to the nearest integer.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "match"></a>
+    <strong>match (str, pattern)</strong>
+    </dt>
+    <dd>
+    Gets the matches of a pattern in a string.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to match on.
+        </li>
+        <li><span class="parameter">pattern</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The pattern string.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">{string,...}</a></span>
+        The matches.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "iformat"></a>
+    <strong>iformat (format[, ...])</strong>
+    </dt>
+    <dd>
+    Formats a string with values in an order independent way.
+    The format string may contain directives of the form %n$t where n is the
+    index of the argument (not counting the format string itself) to insert in
+    the directive's place, and t is a letter that indicates how to format the
+    argument; the latter is the same as the standard string.format function. For
+    example, the directive %2$d inserts the second argument as a decimal number.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">format</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The format string.
+        </li>
+        <li><span class="parameter">...</span>
+         The values to format the string with.
+         (<em>optional</em>)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "multiline"></a>
+    <strong>multiline (str)</strong>
+    </dt>
+    <dd>
+    Removes indentation and initial line breaks from a string.
+    Removes all space and tab characters following line breaks, and all line
+    breaks at the beginning of the string. This can be used to be able to format
+    multiline strings in source code to fit the rest of the code, without the
+    formatting affecting the actual string value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">str</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to process.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The processed string.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "compare_versions"></a>
+    <strong>compare_versions (a, b)</strong>
+    </dt>
+    <dd>
+    Compares two version strings.
+    Compares the two version strings and returns a value which indicates which
+    version is later. The version strings must be of the format "x.y.z" where the
+    numbers x, y and z are the major version, minor version and patch version
+    respectively.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">a</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The first version string.
+        </li>
+        <li><span class="parameter">b</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The second version string.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        A number that is equal to 0 iff a = b, less than 0 iff a < b
+    and greater than 0 iff a > b.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "is_integer"></a>
+    <strong>is_integer (x)</strong>
+    </dt>
+    <dd>
+    Checks if a value is an integer.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         A numeric value.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true iff x is an integer (number without fractional part),
+    false otherwise.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "round"></a>
+    <strong>round (x)</strong>
+    </dt>
+    <dd>
+    Rounds a value to the nearest integer.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">x</span>
+            <span class="types"><span class="type">number</span></span>
+         A numeric value.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The integer value that is closest to x.
+    </ol>
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2021-03-14 06:09:46 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>

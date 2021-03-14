@@ -1,0 +1,1300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <title>Reference</title>
+    <link rel="stylesheet" href="../ldoc.css" type="text/css" />
+</head>
+<body>
+
+<div id="container">
+
+<div id="product">
+	<div id="product_logo"></div>
+	<div id="product_name"><big><b></b></big></div>
+	<div id="product_description"></div>
+</div> <!-- id="product" -->
+
+
+<div id="main">
+
+
+<!-- Menu -->
+
+<div id="navigation">
+<br/>
+<h1>ldoc</h1>
+
+<ul>
+  <li><a href="../index.html">Index</a></li>
+</ul>
+
+<h2>Contents</h2>
+<ul>
+<li><a href="#Functions">Functions</a></li>
+<li><a href="#Tables">Tables</a></li>
+<li><a href="#Fields">Fields</a></li>
+</ul>
+
+
+<h2>Modules</h2>
+<ul class="nowrap">
+  <li><a href="../modules/CS.Output.html">CS.Output</a></li>
+  <li><a href="../modules/CS.Util.html">CS.Util</a></li>
+  <li><a href="../modules/CS.Mechanics.Roll.html">CS.Mechanics.Roll</a></li>
+  <li><strong>CS.Mechanics.Stats</strong></li>
+  <li><a href="../modules/CS.State.Sheet.html">CS.State.Sheet</a></li>
+</ul>
+
+</div>
+
+<div id="content">
+
+<h1>Module <code>CS.Mechanics.Stats</code></h1>
+<p>Main logic for the system's mechanics.</p>
+<p></p>
+
+
+<h2><a href="#Functions">Functions</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#is_valid_attribute">is_valid_attribute (name)</a></td>
+	<td class="summary">Checks if a string is a valid attribute name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_attribute_names">get_attribute_names ()</a></td>
+	<td class="summary">Gets the names of all attributes.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#power_level_name">power_level_name (level)</a></td>
+	<td class="summary">Gets the name of a power level.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#power_level_from_name">power_level_from_name (name)</a></td>
+	<td class="summary">Gets the power level given its name.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_sp_bonus">get_sp_bonus (level)</a></td>
+	<td class="summary">The SP bonus corresponding to a power level.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_hp_bonus">get_hp_bonus (level)</a></td>
+	<td class="summary">The HP bonus corresponding to a power level.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_stat_block">create_stat_block ()</a></td>
+	<td class="summary">Creates a stat block which has a power level and a value for each attribute.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_attributes">get_attributes (stat_block)</a></td>
+	<td class="summary">Gets an iterator over the attribute names and values of a stat block.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#validate">validate (stat_block)</a></td>
+	<td class="summary">Validates a stat block.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_max_hp">get_max_hp (stat_block)</a></td>
+	<td class="summary">Gets the maximum HP for a stat block.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_pet_max_hp">get_pet_max_hp (stat_block)</a></td>
+	<td class="summary">Gets the maximum pet HP for a stat block.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_potential_sp">get_potential_sp (stat_block)</a></td>
+	<td class="summary">Gets the total number of SP that a stat block may have with its power level.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_total_sp">get_total_sp (stat_block)</a></td>
+	<td class="summary">Gets the total number of SP spent in a stat block.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_remaining_sp">get_remaining_sp (stat_block)</a></td>
+	<td class="summary">Gets the total number of SP that may still be spent in a stat block.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#get_heal_modifier">get_heal_modifier (stat_block)</a></td>
+	<td class="summary">Gets the heal modifier for a stat block.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#create_character_sheet">create_character_sheet ()</a></td>
+	<td class="summary">Creates a character sheet.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#clamp_hp">clamp_hp (sheet)</a></td>
+	<td class="summary">Clamps the current HP on a character sheet between the knock out value and
+    the max HP.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_stat">set_stat (sheet, attribute, value)</a></td>
+	<td class="summary">Sets an attribute on a character sheet to a value if valid.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_pet_attribute">set_pet_attribute (sheet, attribute)</a></td>
+	<td class="summary">Sets the attribute to be used for pet attacks on the character sheet.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#toggle_pet">toggle_pet (sheet, active)</a></td>
+	<td class="summary">Activates or deactives the pet on a character sheet.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_level">set_level (sheet, level)</a></td>
+	<td class="summary">Sets the power level on a character sheet.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_hp">set_hp (sheet, hp)</a></td>
+	<td class="summary">Sets the current HP on a character sheet to a value if possible.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#increment_hp">increment_hp (sheet[, number=1])</a></td>
+	<td class="summary">Increases the current HP value on a character sheet by a given number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#decrement_hp">decrement_hp (sheet[, number=1])</a></td>
+	<td class="summary">Decreases the current HP value on a character sheet by a given number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#set_pet_hp">set_pet_hp (sheet, hp)</a></td>
+	<td class="summary">Sets the current pet HP on a character sheet to a value if possible.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#increment_pet_hp">increment_pet_hp (sheet[, number=1])</a></td>
+	<td class="summary">Increases the current pet HP value on a character sheet by a given number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#decrement_pet_hp">decrement_pet_hp (sheet[, number=1])</a></td>
+	<td class="summary">Decreases the current pet HP value on a character sheet by a given number.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#roll_stat">roll_stat (sheet, attribute[, modifier=0])</a></td>
+	<td class="summary">Makes an attribute roll.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#roll_heal">roll_heal (sheet, in_combat)</a></td>
+	<td class="summary">Makes a heal roll.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#roll_pet_attack">roll_pet_attack (sheet)</a></td>
+	<td class="summary">Makes a pet attack roll.</td>
+	</tr>
+</table>
+<h2><a href="#Tables">Tables</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#PowerLevel">PowerLevel</a></td>
+	<td class="summary">An enumeration of all power levels.</td>
+	</tr>
+</table>
+<h2><a href="#Fields">Fields</a></h2>
+<table class="function_list">
+	<tr>
+	<td class="name" nowrap><a href="#StatMinValue">StatMinValue</a></td>
+	<td class="summary">Minimum value for an attribute.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#StatMaxValue">StatMaxValue</a></td>
+	<td class="summary">Maximum value for an attribute.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#SafeHealRollDie">SafeHealRollDie</a></td>
+	<td class="summary">The maximum value on the die to use for heal rolls when out of combat.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CombatHealRollDie">CombatHealRollDie</a></td>
+	<td class="summary">The maximum value on the die to use for heal rolls when in combat.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#KnockOutValue">KnockOutValue</a></td>
+	<td class="summary">The HP value at which one gets knocked out.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CS.Events.OnStatsChanged">CS.Events.OnStatsChanged</a></td>
+	<td class="summary">Called when a stat or the power level is changed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CS.Events.OnHPChanged">CS.Events.OnHPChanged</a></td>
+	<td class="summary">Called when the current or max HP is changed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CS.Events.OnPetToggled">CS.Events.OnPetToggled</a></td>
+	<td class="summary">Called when the pet is toggled on or off.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CS.Events.OnPetChanged">CS.Events.OnPetChanged</a></td>
+	<td class="summary">Called when the pet HP or pet attack attribute is changed.</td>
+	</tr>
+	<tr>
+	<td class="name" nowrap><a href="#CS.Events.OnResourceChanged">CS.Events.OnResourceChanged</a></td>
+	<td class="summary">Called when a resource is added, removed or changed.</td>
+	</tr>
+</table>
+
+<br/>
+<br/>
+
+
+    <h2 class="section-header "><a name="Functions"></a>Functions</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "is_valid_attribute"></a>
+    <strong>is_valid_attribute (name)</strong>
+    </dt>
+    <dd>
+    Checks if a string is a valid attribute name.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The string to check.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true iff the string is a valid short attribute name in
+    uppercase, false otherwise.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_attribute_names"></a>
+    <strong>get_attribute_names ()</strong>
+    </dt>
+    <dd>
+    Gets the names of all attributes.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The short names of all attributes in uppercase.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "power_level_name"></a>
+    <strong>power_level_name (level)</strong>
+    </dt>
+    <dd>
+    Gets the name of a power level.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">level</span>
+            <span class="types"><span class="type">number</span></span>
+         The power level.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        The name of the power level.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "power_level_from_name"></a>
+    <strong>power_level_from_name (name)</strong>
+    </dt>
+    <dd>
+    Gets the power level given its name.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">name</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The power level's name.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The power level that corresponds to the name.
+    </ol>
+     <h3>Or</h3>
+    <ol>
+
+           <span class="types"><span class="type">nil</span></span>
+        nil if the name doesn't correspond to a power level.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_sp_bonus"></a>
+    <strong>get_sp_bonus (level)</strong>
+    </dt>
+    <dd>
+    The SP bonus corresponding to a power level.
+    The SP bonus that a character of a certain power level has. This does not
+    count the standard 60 that every character gets.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">level</span>
+            <span class="types"><span class="type">number</span></span>
+         The power level.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The level's SP bonus.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_hp_bonus"></a>
+    <strong>get_hp_bonus (level)</strong>
+    </dt>
+    <dd>
+    The HP bonus corresponding to a power level.
+    The HP bonus that a character of a certain power level gets on top of their
+    constitution value.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">level</span>
+            <span class="types"><span class="type">number</span></span>
+         The power level.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The level's HP bonus.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_stat_block"></a>
+    <strong>create_stat_block ()</strong>
+    </dt>
+    <dd>
+    Creates a stat block which has a power level and a value for each attribute.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The stat block.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_attributes"></a>
+    <strong>get_attributes (stat_block)</strong>
+    </dt>
+    <dd>
+    Gets an iterator over the attribute names and values of a stat block.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stat_block</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The stat block.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">function</span></span>
+        An iterator of string, number pairs of the stat block's
+        attribute names and the values corresponding to those attributes.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "validate"></a>
+    <strong>validate (stat_block)</strong>
+    </dt>
+    <dd>
+    Validates a stat block.
+    Checks if a stat block's attribute values are valid for its power level.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stat_block</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The stat block.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true iff the stat block is valid, false otherwise.</li>
+        <li>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A message describing why a stat block is invalid or that it
+        still has unspent SP.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_max_hp"></a>
+    <strong>get_max_hp (stat_block)</strong>
+    </dt>
+    <dd>
+    Gets the maximum HP for a stat block.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stat_block</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The stat block.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The maximum HP value.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_pet_max_hp"></a>
+    <strong>get_pet_max_hp (stat_block)</strong>
+    </dt>
+    <dd>
+    Gets the maximum pet HP for a stat block.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stat_block</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The stat block.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The maximum pet HP value.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_potential_sp"></a>
+    <strong>get_potential_sp (stat_block)</strong>
+    </dt>
+    <dd>
+    Gets the total number of SP that a stat block may have with its power level.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stat_block</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The stat block.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The total number of SP allowed for the stat block.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_total_sp"></a>
+    <strong>get_total_sp (stat_block)</strong>
+    </dt>
+    <dd>
+    Gets the total number of SP spent in a stat block.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stat_block</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The stat block.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The total number of SP spent in the stat block.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_remaining_sp"></a>
+    <strong>get_remaining_sp (stat_block)</strong>
+    </dt>
+    <dd>
+    Gets the total number of SP that may still be spent in a stat block.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stat_block</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The stat block.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The total number of SP that may still be spent in the stat
+        block.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "get_heal_modifier"></a>
+    <strong>get_heal_modifier (stat_block)</strong>
+    </dt>
+    <dd>
+    Gets the heal modifier for a stat block.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">stat_block</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The stat block.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">number</span></span>
+        The heal modifier, i.e. the value that is added on top of
+        heal rolls.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "create_character_sheet"></a>
+    <strong>create_character_sheet ()</strong>
+    </dt>
+    <dd>
+    Creates a character sheet.
+
+
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+        The character sheet.
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "clamp_hp"></a>
+    <strong>clamp_hp (sheet)</strong>
+    </dt>
+    <dd>
+    Clamps the current HP on a character sheet between the knock out value and
+    the max HP.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_stat"></a>
+    <strong>set_stat (sheet, attribute, value)</strong>
+    </dt>
+    <dd>
+    Sets an attribute on a character sheet to a value if valid.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">attribute</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The name of the attribute.
+        </li>
+        <li><span class="parameter">value</span>
+            <span class="types"><span class="type">number</span></span>
+         The value to set the attribute to.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true iff the assignment was successful, false otherwise.</li>
+        <li>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A message describing why the assignment is invalid.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_pet_attribute"></a>
+    <strong>set_pet_attribute (sheet, attribute)</strong>
+    </dt>
+    <dd>
+    Sets the attribute to be used for pet attacks on the character sheet.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">attribute</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The name of the attribute.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "toggle_pet"></a>
+    <strong>toggle_pet (sheet, active)</strong>
+    </dt>
+    <dd>
+    Activates or deactives the pet on a character sheet.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">active</span>
+            <span class="types">optional <span class="type">boolean</span></span>
+         true to activate the pet, false to deactive the pet.
+        If not specified, the pet is toggled.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_level"></a>
+    <strong>set_level (sheet, level)</strong>
+    </dt>
+    <dd>
+    Sets the power level on a character sheet.
+    If the new level causes the sheet to have too many SP spent, attribute
+    values will be reduced until the number of SP is valid again.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">level</span>
+            <span class="types"><span class="type">number</span></span>
+         The power level.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+
+           <span class="types"><span class="type">boolean</span></span>
+        true
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_hp"></a>
+    <strong>set_hp (sheet, hp)</strong>
+    </dt>
+    <dd>
+    Sets the current HP on a character sheet to a value if possible.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">hp</span>
+            <span class="types"><span class="type">number</span></span>
+         The HP value.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true iff the assignment was successful, false otherwise.</li>
+        <li>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A message describing why the assignment is invalid.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "increment_hp"></a>
+    <strong>increment_hp (sheet[, number=1])</strong>
+    </dt>
+    <dd>
+    Increases the current HP value on a character sheet by a given number.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">number</span>
+            <span class="types"><span class="type">number</span></span>
+         The number by which to increase the HP value.
+         (<em>default</em> 1)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true iff the assignment was successful, false otherwise.</li>
+        <li>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A message describing why the assignment is invalid.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "decrement_hp"></a>
+    <strong>decrement_hp (sheet[, number=1])</strong>
+    </dt>
+    <dd>
+    Decreases the current HP value on a character sheet by a given number.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">number</span>
+            <span class="types"><span class="type">number</span></span>
+         The number by which to decrease the HP value.
+         (<em>default</em> 1)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true iff the assignment was successful, false otherwise.</li>
+        <li>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A message describing why the assignment is invalid.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "set_pet_hp"></a>
+    <strong>set_pet_hp (sheet, hp)</strong>
+    </dt>
+    <dd>
+    Sets the current pet HP on a character sheet to a value if possible.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">hp</span>
+            <span class="types"><span class="type">number</span></span>
+         The pet HP value.
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true iff the assignment was successful, false otherwise.</li>
+        <li>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A message describing why the assignment is invalid.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "increment_pet_hp"></a>
+    <strong>increment_pet_hp (sheet[, number=1])</strong>
+    </dt>
+    <dd>
+    Increases the current pet HP value on a character sheet by a given number.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">number</span>
+            <span class="types"><span class="type">number</span></span>
+         The number by which to increase the pet HP
+        value.
+         (<em>default</em> 1)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true iff the assignment was successful, false otherwise.</li>
+        <li>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A message describing why the assignment is invalid.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "decrement_pet_hp"></a>
+    <strong>decrement_pet_hp (sheet[, number=1])</strong>
+    </dt>
+    <dd>
+    Decreases the current pet HP value on a character sheet by a given number.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">number</span>
+            <span class="types"><span class="type">number</span></span>
+         The number by which to decrease the pet HP
+        value.
+         (<em>default</em> 1)
+        </li>
+    </ul>
+
+    <h3>Returns:</h3>
+    <ol>
+        <li>
+           <span class="types"><span class="type">boolean</span></span>
+        true iff the assignment was successful, false otherwise.</li>
+        <li>
+           <span class="types">optional <a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+        A message describing why the assignment is invalid.</li>
+    </ol>
+
+
+
+
+</dd>
+    <dt>
+    <a name = "roll_stat"></a>
+    <strong>roll_stat (sheet, attribute[, modifier=0])</strong>
+    </dt>
+    <dd>
+    Makes an attribute roll.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">attribute</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.4">string</a></span>
+         The attribute's name.
+        </li>
+        <li><span class="parameter">modifier</span>
+            <span class="types"><span class="type">number</span></span>
+         A modifier to add on top of the roll after
+        the attribute bonus has been added.
+         (<em>default</em> 0)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "roll_heal"></a>
+    <strong>roll_heal (sheet, in_combat)</strong>
+    </dt>
+    <dd>
+    Makes a heal roll.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+        <li><span class="parameter">in_combat</span>
+            <span class="types"><span class="type">boolean</span></span>
+         true if it's a combat heal roll, false if it's an
+        out of combat heal roll.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "roll_pet_attack"></a>
+    <strong>roll_pet_attack (sheet)</strong>
+    </dt>
+    <dd>
+    Makes a pet attack roll.
+
+
+    <h3>Parameters:</h3>
+    <ul>
+        <li><span class="parameter">sheet</span>
+            <span class="types"><a class="type" href="https://www.lua.org/manual/5.1/manual.html#5.5">table</a></span>
+         The character sheet.
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Tables"></a>Tables</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "PowerLevel"></a>
+    <strong>PowerLevel</strong>
+    </dt>
+    <dd>
+    An enumeration of all power levels.
+
+
+    <h3>Fields:</h3>
+    <ul>
+        <li><span class="parameter">Novice</span>
+        Novice level (76 SP, +2 HP)
+        </li>
+        <li><span class="parameter">Apprentice</span>
+        Apprentice level (78 SP, +4 HP)
+        </li>
+        <li><span class="parameter">Adept</span>
+        Adept level (80 SP, +6 HP)
+        </li>
+        <li><span class="parameter">Expert</span>
+        Expert level (82 SP, +8 HP)
+        </li>
+        <li><span class="parameter">Master</span>
+        Master level (84 SP, +10 HP)
+        </li>
+    </ul>
+
+
+
+
+
+</dd>
+</dl>
+    <h2 class="section-header "><a name="Fields"></a>Fields</h2>
+
+    <dl class="function">
+    <dt>
+    <a name = "StatMinValue"></a>
+    <strong>StatMinValue</strong>
+    </dt>
+    <dd>
+    Minimum value for an attribute.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "StatMaxValue"></a>
+    <strong>StatMaxValue</strong>
+    </dt>
+    <dd>
+    Maximum value for an attribute.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "SafeHealRollDie"></a>
+    <strong>SafeHealRollDie</strong>
+    </dt>
+    <dd>
+    The maximum value on the die to use for heal rolls when out of combat.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CombatHealRollDie"></a>
+    <strong>CombatHealRollDie</strong>
+    </dt>
+    <dd>
+    The maximum value on the die to use for heal rolls when in combat.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "KnockOutValue"></a>
+    <strong>KnockOutValue</strong>
+    </dt>
+    <dd>
+    The HP value at which one gets knocked out.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CS.Events.OnStatsChanged"></a>
+    <strong>CS.Events.OnStatsChanged</strong>
+    </dt>
+    <dd>
+    Called when a stat or the power level is changed.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CS.Events.OnHPChanged"></a>
+    <strong>CS.Events.OnHPChanged</strong>
+    </dt>
+    <dd>
+    Called when the current or max HP is changed.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CS.Events.OnPetToggled"></a>
+    <strong>CS.Events.OnPetToggled</strong>
+    </dt>
+    <dd>
+    Called when the pet is toggled on or off.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CS.Events.OnPetChanged"></a>
+    <strong>CS.Events.OnPetChanged</strong>
+    </dt>
+    <dd>
+    Called when the pet HP or pet attack attribute is changed.
+
+
+
+
+
+
+
+</dd>
+    <dt>
+    <a name = "CS.Events.OnResourceChanged"></a>
+    <strong>CS.Events.OnResourceChanged</strong>
+    </dt>
+    <dd>
+    Called when a resource is added, removed or changed.
+
+
+
+
+
+
+
+</dd>
+</dl>
+
+
+</div> <!-- id="content" -->
+</div> <!-- id="main" -->
+<div id="about">
+<i>generated by <a href="http://github.com/stevedonovan/LDoc">LDoc 1.4.6</a></i>
+<i style="float:right;">Last updated 2021-03-14 06:09:46 </i>
+</div> <!-- id="about" -->
+</div> <!-- id="container" -->
+</body>
+</html>
