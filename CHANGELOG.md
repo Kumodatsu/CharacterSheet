@@ -6,11 +6,15 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- API documentation.
+
 ### Changed
-- The core addon and the UI are now separated into two addons.
+- The core addon and the UI are now separated into two addons. This also
+theoretically allows people to have different UIs for the addon.
 - All command help descriptions are now localized. But only in English.
-- New characters now start with the default character sheet
-(13 in every attribute).
+- New characters now start with the default character sheet (13 in every
+attribute).
 
 ### Fixed
 - Supplying an invalid power level to the command `/cs level` now prints an
