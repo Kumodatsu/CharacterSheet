@@ -7,7 +7,7 @@ local S = CS.Mechanics.Stats
 
 local T = CS.Locale.GetLocaleTranslations()
 
-local _, current_character_sheet = CS.Mechanics.Stats.create_character_sheet()
+local current_character_sheet = CS.Mechanics.Stats.create_character_sheet()
 
 M.get_character_sheet = function()
     return current_character_sheet
