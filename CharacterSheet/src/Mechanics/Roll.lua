@@ -1,3 +1,12 @@
+--- Die rolling functionality.
+-- @module CS.Mechanics.Roll
+-- @alias M
+
+--[[
+    Code for rolling dice, handling modifiers and showing the results in chat.
+    Most of this code has been based on Skylar and Rennae's Dicemaster addon.
+]]
+
 local addon_name, CS = ...
 CS.Mechanics = CS.Mechanics or {}
 CS.Mechanics.Roll = {}
@@ -6,23 +15,22 @@ local M = CS.Mechanics.Roll
 
 local T = CS.Locale.GetLocaleTranslations()
 
---[[
-    Code for rolling dice, handling modifiers and showing the results in chat.
-    Most of this code has been based on Skylar and Rennae's Dicemaster addon.
-]]
-
+--- Roll settings.
 M.Settings = {
-    raid_rolls_enabled = false,
-    display_raw_rolls  = false
+    raid_rolls_enabled = false, -- Whether or not to show roll results in the
+                                -- party/raid chat.
+    display_raw_rolls  = false  -- Whether or not to explicitly show the results
+                                -- of unmodified rolls.
 }
 
 local roll_records = {}
 
+--- An enumeration of all roll types.
 M.RollType = {
-    Raw  = 1,
-    Stat = 2,
-    Heal = 3,
-    Pet  = 4
+    Raw  = 1, -- Unmodified roll
+    Stat = 2, -- Attribute roll
+    Heal = 3, -- Heal roll
+    Pet  = 4  -- Pet attack roll
 }
 
 local roll_matches = function(roll_data, lower, upper, name)
@@ -33,6 +41,17 @@ local roll_matches = function(roll_data, lower, upper, name)
     )
 end
 
+--[[--
+    Makes a die roll.
+    @tparam number roll_type The type of roll, from the RollType table.
+    @tparam number lower The lower bound of the roll.
+    @tparam number upper The upper bound of the roll.
+    @tparam number mod The modifier to add on top of the roll.
+    @tparam string stat The name of the attribute rolled with.
+    @tparam[opt] function tf A function takes a number and outputs a number,
+        that will transform the roll result. If not specified, the roll result
+        is not transformed.
+]]
 M.Roll = function(roll_type, lower, upper, mod, stat, tf)
     local roll_data = {
         name      = UnitName "player",
