@@ -78,7 +78,7 @@ M.StatBlock = Class {
     end,
 
     get_pet_max_hp = function(self)
-        return math.ceil(self:get_max_hp() / 2)
+        return self:get_max_hp()
     end,
 
     -- The number of SP that may be spent given the power level.

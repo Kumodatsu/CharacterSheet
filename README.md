@@ -26,7 +26,7 @@ Character specific data is stored in `World of Warcraft\_retail_\WTF\Account\<ac
 To make a backup of your data, copy these files somewhere safe.
 To restore the data, copy the backup files back to the aforementioned locations.
 
-## Usage (0.5.2)
+## Usage (0.5.3)
 At the moment, most of the functionality of the addon can be used through the UI.
 All of the functionality can be accessed through slash commands.
 All commands provided by the addon start with `/cs`.
