@@ -8,6 +8,12 @@ and this project adheres to
 ## [0.5.7] - 2021-11-03
 ### Changed
 - Updated for World of Warcraft 9.1.5.
+- The folder structure of the repository has changed.
+If you were using automated scripts to update this addon, those may have ceased
+to work.
+Addon managers such as Ajour, Overwolf, WoWUp etc. should still work fine with
+this addon.
+If you don't know what this all means, the change likely won't affect you at all.
 
 ## [0.5.6] - 2021-07-01
 ### Changed
