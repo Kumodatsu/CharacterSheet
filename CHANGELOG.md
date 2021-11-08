@@ -5,7 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.5.7] - 2021-11-03
+## Unreleased
+### Changed
+- The changelog in the repository now contains links to the version downloads.
+
+## [0.5.7][] - 2021-11-03
 ### Changed
 - Updated for World of Warcraft 9.1.5.
 - The folder structure of the repository has changed.
@@ -15,15 +19,15 @@ Addon managers such as Ajour, Overwolf, WoWUp etc. should still work fine with
 this addon.
 If you don't know what this all means, the change likely won't affect you at all.
 
-## [0.5.6] - 2021-07-01
+## [0.5.6][] - 2021-07-01
 ### Changed
 - Updated for World of Warcraft 9.1.0.
 
-## [0.5.3] - 2021-04-06
+## [0.5.3][] - 2021-04-06
 ### Changed
 - Pets now have the same HP as their owner.
 
-## [0.5.2] - 2021-03-10
+## [0.5.2][] - 2021-03-10
 ### Changed
 - Updated for World of Warcraft 9.0.5.
 - Moved a bunch of hardcoded strings into the localization table.
@@ -32,12 +36,12 @@ If you don't know what this all means, the change likely won't affect you at all
 - The messages that display when changing the TRP stats setting no longer
 incorrectly state that one's TRP information will be overwritten.
 
-## [0.5.1] - 2021-01-05
+## [0.5.1][] - 2021-01-05
 ### Changed
 - The UI frames are now initially hidden by default.
 - The UI frames no longer overlap in their initial positions.
 
-## [0.5.0] - 2020-12-25
+## [0.5.0][] - 2020-12-25
 ### Added
 - Command: `/cs pet`. This toggles your pet. This replaces the old system where
 you had to fiddle with pet names and lists and active pets.
@@ -74,11 +78,11 @@ pet name is an argument.
 - When automatically displaying stats in your TRP is enabled, the stats will now
 be placed before your TRP content instead of replacing it.
 
-## [0.4.7] - 2020-10-25
+## [0.4.7][] - 2020-10-25
 ### Changed
 - Heal rolls now use a d10 in combat and a d14 out of combat.
 
-## [0.4.6] - 2020-10-21
+## [0.4.6][] - 2020-10-21
 ### Added
 - String localization. The addon now supports translated strings for other
 languages. However, English is currently still the only one available.
@@ -92,7 +96,7 @@ languages. However, English is currently still the only one available.
 not have enough SP for them anymore.
 This should now truly make it impossible to create invalid stat blocks.
 
-## [0.4.5] - 2020-10-16
+## [0.4.5][] - 2020-10-16
 ### Added
 - The power level and stats in the edit frame now show a descriptive tooltip on
 mouseover.
@@ -105,18 +109,18 @@ to create any invalid stat blocks.
 - When the active pet's max HP changes, this is now updated in the UI
 immediately.
 
-## [0.4.4] - 2020-10-14
+## [0.4.4][] - 2020-10-14
 ### Changed
 - Updated for World of Warcraft 9.0.1.
 
-## [0.4.3] - 2020-10-11
+## [0.4.3][] - 2020-10-11
 ### Changed
 - The command `/cs trpstats` now takes an argument to specify whether to use the
 TRP Currently, OOC or neither for displaying stats.
 - All addon data is now saved in the account wide save file. Loading is
 backwards compatible with saves made since version 0.4.0.
 
-## [0.4.1] - 2020-10-10
+## [0.4.1][] - 2020-10-10
 ### Added
 - The stats frame now has buttons to increment and decrement one's HP.
 - The stats frame now has a pet HP bar and a pet attack button when a pet is
@@ -152,7 +156,7 @@ active pet will be selected when no name is specified.
 - The command `/cs addpet` no longer yields a Lua error when not given a pet
 name.
 
-## [0.4.0] - 2020-09-22
+## [0.4.0][] - 2020-09-22
 ### Added
 - Stats frame. This is a UI frame that displays one's stat values and allows one
 to roll stats with a button click.
@@ -173,16 +177,16 @@ or when raid roll messages have been disabled.
 ### Fixed
 - (Code) Fixed events triggering callbacks of unrelated events.
 
-## [0.3.2] - 2020-08-06
+## [0.3.2][] - 2020-08-06
 ### Fixed
 - Fixed an error with some output messages resulting in a Lua error.
 
-## [0.3.1] - 2020-07-26
+## [0.3.1][] - 2020-07-26
 ### Fixed
 - When re-enabling raid roll messages after rolling, new rolls will no longer
 use incorrect modifers.
 
-## [0.3.0] - 2020-07-25
+## [0.3.0][] - 2020-07-25
 ### Added
 - Roll bonus support. The `/cs roll` command now accepts an additional parameter
 that is a bonus to be added to the roll.
@@ -205,11 +209,11 @@ print message.
 longer be presented as a negative number.
 - Negative numbers in commands are now parsed correctly.
 
-## [0.2.3] - 2020-07-18
+## [0.2.3][] - 2020-07-18
 ### Fixed
 - Setting a stat's value no longer causes a Lua error.
 
-## [0.2.2] - 2020-07-09
+## [0.2.2][] - 2020-07-09
 ### Added
 - Heal modifier. This value is calculated from CHA and added to heal rolls.
 - Command: `/cs half`. Helper command to calculate half of a value with
@@ -229,7 +233,7 @@ stat updates.
 - The README file now contains instructions on how to download, install and use
 the addon.
 
-## [0.2.0] - 2020-07-07
+## [0.2.0][] - 2020-07-07
 ### Added
 - Command: `/cs heal`. Allows one to perform a heal roll.
 - Command: `/cs level`. Allows one to set their character's power level.
@@ -258,7 +262,7 @@ in the future.
 when attempting to set a stat to something nonsensical such as
 "flipperdipperdoo".
 
-## [0.1.0] - 2020-07-03
+## [0.1.0][] - 2020-07-03
 ### Added
 - Changelog file.
 - Command: `/cs clear`. Allows one to clear their stat block.
@@ -270,15 +274,37 @@ when attempting to set a stat to something nonsensical such as
 - Fix handling of events. Event functions are now called, as intended.
 - Fix saving and loading of data. This now happens as intended.
 
-## [0.0.3] - 2020-05-20
+## [0.0.3][] - 2020-05-20
 ### Added
 - Basic stat system. Allows one to set stat values and perform rolls.
 - Command: `/cs set`. Allows one to create a stat and set its value.
 - Command: `/cs roll`. Allows one to roll with a given stat.
 - Command: `/cs stats`. Allows one to view their stats and their values.
 
-## [0.0.2] - 2020-05-11
+## 0.0.2 - 2020-05-11
 ### Added
 - (Code) Command system. Creates an abstraction which makes it easier to add new
 commands.
 - (Code) Table utilities. Includes functions to operate on tables.
+
+[0.5.7]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.7>
+[0.5.6]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.6>
+[0.5.3]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.3>
+[0.5.2]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.2>
+[0.5.1]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.1>
+[0.5.0]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.0>
+[0.4.7]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.4.7>
+[0.4.6]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.4.6>
+[0.4.5]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.4.5>
+[0.4.4]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.4.4>
+[0.4.3]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.4.3>
+[0.4.1]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.4.1>
+[0.4.0]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.4.0>
+[0.3.2]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.3.2>
+[0.3.1]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.3.1>
+[0.3.0]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.3.0>
+[0.2.3]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.2.3>
+[0.2.2]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.2.2>
+[0.2.0]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.2.0>
+[0.1.0]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.1.0>
+[0.0.3]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.0.3>
