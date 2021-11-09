@@ -6,6 +6,13 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## Unreleased
+### Added
+- A license file. The addon is now licensed under version 3 of the GNU General
+Public License. If you are not a software developer, you don't have to care
+about this - you are free to use and distribute the addon.
+- "Shields" are added to the readme file in the repository to display the latest
+version, its download count and the license.
+
 ### Changed
 - The changelog in the repository now contains links to the version downloads.
 - Release notes are now automatically generated from the changelog.
