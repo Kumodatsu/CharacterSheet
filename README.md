@@ -8,6 +8,12 @@ automating relevant calculations. The source code and all releases are available
 on the [GitHub page][1]. For more information about how to use the addon, see
 the [wiki][2].
 
+This addon is made specifically for the guilds Motley Drifters and Ventures
+Hearth on Argent Dawn EU. If you are not in these guilds you are still free to
+use the system and addon for your own events and guilds. Just keep in mind that
+neither the system nor the addon were intended for widespread use and their
+mechanics may change in unforeseen ways.
+
 ## Setup instructions
 ### How to download
 Go to the [releases page][3]. Find the section of the version you want. The
