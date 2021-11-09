@@ -1,3 +1,6 @@
+# This script is used to copy the addons to another folder, for example your
+# WoW addon folder.
+
 import argparse
 import os
 import shutil
