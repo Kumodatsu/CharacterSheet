@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.5.8][] - 2021-11-09
 ### Added
 - A license file. The addon is now licensed under version 3 of the GNU General
 Public License. If you are not a software developer, you don't have to care
@@ -299,6 +299,7 @@ when attempting to set a stat to something nonsensical such as
 commands.
 - (Code) Table utilities. Includes functions to operate on tables.
 
+[0.5.8]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.8>
 [0.5.7]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.7>
 [0.5.6]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.6>
 [0.5.3]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.3>
