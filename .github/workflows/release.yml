@@ -20,6 +20,9 @@ jobs:
         run:  echo ::set-output name=version::${GITHUB_REF#refs/tags/v}
       - name: Checkout repository
         uses: actions/checkout@v2
+      - name: Copy license file to addon folders
+        run:  |
+          cp LICENSE.md addons/CharacterSheet/LICENSE.md
       - name: Create zip file
         uses: papeloto/action-zip@v1
         with:
