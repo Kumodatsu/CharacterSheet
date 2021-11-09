@@ -9,24 +9,20 @@ and this project adheres to
 ### Changed
 - The changelog in the repository now contains links to the version downloads.
 - Release notes are now automatically generated from the changelog.
-- The folder structure of the repository has changed.
-If you were using automated scripts to update this addon, those may have ceased
-to work.
-Addon managers such as Ajour, Overwolf, WoWUp etc. should still work fine with
-this addon.
-If you don't know what this all means, the change likely won't affect you at
-all.
+- The folder structure of the repository has changed. If you were using
+automated scripts to update this addon, those may have ceased to work. Addon
+managers such as Ajour, Overwolf, WoWUp etc. should still work fine with this
+addon. If you don't know what this all means, the change likely won't affect you
+at all.
 
 ## [0.5.7][] - 2021-11-03
 ### Changed
 - Updated for World of Warcraft 9.1.5.
-- The folder structure of the repository has changed.
-If you were using automated scripts to update this addon, those may have ceased
-to work.
-Addon managers such as Ajour, Overwolf, WoWUp etc. should still work fine with
-this addon.
-If you don't know what this all means, the change likely won't affect you at
-all.
+- The folder structure of the repository has changed. If you were using
+automated scripts to update this addon, those may have ceased to work. Addon
+managers such as Ajour, Overwolf, WoWUp etc. should still work fine with this
+addon. If you don't know what this all means, the change likely won't affect you
+at all.
 
 ## [0.5.6][] - 2021-07-01
 ### Changed
@@ -102,8 +98,8 @@ languages. However, English is currently still the only one available.
 ### Fixed
 - Keybinds for toggling UI frames now work again.
 - When lowering one's power level, stat values will now be reduced if one would
-not have enough SP for them anymore.
-This should now truly make it impossible to create invalid stat blocks.
+not have enough SP for them anymore. This should now truly make it impossible to
+create invalid stat blocks.
 
 ## [0.4.5][] - 2020-10-16
 ### Added
