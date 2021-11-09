@@ -8,6 +8,7 @@ and this project adheres to
 ## Unreleased
 ### Changed
 - The changelog in the repository now contains links to the version downloads.
+- Release notes are now automatically generated from the changelog.
 - The folder structure of the repository has changed.
 If you were using automated scripts to update this addon, those may have ceased
 to work.
