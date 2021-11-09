@@ -1,4 +1,8 @@
 # CharacterSheet
+![version number][shield-version]
+![download count][shield-downloads]
+![GNU GPLv3 license][shield-license]
+
 World of Warcraft addon for managing character sheets for roleplaying events and
 automating relevant calculations. The source code and all releases are available
 on the [GitHub page][1]. For more information about how to use the addon, see
@@ -80,3 +84,7 @@ your TRP and leave only the information you had written yourself.
 [1]: <https://github.com/Kumodatsu/CharacterSheet>
 [2]: <https://github.com/Kumodatsu/CharacterSheet/wiki>
 [3]: <https://github.com/Kumodatsu/CharacterSheet/releases>
+
+[shield-version]: <https://img.shields.io/github/v/release/Kumodatsu/CharacterSheet?color=%2300aa00&include_prereleases&label=Version&style=flat-square>
+[shield-downloads]: <https://img.shields.io/github/downloads-pre/Kumodatsu/CharacterSheet/latest/total?color=%2300aa00&label=Downloads&style=flat-square>
+[shield-license]: <https://img.shields.io/github/license/Kumodatsu/CharacterSheet?label=License&style=flat-square>
