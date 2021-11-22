@@ -35,13 +35,21 @@ jobs:
         with:
           version: ${{ steps.tag_name.outputs.version }}
           path:    ./CHANGELOG.md
+      - name: Remove line breaks within changelog points
+        id:   format_changelog
+        uses: ashley-taylor/regex-property-action@1.2
+        with:
+          value:       ${{ steps.changelog.outputs.changes }}
+          regex:       "([^\n])(?:\n)([^-\n])"
+          flags:       g
+          replacement: "$1 $2"
       - name: Create release
         id:   create_release
         uses: actions/create-release@v1
         with:
           tag_name:     ${{ github.ref }}
           release_name: Version ${{ steps.changelog.outputs.version }}
-          body:         ${{ steps.changelog.outputs.changes }}
+          body:         ${{ steps.format_changelog.outputs.value }}
           draft:        false
           prerelease:   true
         env:
