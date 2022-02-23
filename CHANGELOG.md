@@ -9,6 +9,9 @@ and this project adheres to
 ### Fixed
 - Release notes won't have superfluous line breaks anymore.
 
+### Changed
+- Updated for World of Warcraft 9.2.0.
+
 ## [0.5.8][] - 2021-11-09
 ### Added
 - A license file. The addon is now licensed under version 3 of the GNU General
