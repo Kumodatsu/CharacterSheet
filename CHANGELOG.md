@@ -5,6 +5,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.10][] - 2022-04-01
+### Changed
+- The attribute system has been simplified, replacing the original attributes
+with more balanced alternatives. This sacrifices some customization for a more
+streamlined experience.
+- Natural 1s are now twice as likely as before to simulate the unfair nature of
+life.
+
+### Removed
+- The original attributes Strength, Dexterity, Constitution, Wisdom,
+Intelligence and Charisma have been removed.
+
+### Added
+- Attribute: Versatility (VER). Versatility rolls can be done for attacking,
+healing and defense. No more confusion about which stats to prioritize.
+- Attribute: Mastery (MAS). The effect of this depends on your trait.
+- Event Finder. You can now queue up for RP events from anywhere in the world.
+Once an event party has been put together, you can instantly teleport to the
+area of interest.
+- People will now only want you in their group if you have a legendary item. You
+can get one by rolling a natural 50000 on a d50000 roll.
+
 ## [0.5.9][] - 2022-02-23
 ### Fixed
 - Release notes won't have superfluous line breaks anymore.
