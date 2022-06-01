@@ -5,6 +5,8 @@
 
 local addon_name, CS = ...
 
+local T = CS.Locale.GetLocaleTranslations()
+
 -- Will be loaded from file on addon load
 CS.Interface.UIState.StatsFrameVisible = false
 
@@ -408,13 +410,16 @@ CS.Interface.Frame {
             },
             OnClick = function(self)
                 in_combat = not in_combat
+                CS_HealButton:SetText(
+                  in_combat and T.COMBAT_HEAL or T.SAFE_HEAL
+                )
             end
         },
         CS.Interface.Button {
             Global    = "CS_HealButton",
             Width     = 110 - 24,
             Height    = 24,
-            Text      = "Heal",
+            Text      = in_combat and T.COMBAT_HEAL or T.SAFE_HEAL,
             Texture   = "Interface\\BUTTONS\\UI-DialogBox-Button-Gold-Up.blp",
             TexCoords = { 0.0, 1.0, 0.0, 0.6 },
             OnClick = function(self)

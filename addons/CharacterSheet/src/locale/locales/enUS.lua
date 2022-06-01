@@ -26,6 +26,8 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     NATURAL            = "NATURAL",
     AVAILABLE_COMMANDS = "Available commands:",
     PET                = "Pet",
+    SAFE_HEAL          = "Safe Heal",
+    COMBAT_HEAL        = "Combat Heal",
     -- 1: HP, 2: heal mod, 3: SP
     DERIVED_STATS      = "HP: %1$d\nHeal mod: +%2$d\nSP: %3$d",
 
