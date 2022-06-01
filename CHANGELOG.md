@@ -5,6 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Changed
+- Updated for World of Warcraft 9.2.5.
+
+### Added
+- Minimap button. This can be used to toggle the UI frames as well as the
+settings menu.
+
 ## [0.5.11][] - 2022-04-02
 ### Removed
 - April first's fake changelog section.
