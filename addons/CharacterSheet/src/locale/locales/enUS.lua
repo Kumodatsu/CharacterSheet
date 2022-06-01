@@ -127,7 +127,13 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     SETTING_TRP_STATS_CURRENTLY    = "Currently",
     SETTING_TRP_STATS_OOC          = "OOC",
 
+    MINIMAP_BUTTON_TOOLTIP         = "Click to open menu.",
+
+    MINIMAP_MENU_UI_FRAMES         = "UI frames",
+    MINIMAP_MENU_STATS_FRAME       = "Stats frame",
+    MINIMAP_MENU_EDIT_FRAME        = "Edit frame",
+
     -- 1: author, 2: title, 3: version
-    ADDON_INFO                     = "%1$s's %2$s, version %3$s"
+    ADDON_INFO                     = "%1$s's %2$s, version %3$s",
 
 }

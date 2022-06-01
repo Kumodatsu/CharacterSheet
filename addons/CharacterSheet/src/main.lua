@@ -103,8 +103,17 @@ local data_broker = Lib.DataBroker:NewDataObject("CharacterSheet", {
   icon = "Interface/Icons/inv_inscription_scroll",
   OnClick = function()
     local menu = {
-      { text = "UI frames", isTitle = true },
-      { text = "Stats frame",
+      { text = "Options",
+        notCheckable = true,
+        func = function()
+          local title = GetAddOnMetadata(addon_name, "title")
+          -- Have to call this function twice because of an API-side bug.
+          InterfaceOptionsFrame_OpenToCategory(title)
+          InterfaceOptionsFrame_OpenToCategory(title)
+        end,
+      },
+      { text = T.MINIMAP_MENU_UI_FRAMES, isTitle = true },
+      { text = T.MINIMAP_MENU_STATS_FRAME,
         func = function()
           CS.Interface.Toggle(CS_StatsFrame)
         end,
@@ -112,7 +121,7 @@ local data_broker = Lib.DataBroker:NewDataObject("CharacterSheet", {
           return CS_StatsFrame:IsVisible()
         end,
       },
-      { text = "Edit frame",
+      { text = T.MINIMAP_MENU_EDIT_FRAME,
         func = function()
           CS.Interface.Toggle(CS_EditFrame)
         end,
@@ -124,8 +133,9 @@ local data_broker = Lib.DataBroker:NewDataObject("CharacterSheet", {
     EasyMenu(menu, CreateFrame("FRAME", "CS_MinimapMenu"), "cursor", 0, 0, nil)
   end,
   OnTooltipShow = function(self)
-    self:AddLine "CharacterSheet"
-    self:AddLine "Peekaboo."
+    local title = GetAddOnMetadata(addon_name, "title")
+    self:AddLine(title)
+    self:AddLine(("|cFFFFFFFF%s|r"):format(T.MINIMAP_BUTTON_TOOLTIP))
   end,
 })
 
