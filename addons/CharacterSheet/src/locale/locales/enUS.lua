@@ -134,6 +134,7 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
     MINIMAP_MENU_UI_FRAMES         = "UI frames",
     MINIMAP_MENU_STATS_FRAME       = "Stats frame",
     MINIMAP_MENU_EDIT_FRAME        = "Edit frame",
+    MINIMAP_MENU_TOGGLE_PET        = "Pet",
 
     -- 1: author, 2: title, 3: version
     ADDON_INFO                     = "%1$s's %2$s, version %3$s",

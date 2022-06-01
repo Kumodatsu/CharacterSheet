@@ -129,6 +129,14 @@ local data_broker = Lib.DataBroker:NewDataObject("CharacterSheet", {
           return CS_EditFrame:IsVisible()
         end,
       },
+      { text = T.MINIMAP_MENU_TOGGLE_PET,
+        func = function()
+          CS.Mechanics.Sheet:toggle_pet()
+        end,
+        checked = function()
+          return CS.Mechanics.Sheet.PetActive
+        end,
+      },
     }
     EasyMenu(menu, CreateFrame("FRAME", "CS_MinimapMenu"), "cursor", 0, 0, nil)
   end,
