@@ -27,11 +27,16 @@ CS.Commands.add_cmd("version", show_version, [[
 "/cs version" shows the addon's current version number.
 ]])
 
--- Ace setup
+-- Dependencies
 local Ace = {
     Addon        = LibStub "AceAddon-3.0",
     Config       = LibStub "AceConfig-3.0",
-    ConfigDialog = LibStub "AceConfigDialog-3.0"
+    ConfigDialog = LibStub "AceConfigDialog-3.0",
+}
+
+local Lib = {
+  DataBroker   = LibStub "LibDataBroker-1.1",
+  DBIcon       = LibStub "LibDBIcon-1.0",
 }
 
 local mixins = {}
@@ -92,8 +97,42 @@ if trp3 then
     }
 end
 
+local data_broker = Lib.DataBroker:NewDataObject("CharacterSheet", {
+  type = "data source",
+  text = "CharacterSheet",
+  icon = "Interface/Icons/inv_inscription_scroll",
+  OnClick = function()
+    local menu = {
+      { text = "UI frames", isTitle = true },
+      { text = "Stats frame",
+        func = function()
+          CS.Interface.Toggle(CS_StatsFrame)
+        end,
+        checked = function()
+          return CS_StatsFrame:IsVisible()
+        end,
+      },
+      { text = "Edit frame",
+        func = function()
+          CS.Interface.Toggle(CS_EditFrame)
+        end,
+        checked = function()
+          return CS_EditFrame:IsVisible()
+        end,
+      },
+    }
+    EasyMenu(menu, CreateFrame("FRAME", "CS_MinimapMenu"), "cursor", 0, 0, nil)
+  end,
+  OnTooltipShow = function(self)
+    self:AddLine "CharacterSheet"
+    self:AddLine "Peekaboo."
+  end,
+})
+
 CS_ADDON.OnInitialize = function(self)
-    Ace.Config:RegisterOptionsTable(addon_name, options)
-    self.options_frame = Ace.ConfigDialog
-        : AddToBlizOptions(addon_name, GetAddOnMetadata(addon_name, "title"))
+  Ace.Config:RegisterOptionsTable(addon_name, options)
+  self.options_frame = Ace.ConfigDialog
+    : AddToBlizOptions(addon_name, GetAddOnMetadata(addon_name, "title"))
+  CS_MinimapState = CS_MinimapState or {}
+  Lib.DBIcon:Register("CharacterSheet", data_broker, CS_MinimapState)
 end
