@@ -137,6 +137,12 @@ local data_broker = Lib.DataBroker:NewDataObject("CharacterSheet", {
           return CS.Mechanics.Sheet.PetActive
         end,
       },
+      { text = T.MINIMAP_MENU_RESOURCE,
+        func = function()
+          CS.Interface.ResourceMenu.open()
+        end,
+        notCheckable = true,
+      },
     }
     EasyMenu(menu, CreateFrame("FRAME", "CS_MinimapMenu"), "cursor", 0, 0, nil)
   end,

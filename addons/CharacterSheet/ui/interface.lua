@@ -302,26 +302,20 @@ CS.Interface.Toggle = function(frame, visible)
 end
 
 local toggle_frame = function(name)
-    if not name then
-        return CS.Print "You must specify a frame to toggle."
-    end
-    name = name:lower()
-    if name == "stats" then
-        CS.Interface.Toggle(CS_StatsFrame)
-    elseif name == "edit" then
-        CS.Interface.Toggle(CS_EditFrame)
-    else
-        CS.Print("\"%s\" is not a valid frame.", name)
-    end
+  if not name then
+    return CS.Print "You must specify a frame to toggle."
+  end
+  name = name:lower()
+  if name == "stats" then
+    CS.Interface.Toggle(CS_StatsFrame)
+  elseif name == "edit" then
+    CS.Interface.Toggle(CS_EditFrame)
+  elseif name == "resource" then
+    CS.Interface.ResourceMenu.toggle()
+  else
+    CS.Print("\"%s\" is not a valid frame.", name)
+  end
 end
-
---[[
-local b = NamePlate1.UnitFrame.healthBar
-b.text = b:CreateFontString(nil, "ARTWORK")
-b.text:SetFont("Fonts\\ARIALN.ttf", 13, "OUTLINE")
-b.text:SetPoint("CENTER", 0, 0)
-b.text:SetText("xyz")
-]]
 
 CS.Commands.add_cmd("toggle", toggle_frame, [[
 "/cs toggle <frame>" toggles the specified UI frame on or off.
