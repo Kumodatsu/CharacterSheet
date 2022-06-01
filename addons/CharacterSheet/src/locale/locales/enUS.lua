@@ -131,10 +131,22 @@ CS.Locale.Translations["enUS"] = CS.Locale.Translation {
 
     MINIMAP_BUTTON_TOOLTIP         = "Click to open menu.",
 
-    MINIMAP_MENU_UI_FRAMES         = "UI frames",
+    MINIMAP_MENU_UI_FRAMES         = "UI",
     MINIMAP_MENU_STATS_FRAME       = "Stats frame",
     MINIMAP_MENU_EDIT_FRAME        = "Edit frame",
     MINIMAP_MENU_TOGGLE_PET        = "Pet",
+    MINIMAP_MENU_RESOURCE          = "Manage resource",
+
+    RESOURCE_MENU_TITLE            = "Manage Resource",
+    RESOURCE_MENU_NAME             = "Resource name",
+    RESOURCE_MENU_MIN              = "Minimum value",
+    RESOURCE_MENU_MAX              = "Maximum value",
+    RESOURCE_MENU_BACKGROUND_COLOR = "Background color",
+    RESOURCE_MENU_TEXT_COLOR       = "Text color",
+    RESOURCE_MENU_DISABLE          = "Disable resource",
+    RESOURCE_MENU_MISSING_NAME     = "You must enter a name.",
+    RESOURCE_MENU_INVALID_INPUT    = "The min and max values must be integers.",
+    RESOURCE_MENU_INVALID_RANGE    = "The range of values is invalid.",
 
     -- 1: author, 2: title, 3: version
     ADDON_INFO                     = "%1$s's %2$s, version %3$s",
