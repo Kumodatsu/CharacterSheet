@@ -484,3 +484,21 @@ CS.Interface.Frame {
         }
     }
 }
+
+CS_StatsFrame.Toggle = function(self, visible)
+  if visible == nil then
+    if self:IsVisible() then
+      self:Hide()
+      visible = false
+    else
+      self:Show()
+      visible = true
+    end
+  elseif visible then
+    self:Show()
+  else
+    self:Hide()
+  end
+  self:SetHeight(get_required_height())
+  return visible
+end

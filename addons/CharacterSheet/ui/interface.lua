@@ -282,20 +282,23 @@ CS.Interface.Dropdown = function(info)
 end
 
 CS.Interface.Toggle = function(frame, visible)
-    if visible == nil then
-        if frame:IsVisible() then
-            frame:Hide()
-            return false
-        else
-            frame:Show()
-            return true
-        end
-    elseif visible then
-        frame:Show()
+  if frame.Toggle then
+    return frame:Toggle(visible)
+  end
+  if visible == nil then
+    if frame:IsVisible() then
+      frame:Hide()
+      return false
     else
-        frame:Hide()
+      frame:Show()
+      return true
     end
-    return visible
+  elseif visible then
+    frame:Show()
+  else
+    frame:Hide()
+  end
+  return visible
 end
 
 local toggle_frame = function(name)
