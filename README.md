@@ -34,47 +34,53 @@ To make a backup of your data, copy this file somewhere safe. To restore the
 data, copy the backup file back to the aforementioned location.
 
 ## Usage (latest version)
-At the moment, most of the functionality of the addon can be used through the
-UI. All of the functionality can be accessed through slash commands. All
-commands provided by the addon start with `/cs`. Use the command `/cs help` to
-view a listing of all available commands, and `/cs help <command>` to see an
-explanation of the given command. The most important use cases of the addon are
-described below. See the [wiki][2] for more detailed information.
+All of the functionality can be used either through the UI or slash commands.
+All commands provided by the addon start with `/cs`.
+Use the command `/cs help` to view a listing of all available commands, and
+`/cs help <command>` to see an explanation of the given command.
+The most important use cases of the addon are described below.
 
 ### Editing your stat block
-Use the edit frame to edit your stat block. The frame can be toggled on and off
-with the command `/cs toggle edit`. Use the arrow buttons to add or remove
-points from a stat. Click the power level in the top of the frame to change your
-power level. At the bottom of the frame, the number of skill points you have
-left are displayed, as well as values that are derived from your stats (HP and
-heal modifier). It is impossible to create invalid stat blocks.
+Use the edit frame to edit your stat block.
+The frame can be toggled on and off through the minimap menu, or with the
+command `/cs toggle edit`.
+Use the arrow buttons to add or remove points from a stat.
+Click the power level in the top of the frame to change your power level.
+At the bottom of the frame, the number of skill points you have left are
+displayed, as well as values that are derived from your stats (HP and heal
+modifier).
+It is impossible to create invalid stat blocks.
 
 ### Using your stats
-Click a stat in your stat frame to roll with that stat's modifier. The stat
-frame can be toggled on and off with the command `/cs toggle stats`. You can
-also use `/cs roll <stat>` to roll with the given stat modifier. For example,
-use `/cs roll str` to roll for Strength (1d20 + STR).
+Use the stat frame to perform rolls and modify you and your pet's health.
+The stat frame can be toggled on and off through the minimap menu, or with the
+command `/cs toggle stats`.
+Click a stat in your stat frame to roll with that stat's modifier.
+You can also use `/cs roll <stat>` to roll with the given stat modifier.
+For example, use `/cs roll str` to roll for Strength (1d20 + STR).
 
-Use `/cs heal` to roll for healing in combat (1d10 + heal mod) and
-`/cs heal safe` to roll for healing out of combat (1d14 + heal mod). The heal
-button will perform a heal roll. The combat icon next to the heal button
-determines whether the heal roll is an in combat or out of combat heal roll.
-Click the icon to switch between the two. The minus and plus buttons next to the
-HP bar can be used to set your HP.
+The heal button will perform a heal roll.
+Click the combat icon next to the button to switch between out of combat
+("safe") and in combat heals.
+The minus and plus buttons next to the HP bar can be used to set your HP.
 
-Use `/cs addresource <name> <min> <max> <bar color> <text color>` to add an
-extra resource bar to your stats frame. For example, use
-`/cs addresource Sanity 0 10 purple white`
-to add a purple Sanity bar that ranges from the values 0 through 10. Use
-`/cs removeresource` to remove it again.
+You can add a custom resource, such as Sanity or anything else, to your stats
+frame.
+Click the "Manage resource" option in the minimap menu, or use the command
+`/cs toggle resource`.
+Enter a name, minimum and maximum value, and colors for the display bar.
+The resource bar will then appear in your stats frame under your health bar.
+Click the "Disable resource" button to remove the resource.
 
 ### Using pets
-At the moment, adding and removing pets can not yet be done with the UI. Use
-`/cs pet` to toggle the pet health bar and attack button on/off in the stat
-frame. Click the pet attack button to perform a pet attack roll. The total
-damage value of the attack is displayed in the chat. Use `/cs setpetatk <stat>`
-to set the stat used to calculate pet attack damage to something other than
-Charisma. You should only do this with permission of the game master!
+You can toggle a pet using the minimap menu.
+This will add the pet UI to your stats frame.
+Click the pet attack button to perform a pet attack roll.
+The total damage value of the attack is displayed in the chat.
+
+Use `/cs setpetatk <stat>` to set the stat used to calculate pet attack damage
+to something other than Charisma.
+You should only do this with permission of the game master!
 
 ### TRP3 interoperation
 You can optionally give the addon permission to interact with TRP3 if you have

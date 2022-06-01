@@ -5,13 +5,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## [0.6.0][] - 2022-06-01
 ### Changed
 - Updated for World of Warcraft 9.2.5.
+- All of the addon's functionality is now accessible through the UI. All the
+slash commands still work and exist, but they are no longer essential.
 
 ### Added
-- Minimap button. This can be used to toggle the UI frames as well as the
-settings menu.
+- Minimap button. This can be used to access the settings menu, to toggle the UI
+frames and pet UI, and to access the resource menu.
+- Resource menu. It's used to customize or disable your resource bar.
+- Command `/cs toggle resource` that toggles the resource menu.
+
+### Fixed
+- Fixed a bug where the stats frame was sometimes too short to contain the pet
+UI.
 
 ## [0.5.11][] - 2022-04-02
 ### Removed
@@ -321,6 +329,7 @@ when attempting to set a stat to something nonsensical such as
 commands.
 - (Code) Table utilities. Includes functions to operate on tables.
 
+[0.6.0]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.0>
 [0.5.11]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.11>
 [0.5.10]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.10>
 [0.5.9]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.9>
