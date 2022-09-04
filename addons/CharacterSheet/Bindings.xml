@@ -1,23 +1,23 @@
 <Bindings>
-    <Binding name="INCREMENT_HP" header="CHARACTER_SHEET">
-        CS_API.Mechanics.Sheet:increment_hp()
-    </Binding>
-    <Binding name="DECREMENT_HP">
-        CS_API.Mechanics.Sheet:decrement_hp()
-    </Binding>
-    <Binding name="INCREMENT_PET_HP">
-        CS_API.Mechanics.Sheet:increment_pet_hp()
-    </Binding>
-    <Binding name="DECREMENT_PET_HP">
-        CS_API.Mechanics.Sheet:decrement_pet_hp()
-    </Binding>
-    <Binding name="TOGGLE_PET">
-        CS_API.Mechanics.Sheet:toggle_pet()
-    </Binding>
-    <Binding name="TOGGLE_STATS_FRAME">
-        CS_API.Interface.Toggle(CS_StatsFrame)
-    </Binding>
-    <Binding name="TOGGLE_EDIT_FRAME">
-        CS_API.Interface.Toggle(CS_EditFrame)
-    </Binding>
+  <Binding name="INCREMENT_HP" header="CHARACTER_SHEET">
+    CS_API.Mechanics.Sheet:increment_hp()
+  </Binding>
+  <Binding name="DECREMENT_HP">
+    CS_API.Mechanics.Sheet:decrement_hp()
+  </Binding>
+  <Binding name="INCREMENT_PET_HP">
+    CS_API.Mechanics.Sheet:increment_pet_hp()
+  </Binding>
+  <Binding name="DECREMENT_PET_HP">
+    CS_API.Mechanics.Sheet:decrement_pet_hp()
+  </Binding>
+  <Binding name="TOGGLE_PET">
+    CS_API.Mechanics.Sheet:toggle_pet()
+  </Binding>
+  <Binding name="TOGGLE_STATS_FRAME">
+    CS_API.Interface.Toggle(CS_StatsFrame)
+  </Binding>
+  <Binding name="TOGGLE_EDIT_FRAME">
+    CS_API.Interface.Toggle(CS_EditFrame)
+  </Binding>
 </Bindings>
