@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Changed
+- Updated for World of Warcraft 10.0.0.
+- Command descriptions given by `/cs help` are now formatted slightly
+differently to improve readability.
+- Command descriptions can now be localized.
+
+### Added
+- The addon's API is now fully documented.
+
 ## [0.6.1][] - 2022-09-04
 ### Changed
 - Updated for World of Warcraft 9.2.7.
