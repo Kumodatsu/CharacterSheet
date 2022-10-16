@@ -1,5 +1,5 @@
 --- Event handling functionality.
--- @module CS.Core.Event
+-- @module Core.Event
 local addon_name, CS = ...
 local M = {}
 
@@ -12,12 +12,13 @@ local events = {}
 -- This function will error if and only if the supplied identifier is already
 -- in use.
 -- @tparam string event_id
--- A unique identifier for the event. Listeners will use this identifier to
--- subscribe to the event.
+-- A unique identifier for the event.
+-- Listeners will use this identifier to subscribe to the event.
 -- @treturn function
 -- A function that can be called to fire the event, invoking all callbacks that
--- have been subscribed to this event. Any arguments passed to this function
--- will be passed directly to these callbacks.
+-- have subscribed to this event.
+-- Any arguments passed to this function will be passed directly to these
+-- callbacks.
 function M.register_event(event_id)
   if events[event_id] then
     error(string.format(
@@ -37,8 +38,8 @@ end
 -- @tparam string event_id
 -- The identifier for the event.
 -- @tparam function callback
--- The callback to be invoked when the event is fired. The function may receive
--- arguments from the event.
+-- The callback to be invoked when the event is fired.
+-- The function may receive arguments from the event.
 function M.subscribe_event(event_id, callback)
   if not events[event_id] then
     error(string.format(

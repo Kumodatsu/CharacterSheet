@@ -1,5 +1,5 @@
 --- Locale and translation functionality.
--- @module CS.Core.Locale
+-- @module Core.Locale
 local _, CS = ...
 local M = {}
 
@@ -37,8 +37,9 @@ end
 -- The locale for which this translation table applies.
 -- @tparam table translation_table
 -- A table whose keys are valid translation keys and whose values are the
--- translations. If the translations require arguments, they must be formatted
--- such that they can be used by @{CS.Core.Util.iformat|iformat}.
+-- translations.
+-- If the translations require arguments, they must be formatted such that they
+-- can be used by @{Core.Util.iformat|iformat}.
 function M.add_translation_table(locale, translation_table)
   if translations[locale] then
     error(string.format(

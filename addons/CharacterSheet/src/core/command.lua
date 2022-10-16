@@ -1,5 +1,5 @@
 --- Functionality for registering slash commands.
--- @module CS.Core.Command
+-- @module Core.Command
 local _, CS = ...
 local M = {}
 

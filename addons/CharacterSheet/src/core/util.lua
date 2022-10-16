@@ -1,14 +1,14 @@
 --- Generic utility functions for commonly used functionality.
--- @module CS.Core.Util
+-- @module Core.Util
 local _, CS = ...
 local M = {}
 
 --- Prints a value or formatted message to the chat as a system message.
--- The format string is formatted using @{CS.Core.Util.iformat|iformat} instead
+-- The format string is formatted using @{Core.Util.iformat|iformat} instead
 -- of string.format.
 -- @tparam any value_or_format
--- The value to be printed. If this is a string, it will be formatted using the
--- following arguments.
+-- The value to be printed.
+-- If this is a string, it will be formatted using the following arguments.
 -- @param ...
 -- Any number of values to be formatted into the format string.
 function M.print(value_or_format, ...)
@@ -42,6 +42,9 @@ end
 -- the "%d" format used in usual Lua patterns.
 -- As another example, the call iformat("Hello, %2$s!", "Sunshi", "Kyaroh")
 -- evaluates to "Hello, Kyaroh!".
+-- The primary purpose is this function is to format localized strings, where
+-- the order in which the arguments have to appear in the string may differ
+-- between languages.
 -- @tparam string format
 -- The format string.
 -- @param ...
