@@ -5,7 +5,7 @@ local M = {}
 
 local get_range = CS.Core.Util.get_range
 local match     = CS.Core.Util.match
-local print     = CS.Core.Util.print
+local display   = CS.Core.Util.display
 local translate = CS.Core.Locale.translate
 
 SLASH_CHARACTER_SHEET1 = "/cs"
@@ -40,7 +40,7 @@ end
 local execute = function(cmd_name, args)
   local entry = commands[cmd_name]
   if not entry then
-    print(translate("MSG_UNKNOWN_COMMAND", cmd_name))
+    display(translate("MSG_UNKNOWN_COMMAND", cmd_name))
     return
   end
   entry.command(unpack(args))
@@ -75,7 +75,7 @@ end
 SlashCmdList["CHARACTER_SHEET"] = function(input)
   local success, cmd_name, args = parse(input)
   if not success then
-    print(translate("ERROR_PARSE_COMMAND_FAILED", input))
+    display(translate("ERROR_PARSE_COMMAND_FAILED", input))
     return
   end
   execute(cmd_name, args)
@@ -87,16 +87,16 @@ M.register_cmd("help", "CMD_DESC_HELP", function(cmd_name)
   if cmd_name then
     local entry = commands[cmd_name]
     if not entry then
-      print(translate("MSG_UNKNOWN_COMMAND", cmd_name))
+      display(translate("MSG_UNKNOWN_COMMAND", cmd_name))
       return
     end
-    print("/cs %1$s\n%2$s", cmd_name, translate(entry.description_key))
+    display("/cs %1$s\n%2$s", cmd_name, translate(entry.description_key))
   else
-    print(translate "AVAILABLE_COMMANDS")
+    display(translate "AVAILABLE_COMMANDS")
     for k, v in pairs(commands) do
-      print("/cs %1$s", k)
+      display("/cs %1$s", k)
     end
-    print(translate "MSG_HELP_COMMAND")
+    display(translate "MSG_HELP_COMMAND")
   end
 end)
 

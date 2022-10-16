@@ -11,7 +11,7 @@ local M = {}
 -- If this is a string, it will be formatted using the following arguments.
 -- @param ...
 -- Any number of values to be formatted into the format string.
-function M.print(value_or_format, ...)
+function M.display(value_or_format, ...)
   if type(value_or_format) == "string" then
     SendSystemMessage(M.iformat(value_or_format, ...))
   else
