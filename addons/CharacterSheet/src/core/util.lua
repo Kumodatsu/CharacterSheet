@@ -24,12 +24,16 @@ end
 -- The string to search.
 -- @tparam string pattern
 -- The pattern to match with.
+-- @tparam ?function f
+-- A function used to transform each match before adding it to the results.
+-- If not supplied, the matches are returned unchanged.
 -- @treturn table
 -- A table containing all matched strings in order.
-function M.match(str, pattern)
+function M.match(str, pattern, f)
+  f = f or function(x) return x end
   t = {}
   for m in str:gmatch(pattern) do
-    table.insert(t, m)
+    table.insert(t, f(m))
   end
   return t
 end
@@ -58,6 +62,26 @@ function M.iformat(format, ...)
     return "%"
   end)
   return string.format(format, unpack(order))
+end
+
+--- Compares two (semantic) version strings of the form x.y.z.
+-- @tparam string a
+-- The first version string.
+-- @tparam string b
+-- The second version string.
+-- @treturn number
+-- A value that compares equal to 0 if the versions are equal;
+-- less than 0 if the first version is an earlier version than the second;
+-- greater than 0 if the first version is a later version than the second.
+function M.compare_version(a, b)
+  a = M.match(a, "%d+", tonumber)
+  b = M.match(b, "%d+", tonumber)
+  -- Index 1 is the major version; 2 the minor version; 3 the patch version.
+  for i = 1, 3 do
+    if a[i] > b[i] then return  1 end
+    if a[i] < b[i] then return -1 end
+  end
+  return 0
 end
 
 --- Produces a subrange of a table.

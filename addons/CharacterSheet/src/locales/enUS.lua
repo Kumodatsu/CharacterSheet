@@ -151,5 +151,6 @@ CS.Core.Locale.add_translation_table("enUS", {
   -- 1: author, 2: title, 3: version
   ADDON_INFO                     = "%1$s's %2$s, version %3$s",
 
-  CMD_DESC_HELP = "'/cs help' shows the list of available commands.\n'/cs help <command>' shows an explanation of the specified command.",
+  CMD_DESC_HELP    = "'/cs help' shows the list of available commands.\n'/cs help <command>' shows an explanation of the specified command.",
+  CMD_DESC_VERSION = "'/cs version' shows the addon's current version number.",
 })

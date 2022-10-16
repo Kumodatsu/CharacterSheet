@@ -1,6 +1,6 @@
 --- Functionality for registering slash commands.
 -- @module Core.Command
-local _, CS = ...
+local addon_name, CS = ...
 local M = {}
 
 local get_range = CS.Core.Util.get_range
@@ -81,6 +81,8 @@ SlashCmdList["CHARACTER_SHEET"] = function(input)
   execute(cmd_name, args)
 end
 
+-- Basic commands --
+
 -- '/cs help' displays a list of available commands or a description of a
 -- specific command.
 M.register_cmd("help", "CMD_DESC_HELP", function(cmd_name)
@@ -98,6 +100,14 @@ M.register_cmd("help", "CMD_DESC_HELP", function(cmd_name)
     end
     display(translate "MSG_HELP_COMMAND")
   end
+end)
+
+-- '/cs version' displays the addon's current version number.
+M.register_cmd("version", "CMD_DESC_VERSION", function()
+  local author  = GetAddOnMetadata(addon_name, "author")
+  local title   = GetAddOnMetadata(addon_name, "title")
+  local version = GetAddOnMetadata(addon_name, "version")
+  display(translate("ADDON_INFO", author, title, version))
 end)
 
 CS.Core.Command = M
