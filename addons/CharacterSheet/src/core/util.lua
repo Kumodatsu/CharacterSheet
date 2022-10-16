@@ -64,7 +64,7 @@ function M.iformat(format, ...)
   return string.format(format, unpack(order))
 end
 
---- Compares two (semantic) version strings of the form x.y.z.
+--- Compares two (semantic) version strings of the form 'x.y.z'.
 -- @tparam string a
 -- The first version string.
 -- @tparam string b
