@@ -24,7 +24,7 @@ local commands = {}
 -- The command name.
 -- @treturn ?table
 -- A table of the arguments passed to the command.
-local parse = function(input)
+local function parse(input)
   local tokens = match(input, "%S+")
   if #tokens == 0 then return false end
   local cmd  = tokens[1]
@@ -37,7 +37,7 @@ end
 -- The name of the command.
 -- @tparam table args
 -- A table containing the arguments to be passed to the command function.
-local execute = function(cmd_name, args)
+local function execute(cmd_name, args)
   local entry = commands[cmd_name]
   if not entry then
     display(translate("MSG_UNKNOWN_COMMAND", cmd_name))
