@@ -7,4 +7,5 @@
   <Script file="locale.lua"/>
   <Script file="command.lua"/>
   <Script file="event.lua"/>
+  <Script file="savedata.lua"/>
 </Ui>

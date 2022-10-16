@@ -2,7 +2,7 @@
 ## Title:          Character Sheet
 ## Notes:          Management and automation for an RP character sheet system.
 ## Author:         Kumodatsu
-## SavedVariables: CS_TEST_DB
+## SavedVariables: CS_DEV_DB
 ## Version:        0.7.0
 
 src\core\core.xml

@@ -50,11 +50,14 @@ function M.subscribe_event(event_id, callback)
   table.insert(events[event_id], callback)
 end
 
--- Listen to WoW events.
 do
+  -- WoW events to listen to.
   local addon_loaded            = M.register_event "WoW.AddonLoaded"
   local player_logging_out      = M.register_event "WoW.PlayerLoggingOut"
   local system_message_received = M.register_event "WoW.SystemMessageReceived"
+  -- Custom events that are run before or after certain WoW events.
+  local savedata_loading        = M.register_event "CS.SavedataLoading"
+  local savedata_saving         = M.register_event "CS.SavedataSaving"
 
   -- An (invisible) WoW UI frame whose only purpose is to listen to WoW events.
   local event_listener = CreateFrame("Frame", "CS_EventFrame")
@@ -64,9 +67,11 @@ do
 
   function event_listener:OnEvent(event_id, arg1, ...)
     if event_id == "ADDON_LOADED" and arg1 == addon_name then
+      savedata_loading()
       addon_loaded(...)
     elseif event_id == "PLAYER_LOGOUT" then
       player_logging_out(arg1, ...)
+      savedata_saving()
     elseif event_id == "CHAT_MSG_SYSTEM" then
       system_message_received(arg1, ...)
     end
