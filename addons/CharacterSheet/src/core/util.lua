@@ -122,4 +122,13 @@ function M.is_integer(x)
   return math.floor(x) == x
 end
 
+--- Evaluates a string as a Lua expression and displays the resulting value
+--- in the chat.
+-- This should only be used for debugging purposes.
+-- @tparam string expr
+-- A Lua expression as a string.
+function M.dump(expr)
+  SlashCmdList["DUMP"](expr)
+end
+
 CS.Core.Util = M
