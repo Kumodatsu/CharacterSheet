@@ -4,6 +4,6 @@
   <Script file="core.lua"/>
   <Script file="util.lua"/>
   <Script file="locale.lua"/>
-  <Script file="commands.lua"/>
-  <Script file="events.lua"/>
+  <Script file="command.lua"/>
+  <Script file="event.lua"/>
 </Ui>

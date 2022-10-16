@@ -1,5 +1,5 @@
 --- Event handling functionality.
--- @module CS.Core.Events
+-- @module CS.Core.Event
 local addon_name, CS = ...
 local M = {}
 
@@ -74,4 +74,4 @@ do
   event_listener:SetScript("OnEvent", event_listener.OnEvent)
 end
 
-CS.Core.Events = M
+CS.Core.Event = M

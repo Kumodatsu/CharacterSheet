@@ -1,5 +1,5 @@
 --- Functionality for registering slash commands.
--- @module CS.Core.Commands
+-- @module CS.Core.Command
 local _, CS = ...
 local M = {}
 
@@ -100,4 +100,4 @@ M.register_cmd("help", "CMD_DESC_HELP", function(cmd_name)
   end
 end)
 
-CS.Core.Commands = M
+CS.Core.Command = M
