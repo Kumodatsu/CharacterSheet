@@ -51,13 +51,14 @@ function M.subscribe_event(event_id, callback)
 end
 
 do
+  local register_event = M.register_event
   -- WoW events to listen to.
-  local addon_loaded            = M.register_event "WoW.AddonLoaded"
-  local player_logging_out      = M.register_event "WoW.PlayerLoggingOut"
-  local system_message_received = M.register_event "WoW.SystemMessageReceived"
+  local on_addon_loaded            = register_event "WoW.AddonLoaded"
+  local on_player_logging_out      = register_event "WoW.PlayerLoggingOut"
+  local on_system_message_received = register_event "WoW.SystemMessageReceived"
   -- Custom events that are run before or after certain WoW events.
-  local savedata_loading        = M.register_event "CS.SavedataLoading"
-  local savedata_saving         = M.register_event "CS.SavedataSaving"
+  local on_savedata_loading        = register_event "CS.SavedataLoading"
+  local on_savedata_saving         = register_event "CS.SavedataSaving"
 
   -- An (invisible) WoW UI frame whose only purpose is to listen to WoW events.
   local event_listener = CreateFrame("Frame", "CS_EventFrame")
@@ -67,13 +68,13 @@ do
 
   function event_listener:OnEvent(event_id, arg1, ...)
     if event_id == "ADDON_LOADED" and arg1 == addon_name then
-      savedata_loading()
-      addon_loaded(...)
+      on_savedata_loading()
+      on_addon_loaded(...)
     elseif event_id == "PLAYER_LOGOUT" then
-      player_logging_out(arg1, ...)
-      savedata_saving()
+      on_player_logging_out(arg1, ...)
+      on_savedata_saving()
     elseif event_id == "CHAT_MSG_SYSTEM" then
-      system_message_received(arg1, ...)
+      on_system_message_received(arg1, ...)
     end
   end
 
