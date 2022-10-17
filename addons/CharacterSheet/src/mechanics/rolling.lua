@@ -9,7 +9,16 @@ local remove          = table.remove
 local register_event  = CS.Core.Event.register_event
 local subscribe_event = CS.Core.Event.subscribe_event
 
--- Fired when a roll result has been received.
+--- Fired when a roll result has been received.
+-- @event CS.Rolled
+-- @tparam any roll_tag
+-- The tag associated with the roll; see @{Mechanics.Rolling.roll|roll}.
+-- @tparam number raw_roll
+-- The raw value of the roll without modifiers.
+-- @tparam number lower_bound
+-- The lower bound on the raw die roll.
+-- @tparam number upper_bound
+-- The upper bound on the raw die roll.
 local on_rolled = register_event "CS.Rolled"
 
 -- A Lua pattern that will match the random /roll result system message and
