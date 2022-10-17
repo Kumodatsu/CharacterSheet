@@ -3,7 +3,7 @@
 local _, CS = ...
 local M = {}
 
---- Prints a value or formatted message to the chat as a system message.
+--- Prints a value or formatted message to the chat.
 -- The format string is formatted using @{Core.Util.iformat|iformat} instead
 -- of string.format.
 -- @tparam any value_or_format
@@ -13,9 +13,9 @@ local M = {}
 -- Any number of values to be formatted into the format string.
 function M.display(value_or_format, ...)
   if type(value_or_format) == "string" then
-    SendSystemMessage(M.iformat(value_or_format, ...))
+    print(M.iformat(value_or_format, ...))
   else
-    SendSystemMessage(tostring(value_or_format))
+    print(tostring(value_or_format))
   end
 end
 
