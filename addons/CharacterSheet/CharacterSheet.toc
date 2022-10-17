@@ -7,5 +7,6 @@
 
 src\core\core.xml
 src\locales\locales.xml
+src\mechanics\mechanics.xml
 
 src\init.lua
