@@ -135,15 +135,25 @@ end
 
 --- Creates a data profile with a unique identifier.
 -- The profile is created and then added to the profile database.
+-- This function errors if and only if the supplied argument for the `name`
+-- parameter is not a string or an empty string.
 -- @tparam string name
 -- The human-readable name for the profile.
 -- @treturn string
 -- The unique identifier for the newly created profile.
 function M.create_profile(name)
+  if type(name) ~= "string" or name == "" then
+    error("Attempt to create a profile with invalid name.")
+  end
   local savedata = get_savedata()
   local profile  = initialize_profile(name)
   savedata.profiles[profile.id] = profile
   return profile.id
+end
+
+function M.iterate_profiles()
+  local savedata = get_savedata()
+  return pairs(savedata.profiles)
 end
 
 subscribe_event("CS.SavedataLoading", function()

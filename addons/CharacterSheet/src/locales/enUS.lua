@@ -31,78 +31,87 @@ CS.Core.Locale.add_translation_table("enUS", {
   -- 1: HP, 2: heal mod, 3: SP
   DERIVED_STATS      = "HP: %1$d\nHeal mod: +%2$d\nSP: %3$d",
 
-  MSG_POSITIVE_INTEGER           = "The value must be a positive integer.",
-  MSG_INTEGER                    = "The value must be an integer.",
-  MSG_REQUIRE_VALUE              = "You must specify a value.",
+  MSG_POSITIVE_INTEGER            = "The value must be a positive integer.",
+  MSG_INTEGER                     = "The value must be an integer.",
+  MSG_REQUIRE_VALUE               = "You must specify a value.",
   -- 1: min, 2: max
-  MSG_RANGE                      = "The value must be in the range [%1$d, %2$d].",
+  MSG_RANGE                       = "The value must be in the range [%1$d, %2$d].",
   -- 1: stat
-  MSG_INVALID_STAT               = "%1$s is not a valid stat.",
+  MSG_INVALID_STAT                = "%1$s is not a valid stat.",
   -- 1: stat, 2: value
-  MSG_STAT_SET                   = "%1$s set to %2$d.",
+  MSG_STAT_SET                    = "%1$s set to %2$d.",
   -- 1: parameter list
-  MSG_ALLOWED_PARAMETERS         = "Parameter must be one of %1$s.",
-  MSG_REQUIRE_PET_NAME           = "You must specify one of your pets' names.",
-  MSG_REQUIRE_PET_ACTIVE_OR_NAME = "You must have a pet active or specify one of your pets' names.",
-  MSG_REQUIRE_VALID_ATTRIBUTE    = "You must specify a valid stat attribute.",
+  MSG_ALLOWED_PARAMETERS          = "Parameter must be one of %1$s.",
+  MSG_REQUIRE_PET_NAME            = "You must specify one of your pets' names.",
+  MSG_REQUIRE_PET_ACTIVE_OR_NAME  = "You must have a pet active or specify one of your pets' names.",
+  MSG_REQUIRE_VALID_ATTRIBUTE     = "You must specify a valid stat attribute.",
   -- 1: pet name
-  MSG_NAME_IS_NOT_PET            = "You don't have a pet named %1$s.",
+  MSG_NAME_IS_NOT_PET             = "You don't have a pet named %1$s.",
   -- 1: stat
-  MSG_PET_ATK_SET                = "Pet attack attribute set to %1$s.",
+  MSG_PET_ATK_SET                 = "Pet attack attribute set to %1$s.",
   -- 1: power level
-  MSG_INVALID_POWER_LEVEL        = "%1$s is not a valid power level.",
+  MSG_INVALID_POWER_LEVEL         = "%1$s is not a valid power level.",
   -- 1: power level
-  MSG_POWER_LEVEL_SET            = "Power level set to %1$s.",
-  MSG_VALID_STAT_BLOCK           = "Your stat block is valid.",
-  MSG_SET_HP_ALLOWED_PARAMETERS  = "The given value must be a number or \"max\".",
-  MSG_SET_HP_ALLOWED_VALUES      = "The given value must be a positive integer and may not exceed your max HP.",
+  MSG_POWER_LEVEL_SET             = "Power level set to %1$s.",
+  MSG_VALID_STAT_BLOCK            = "Your stat block is valid.",
+  MSG_SET_HP_ALLOWED_PARAMETERS   = "The given value must be a number or \"max\".",
+  MSG_SET_HP_ALLOWED_VALUES       = "The given value must be a positive integer and may not exceed your max HP.",
   -- 1: HP
-  MSG_HP_SET                     = "HP set to %1$d.",
-  MSG_MISSING_PET_NAME           = "You must specify a name for your pet.",
+  MSG_HP_SET                      = "HP set to %1$d.",
+  MSG_MISSING_PET_NAME            = "You must specify a name for your pet.",
   -- 1: name
-  MSG_PET_ALREADY_EXISTS         = "You already have a pet named %1$s.",
+  MSG_PET_ALREADY_EXISTS          = "You already have a pet named %1$s.",
   -- 1: name
-  MSG_PET_ADDED                  = "Added pet named %1$s.",
+  MSG_PET_ADDED                   = "Added pet named %1$s.",
   -- 1: name
-  MSG_PET_REMOVED                = "Removed pet %1$s.",
-  MSG_NO_PETS                    = "You do not have any pets.",
-  MSG_SET_PET_HP_ALLOWED_VALUES  = "The given value must be a positive integer and may not exceed your pet's max HP.",
+  MSG_PET_REMOVED                 = "Removed pet %1$s.",
+  MSG_NO_PETS                     = "You do not have any pets.",
+  MSG_SET_PET_HP_ALLOWED_VALUES   = "The given value must be a positive integer and may not exceed your pet's max HP.",
   -- 1: name, 2: HP
-  MSG_PET_HP_SET                 = "%1$s's HP set to %2$d.",
+  MSG_PET_HP_SET                  = "%1$s's HP set to %2$d.",
   -- 1: name
-  MSG_ACTIVE_PET_SET             = "%1$s is now your active pet.",
-  MSG_ACTIVE_PET_UNSET           = "You no longer have an active pet.",
-  MSG_INVALID_NUMBER             = "You must specify a valid number.",
+  MSG_ACTIVE_PET_SET              = "%1$s is now your active pet.",
+  MSG_ACTIVE_PET_UNSET            = "You no longer have an active pet.",
+  MSG_INVALID_NUMBER              = "You must specify a valid number.",
   -- 1: attribute, 2: min, 3: max
-  MSG_ATTRIB_RANGE               = "The attribute %1$s must be in the range [%2$d, %3$d].",
+  MSG_ATTRIB_RANGE                = "The attribute %1$s must be in the range [%2$d, %3$d].",
   -- 1: SP
-  MSG_TOO_MANY_SP                = "You have spent %1$d too many SP.",
+  MSG_TOO_MANY_SP                 = "You have spent %1$d too many SP.",
   -- 1: SP
-  MSG_UNSPENT_SP                 = "You still have %1$d unspent SP.",
-  MSG_RAID_ROLL_ENABLED          = "Raid roll messages are now ENABLED.",
-  MSG_RAID_ROLL_DISABLED         = "Raid roll messages are now DISABLED.",
+  MSG_UNSPENT_SP                  = "You still have %1$d unspent SP.",
+  MSG_RAID_ROLL_ENABLED           = "Raid roll messages are now ENABLED.",
+  MSG_RAID_ROLL_DISABLED          = "Raid roll messages are now DISABLED.",
   -- 1: command
-  MSG_UNKNOWN_COMMAND            = "Unknown command: %1$s",
-  MSG_HELP_COMMAND               = "Use \"/cs help <command>\" to show an explanation of the specified command.",
+  MSG_UNKNOWN_COMMAND             = "Unknown command: %1$s",
+  MSG_HELP_COMMAND                = "Use \"/cs help <command>\" to show an explanation of the specified command.",
   -- 1: resource name
-  MSG_DUPLICATE_RESOURCE         = "You already have a resource named \"%1$s\".",
+  MSG_DUPLICATE_RESOURCE          = "You already have a resource named \"%1$s\".",
   -- 1: resource name
-  MSG_RESOURCE_DOESNT_EXIST      = "You do not have a resource named \"%1$s\".",
+  MSG_RESOURCE_DOESNT_EXIST       = "You do not have a resource named \"%1$s\".",
   -- 1: resource name, 2: min, 3: max
-  MSG_RESOURCE_ALLOWED_VALUES    = "The resource %1$s must be in the range [%2$d, %3$d].",
-  MSG_REQUIRE_RESOURCE_NAME      = "You must specify a resource name.",
+  MSG_RESOURCE_ALLOWED_VALUES     = "The resource %1$s must be in the range [%2$d, %3$d].",
+  MSG_REQUIRE_RESOURCE_NAME       = "You must specify a resource name.",
   -- 1: resource name, 2: value
-  MSG_RESOURCE_SET               = "%1$s set to %2$d.",
+  MSG_RESOURCE_SET                = "%1$s set to %2$d.",
   -- 1: resource name
-  MSG_RESOURCE_ADDED             = "Resource \"%1$s\" added.",
-  MSG_RESOURCE_REMOVED           = "Resource removed.",
-  MSG_INVALID_COLOR              = "You must specify a valid color.",
-  MSG_NO_RESOURCE                = "You do not have a resource.",
+  MSG_RESOURCE_ADDED              = "Resource \"%1$s\" added.",
+  MSG_RESOURCE_REMOVED            = "Resource removed.",
+  MSG_INVALID_COLOR               = "You must specify a valid color.",
+  MSG_NO_RESOURCE                 = "You do not have a resource.",
+  -- 1: profile name
+  MSG_NO_MATCHING_PROFILES        = "There are no profiles matching the name '%1$s'.",
+  -- 1: profile name, 2: numbered list of matches
+  MSG_MULTIPLE_MATCHING_PROFILES  = "The following profiles match the name '%1%s':\n%2$s",
+  -- 1: profile name, 2: match index
+  MSG_INVALID_PROFILE_MATCH_INDEX = "%2$d is not a valid match index for '%1$s'.",
+  -- 1: profile name
+  MSG_ACTIVE_PROFILE_SET          = "'%1$s' is now the active profile.",
+  MSG_INVALID_PROFILE_NAME        = "The given profile name is invalid.",
 
-  MSG_TRP_STATS_ARGS             = "The argument must be one of: off, cur, ooc",
-  MSG_TRP_STATS_NONE             = "Your stats will now not appear in your TRP.",
-  MSG_TRP_STATS_CURRENTLY        = "Your stats will now appear in your TRP Currently information.",
-  MSG_TRP_STATS_OOC              = "Your stats will now appear in your TRP OOC information.",
+  MSG_TRP_STATS_ARGS              = "The argument must be one of: off, cur, ooc",
+  MSG_TRP_STATS_NONE              = "Your stats will now not appear in your TRP.",
+  MSG_TRP_STATS_CURRENTLY         = "Your stats will now appear in your TRP Currently information.",
+  MSG_TRP_STATS_OOC               = "Your stats will now appear in your TRP OOC information.",
 
   ERROR_PREFIX_UNAVAILABLE       = "The CharacterSheet addon could not register a message prefix. The addon may not work properly.",
   -- 1: save version, 2: current version
@@ -151,6 +160,8 @@ CS.Core.Locale.add_translation_table("enUS", {
   -- 1: author, 2: title, 3: version
   ADDON_INFO                     = "%1$s's %2$s, version %3$s",
 
-  CMD_DESC_HELP    = "'/cs help' shows the list of available commands.\n'/cs help <command>' shows an explanation of the specified command.",
-  CMD_DESC_VERSION = "'/cs version' shows the addon's current version number.",
+  CMD_DESC_HELP           = "'/cs help' shows the list of available commands.\n'/cs help <command>' shows an explanation of the specified command.",
+  CMD_DESC_VERSION        = "'/cs version' shows the addon's current version number.",
+  CMD_DESC_CREATE_PROFILE = "'/cs create-profile <name>' creates a profile with the given name.",
+  CMD_DESC_USE_PROFILE    = "'/cs use-profile <name> [index]' sets the active profile to the one with the given name. If there are multiple profiles with the same name, you can add an index to specify which one to select."
 })

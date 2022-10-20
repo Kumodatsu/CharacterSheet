@@ -11,9 +11,22 @@ and this project adheres to
 - Command descriptions given by `/cs help` are now formatted slightly
 differently to improve readability.
 - Command descriptions can now be localized.
+- One now has to create or select a profile when first using the addon on a new
+character.
+- The default character sheet is now the one described in the system
+specification (all 13s), rather than all 10s.
+- The code has gotten a complete rewrite.
 
 ### Added
+- Profiles. Character sheets are now no longer tied to specific characters.
+Characters can switch between multiple character sheets or use character sheets
+made on other characters. Players moving from older versions of the addon will
+find all their character sheets converted to profiles, but all their stats will
+still be intact.
 - The addon's API is now fully documented.
+
+### Removed
+- Command `/cs validate`.
 
 ## [0.6.1][] - 2022-09-04
 ### Changed

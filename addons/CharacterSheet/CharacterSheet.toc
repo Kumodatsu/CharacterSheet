@@ -10,3 +10,4 @@ src\locales\locales.xml
 src\mechanics\mechanics.xml
 
 src\init.lua
+src\main.lua
