@@ -166,4 +166,7 @@ CS.Core.Locale.add_translation_table("enUS", {
   CMD_DESC_CREATE_PROFILE = "'/cs create-profile <name>' creates a profile with the given name.",
   CMD_DESC_USE_PROFILE    = "'/cs use-profile <name> [index]' sets the active profile to the one with the given name. If there are multiple profiles with the same name, you can add an index to specify which one to select.",
   CMD_DESC_SET            = "'/cs set <attribute> <value>' sets the given attribute to a value, if you have enough skill points to do so.",
+  CMD_DESC_LEVEL          = "'/cs level <power-level>' sets your power level. If the new power level results in your skill point distribution becoming invalid, points are automatically deducted from your attributes until it becomes valid again.",
+  CMD_DESC_HP             = "'/cs hp max' sets your HP to its maximum value.\n'/cs hp <value>' sets your HP to the given value.",
+  CMD_DESC_ROLL           = "'/cs roll <attribute> [modifier]' rolls with the given attribute. If a bonus modifier is provided, this value is added to the roll's result. This modifier can also be negative.",
 })
