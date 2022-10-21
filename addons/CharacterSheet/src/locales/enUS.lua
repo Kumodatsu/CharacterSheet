@@ -163,5 +163,6 @@ CS.Core.Locale.add_translation_table("enUS", {
   CMD_DESC_HELP           = "'/cs help' shows the list of available commands.\n'/cs help <command>' shows an explanation of the specified command.",
   CMD_DESC_VERSION        = "'/cs version' shows the addon's current version number.",
   CMD_DESC_CREATE_PROFILE = "'/cs create-profile <name>' creates a profile with the given name.",
-  CMD_DESC_USE_PROFILE    = "'/cs use-profile <name> [index]' sets the active profile to the one with the given name. If there are multiple profiles with the same name, you can add an index to specify which one to select."
+  CMD_DESC_USE_PROFILE    = "'/cs use-profile <name> [index]' sets the active profile to the one with the given name. If there are multiple profiles with the same name, you can add an index to specify which one to select.",
+  CMD_DESC_SET            = "'/cs set <attribute> <value>' sets the given attribute to a value, if you have enough skill points to do so.",
 })

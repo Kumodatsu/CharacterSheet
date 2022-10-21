@@ -7,6 +7,8 @@ local M = {}
 local floor = math.floor
 local max   = math.max
 
+local translate = CS.Core.Locale.translate
+
 --- The minimum value an attribute is allowed to have.
 M.MIN_ATTRIBUTE_VALUE = 5
 --- The maximum value an attribute is allowed to have.
@@ -65,15 +67,18 @@ end
 -- @treturn boolean
 -- true if the change was valid (and thus the statblock has been changed), false
 -- otherwise.
+-- @treturn ?string
+-- If the operation was invalid, a localized string describing what went wrong.
 function M.set_attribute(statblock, attribute, value)
   if value < M.MIN_ATTRIBUTE_VALUE or value > M.MAX_ATTRIBUTE_VALUE then
-    return false
+    return false,
+      translate("MSG_RANGE", M.MIN_ATTRIBUTE_VALUE, M.MAX_ATTRIBUTE_VALUE)
   end
   local current_value = statblock.attributes[attribute]
   local difference    = value - current_value
-  local remaining_sp  = M.get_remaining_available_sp(statblock)
-  if remaining_sp - difference < 0 then
-    return false
+  local remaining_sp  = M.get_remaining_available_sp(statblock) - difference
+  if remaining_sp < 0 then
+    return false, translate("MSG_TOO_MANY_SP", -remaining_sp)
   end
   statblock.attributes[attribute] = value
   return true
