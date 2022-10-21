@@ -122,6 +122,37 @@ function M.is_integer(x)
   return math.floor(x) == x
 end
 
+--- Creates a function that converts an enum value to the corresponding enum
+--- key.
+-- The enum is expected to be a table with (uppercase) string keys and number
+-- values.
+-- @tparam table enum
+-- @treturn function
+-- A function that converts from enum values to strings.
+function M.enum_to_string(enum)
+  return function(enum_value)
+    if type(enum_value) ~= "number" then return nil end
+    for k, v in pairs(enum) do
+      if v == enum_value then return k end
+    end
+    return nil
+  end
+end
+
+--- Creates a function that converts a string to the corresponding enum value.
+-- The enum is expected to be a table with (uppercase) string keys and number
+-- values.
+-- @tparam table enum
+-- @treturn function
+-- A function that converts from strings to enum values.
+function M.string_to_enum(enum)
+  return function(s)
+    if type(s) ~= "string" then return nil end
+    s = s:upper()
+    return enum[s]
+  end
+end
+
 --- Evaluates a string as a Lua expression and displays the resulting value
 --- in the chat.
 -- This should only be used for debugging purposes.
