@@ -10,6 +10,8 @@ local remove = table.remove
 
 local Statblock = CS.Mechanics.Statblock
 
+local translate = CS.Core.Locale.translate
+
 M.KNOCK_DOWN_HP     =  0
 M.KNOCK_OUT_HP      = -5
 M.PET_KNOCK_DOWN_HP = M.KNOCK_DOWN_HP
@@ -52,10 +54,12 @@ end
 -- @tparam number value
 -- @treturn boolean
 -- false if the specified value is outside the allowed range, true otherwise.
+-- @treturn ?string
+-- If the value is invalid, a message describing the error.
 function M.set_hp(sheet, value)
   local max_hp = Statblock.get_max_hp(sheet.statblock)
   if value < M.KNOCK_OUT_HP or value > max_hp then
-    return false
+    return false, translate("MSG_SET_HP_ALLOWED_VALUES")
   end
   sheet.hp = value
   return true

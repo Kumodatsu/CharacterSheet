@@ -7,7 +7,9 @@ local M = {}
 local floor = math.floor
 local max   = math.max
 
-local translate = CS.Core.Locale.translate
+local enum_to_string = CS.Core.Util.enum_to_string
+local string_to_enum = CS.Core.Util.string_to_enum
+local translate      = CS.Core.Locale.translate
 
 --- The minimum value an attribute is allowed to have.
 M.MIN_ATTRIBUTE_VALUE = 5
@@ -36,6 +38,34 @@ M.Attribute = {
   WIS = 5, -- Wisdom.
   CHA = 6, -- Charisma. Influences player's heal modifier and pet damage.
 }
+
+--- Converts the name of a power level to the actual power level.
+-- This function returns nil if the conversion isn't possible.
+-- @function string_to_power_level
+-- @tparam string s
+-- @treturn ?PowerLevel
+M.string_to_power_level = string_to_enum(M.PowerLevel)
+
+--- Converts a power level to its name as a string.
+-- This function returns nil if the conversion isn't possible.
+-- @function power_level_to_string
+-- @tparam PowerLevel power_level
+-- @treturn ?string
+M.power_level_to_string = enum_to_string(M.PowerLevel)
+
+--- Converts the abbreviation of an attribute to the actual attribute.
+-- This function returns nil if the conversion isn't possible.
+-- @function string_to_attribute
+-- @tparam string s
+-- @treturn ?Attribute
+M.string_to_attribute   = string_to_enum(M.Attribute)
+
+--- Converts an attribute to its abbreviation as a string.
+-- This function returns nil if the conversion isn't possible.
+-- @function attribute_to_string
+-- @tparam Attribute attribute
+-- @treturn ?string
+M.attribute_to_string   = enum_to_string(M.Attribute)
 
 --- Initializes a new statblock.
 -- @treturn Statblock

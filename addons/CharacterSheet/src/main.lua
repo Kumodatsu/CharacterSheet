@@ -6,6 +6,7 @@ local insert = table.insert
 local Savedata  = CS.Core.Savedata
 local Sheet     = CS.Mechanics.Sheet
 local Statblock = CS.Mechanics.Statblock
+local Rolling   = CS.Mechanics.Rolling
 
 local Attribute = Statblock.Attribute
 
@@ -72,18 +73,12 @@ register_cmd("use-profile", "CMD_DESC_USE_PROFILE", function(name, index)
   Savedata.set_active_profile(desired_id)
 end)
 
-local function str_to_attribute(input)
-  if not input then return nil end
-  input = input:upper()
-  return Attribute[input]
-end
-
 register_cmd("set", "CMD_DESC_SET", function(attribute_name, value)
   if not attribute_name then
     display(translate "MSG_REQUIRE_VALID_ATTRIBUTE")
     return
   end
-  local attribute = str_to_attribute(attribute_name)
+  local attribute = Statblock.string_to_attribute(attribute_name)
   if not attribute then
     display(translate("MSG_INVALID_STAT", attribute_name))
     return
@@ -103,4 +98,66 @@ register_cmd("set", "CMD_DESC_SET", function(attribute_name, value)
   )
 end)
 
+register_cmd("level", "CMD_DESC_LEVEL", function(power_level_name)
+  level = Statblock.string_to_power_level(power_level_name)
+  if not level then
+    display(translate("MSG_INVALID_POWER_LEVEL", power_level_name))
+    return
+  end
 
+  local sheet   = get_active_sheet()
+  local success = Statblock.set_power_level(sheet.statblock, level)
+  display(
+    translate("MSG_POWER_LEVEL_SET", Statblock.power_level_to_string(level))
+  )
+end)
+
+register_cmd("hp", "CMD_DESC_HP", function(value)
+  local sheet = get_active_sheet()
+  if value == "max" then
+    value = Statblock.get_max_hp(sheet.statblock)
+  else
+    value = tonumber(value)
+  end
+  if not value then
+    display(translate "MSG_SET_HP_ALLOWED_ARGUMENTS")
+    return
+  end
+
+  local success, msg = Sheet.set_hp(sheet, value)
+  display(success and translate("MSG_HP_SET", value) or msg)
+end)
+
+register_cmd("roll", "CMD_DESC_ROLL", function(attribute_name, modifier)
+  if not attribute_name then
+    display(translate "MSG_REQUIRE_VALID_ATTRIBUTE")
+    return
+  end
+  local attribute = Statblock.string_to_attribute(attribute_name)
+  if not attribute then
+    display(translate("MSG_INVALID_STAT", attribute_name))
+    return
+  end
+
+  Rolling.roll(1, 20, {
+    attribute = attribute,
+    modifier  = tonumber(modifier),
+  })
+end)
+
+subscribe_event("CS.Rolled", function(tag, raw_roll, lower_bound, upper_bound)
+  if type(tag) ~= "table" then
+    return
+  end
+  local roll = raw_roll
+  local msg = tostring(roll)
+  if tag.attribute then
+    local sheet = get_active_sheet()
+    roll = roll + sheet.statblock.attributes[tag.attribute]
+    if tag.modifier then
+      roll = roll + tag.modifier
+    end
+    msg  = tostring(roll) .. " " .. Statblock.attribute_to_string(tag.attribute)
+  end
+  display(msg)
+end)
