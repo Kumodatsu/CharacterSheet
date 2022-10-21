@@ -105,7 +105,7 @@ subscribe_event("WoW.SystemMessageReceived", function(msg)
   end
 
   -- Fire the CS.Rolled event, supplying it the roll's tag if there was any.
-  local roll_tag = find_matching_roll_tag(lower_bound, upper_bound)
+  local roll_tag = take_matching_roll_tag(lower_bound, upper_bound)
   on_rolled(roll_tag, raw_roll, lower_bound, upper_bound)
 end)
 
