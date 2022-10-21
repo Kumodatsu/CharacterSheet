@@ -157,7 +157,12 @@ subscribe_event("CS.Rolled", function(tag, raw_roll, lower_bound, upper_bound)
     if tag.modifier then
       roll = roll + tag.modifier
     end
-    msg  = tostring(roll) .. " " .. Statblock.attribute_to_string(tag.attribute)
+    msg = tostring(roll) .. " " .. Statblock.attribute_to_string(tag.attribute)
+  end
+  if raw_roll == upper_bound then
+    msg = msg .. " (" .. translate("NATURAL", upper_bound) .. ")"
+  elseif raw_roll == lower_bound then
+    msg = msg .. " (" .. translate("NATURAL", lower_bound) .. ")"
   end
   display(msg)
 end)

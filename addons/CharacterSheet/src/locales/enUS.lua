@@ -23,7 +23,8 @@ CS.Core.Locale.add_translation_table("enUS", {
   HP                 = "HP",
   SP                 = "SP",
   ACTIVE             = "active",
-  NATURAL            = "NATURAL",
+  -- 1: roll value
+  NATURAL            = "NATURAL %1$d",
   AVAILABLE_COMMANDS = "Available commands:",
   PET                = "Pet",
   SAFE_HEAL          = "Safe Heal",
