@@ -54,8 +54,8 @@ CS.Core.Locale.add_translation_table("enUS", {
   -- 1: power level
   MSG_POWER_LEVEL_SET             = "Power level set to %1$s.",
   MSG_VALID_STAT_BLOCK            = "Your stat block is valid.",
-  MSG_SET_HP_ALLOWED_PARAMETERS   = "The given value must be a number or \"max\".",
-  MSG_SET_HP_ALLOWED_VALUES       = "The given value must be a positive integer and may not exceed your max HP.",
+  MSG_SET_HP_ALLOWED_ARGUMENTS    = "The given value must be a number or \"max\".",
+  MSG_SET_HP_ALLOWED_VALUES       = "The given value must be at least -5 and may not exceed your max HP.",
   -- 1: HP
   MSG_HP_SET                      = "HP set to %1$d.",
   MSG_MISSING_PET_NAME            = "You must specify a name for your pet.",
