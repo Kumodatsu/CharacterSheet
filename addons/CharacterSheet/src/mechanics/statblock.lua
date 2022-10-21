@@ -138,9 +138,8 @@ function M.set_power_level(statblock, power_level)
       M.Attribute.WIS,
       M.Attribute.CHA,
     } do
-      local can_reduce_attribute =
-        statblock.attributes[attribute] > M.MIN_ATTRIBUTE_VALUE
-      while can_reduce_attribtue and remaining_sp < 0 do
+      while statblock.attributes[attribute] > M.MIN_ATTRIBUTE_VALUE and
+          remaining_sp < 0 do
         statblock.attributes[attribute] = statblock.attributes[attribute] - 1
         remaining_sp                    = remaining_sp + 1
         are_attributes_changed          = true
