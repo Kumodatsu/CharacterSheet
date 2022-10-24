@@ -74,6 +74,50 @@ local on_hp_changed = register_event "CS.HPChanged"
 -- The new value of the pet HP in the character sheet.
 local on_pet_hp_changed = register_event "CS.PetHPChanged"
 
+--- Fired when the pet has been toggled in a character sheet.
+-- @event CS.PetToggled
+-- @tparam Sheet sheet
+-- The character sheet in which the pet was toggled.
+-- @tparam ?Pet pet
+-- nil if the pet was disabled, a table representing the pet otherwise.
+local on_pet_toggled = register_event "CS.PetToggled"
+
+--- Fired when the pet's attack attribute has changed in a character sheet.
+-- @event CS.PetAttackAttributeChanged
+-- @tparam Sheet sheet
+-- The character sheet that changed.
+-- @tparam Attribute attribute
+-- The new attack attribute.
+local on_pet_attack_attribute_changed =
+  register_event "CS.PetAttackAttributeChanged"
+
+--- Fired when a custom resource has been added to a character sheet.
+-- @event CS.ResourceAdded
+-- @tparam Sheet sheet
+-- The character sheet to which the resource was added.
+-- @tparam Resource resource
+-- The resource that was added.
+local on_resource_added = register_event "CS.ResourceAdded"
+
+--- Fired when a custom resource has been removed from a character sheet.
+-- @event CS.ResourceRemoved
+-- @tparam Sheet sheet
+-- The character sheet from which the resource was removed.
+-- @tparam string resource_name
+-- The name of the resource that was removed.
+local on_resource_removed = register_event "CS.ResourceRemoved"
+
+--- Fired when a custom resource has been updated in a character sheet.
+-- @event CS.ResourceChanged
+-- @tparam Sheet sheet
+-- The character sheet which holds the updated resource.
+-- @tparam string old_resource_name
+-- The name the resource had originally.
+-- This value is supplied separately since the resource's name may have changed.
+-- @tparam Resource resource
+-- The updated value of the resource.
+local on_resource_changed = register_event "CS.ResourceChanged"
+
 --- Initializes a new character sheet.
 -- @treturn Sheet
 -- The character sheet, with the fields 'statblock' (Statblock), 'hp' (number),
@@ -257,14 +301,13 @@ end
 function M.toggle_pet(sheet)
   if sheet.pet then
     sheet.pet = nil
-    return
+  else
+    sheet.pet = {
+      hp        = SB.get_max_pet_hp(sheet.statblock),
+      attribute = SB.Attribute.CHA,
+    }
   end
-  sheet.pet = {
-    hp        = SB.get_max_pet_hp(sheet.statblock),
-    attribute = SB.Attribute.CHA,
-  }
-  on_max_pet_hp_changed(sheet, sheet.pet.hp)
-  on_pet_hp_changed(sheet, sheet.pet.hp)
+  on_pet_toggled(sheet, sheet.pet)
 end
 
 --- Sets the pet's HP on a sheet to a specified value.
@@ -302,6 +345,20 @@ function M.change_pet_hp(sheet, amount)
   return M.set_pet_hp(sheet, sheet.pet.hp + amount)
 end
 
+--- Changes the attribute used for pet attacks.
+-- @tparam Sheet sheet
+-- @tparam Attribute attribute
+-- @treturn boolean
+-- false if there is no pet, true otherwise.
+function M.set_pet_attack_attribute(sheet, attribute)
+  if not sheet.pet then
+    return false
+  end
+  sheet.pet.attribute = attribute
+  on_pet_attack_attribute_changed(sheet, attribute)
+  return true
+end
+
 --- Adds a custom resource to the character sheet.
 -- If a resource with the same name already exists, it is overwritten.
 -- @tparam Sheet sheet
@@ -322,6 +379,7 @@ function M.add_resource(sheet, name, value, min_value, max_value)
     min_value = min_value,
     max_value = max_value,
   }
+  on_resource_added(sheet, sheet.resources[name])
 end
 
 --- Removes the resource with the given name from a character sheet.
@@ -337,6 +395,7 @@ function M.remove_resource(sheet, name)
     ))
   end
   sheet.resources[name] = nil
+  on_resource_removed(sheet, name)
 end
 
 --- Sets the value of a resource in a sheet.
@@ -360,6 +419,7 @@ function M.set_resource_value(sheet, name, value)
     return false
   end
   resource.value = value
+  on_resource_changed(sheet, name, resource)
   return true
 end
 
