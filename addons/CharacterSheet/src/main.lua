@@ -7,6 +7,7 @@ local Savedata  = CS.Core.Savedata
 local Sheet     = CS.Mechanics.Sheet
 local Statblock = CS.Mechanics.Statblock
 local Rolling   = CS.Mechanics.Rolling
+local Rolls     = CS.Mechanics.Rolls
 
 local Attribute = Statblock.Attribute
 
@@ -15,20 +16,11 @@ local string_to_attribute   = Statblock.string_to_attribute
 local power_level_to_string = Statblock.power_level_to_string
 local string_to_power_level = Statblock.string_to_power_level
 
-local display         = CS.Core.Util.display
-local register_cmd    = CS.Core.Command.register_cmd
-local subscribe_event = CS.Core.Event.subscribe_event
-local translate       = CS.Core.Locale.translate
-
-local function get_active_sheet()
-  local data = Savedata.get_profile_data()
-  data.sheet = data.sheet or Sheet.initialize_character_sheet()
-  return data.sheet
-end
-
-subscribe_event("WoW.AddonLoaded", function()
-  
-end)
+local display          = CS.Core.Util.display
+local get_active_sheet = CS.Mechanics.Sheet.get_active_sheet
+local register_cmd     = CS.Core.Command.register_cmd
+local subscribe_event  = CS.Core.Event.subscribe_event
+local translate        = CS.Core.Locale.translate
 
 register_cmd("create-profile", "CMD_DESC_CREATE_PROFILE", function(name)
   if not name or name == "" then
@@ -129,26 +121,6 @@ register_cmd("hp", "CMD_DESC_HP", function(value)
   display(success and translate("MSG_HP_SET", value) or msg)
 end)
 
-register_cmd("roll", "CMD_DESC_ROLL", function(attribute_name, modifier)
-  if not attribute_name then
-    display(translate "MSG_REQUIRE_VALID_ATTRIBUTE")
-    return
-  end
-  local attribute = string_to_attribute(attribute_name)
-  if not attribute then
-    display(translate("MSG_INVALID_STAT", attribute_name))
-    return
-  end
-
-  Rolling.roll(1, 20, {
-    attribute = attribute,
-    modifier  = tonumber(modifier),
-  })
-end)
-
-register_cmd("heal", "CMD_DESC_HEAL", function(combat_state)
-end)
-
 register_cmd("stats", "CMD_DESC_STATS", function()
   local sheet = get_active_sheet()
   local stats = sheet.statblock.attributes
@@ -190,24 +162,27 @@ register_cmd("stats", "CMD_DESC_STATS", function()
   end
 end)
 
-subscribe_event("CS.Rolled", function(tag, raw_roll, lower_bound, upper_bound)
-  if type(tag) ~= "table" then
+register_cmd("roll", "CMD_DESC_ROLL", function(attribute_name, modifier)
+  if not attribute_name then
+    display(translate "MSG_REQUIRE_VALID_ATTRIBUTE")
     return
   end
-  local roll = raw_roll
-  local msg = tostring(roll)
-  if tag.attribute then
-    local sheet = get_active_sheet()
-    roll = roll + sheet.statblock.attributes[tag.attribute]
-    if tag.modifier then
-      roll = roll + tag.modifier
-    end
-    msg = tostring(roll) .. " " .. attribute_to_string(tag.attribute)
+  local attribute = string_to_attribute(attribute_name)
+  if not attribute then
+    display(translate("MSG_INVALID_STAT", attribute_name))
+    return
   end
-  if raw_roll == upper_bound then
-    msg = msg .. " (" .. translate("NATURAL", upper_bound) .. ")"
-  elseif raw_roll == lower_bound then
-    msg = msg .. " (" .. translate("NATURAL", lower_bound) .. ")"
+
+  Rolls.roll_attribute(attribute, tonumber(modifier))
+end)
+
+register_cmd("heal", "CMD_DESC_HEAL", function(combat_state, modifier)
+  combat_state = combat_state or "safe"
+  combat_state = Rolls.string_to_combat_state(combat_state)
+  if not combat_state then
+    display(translate("MSG_ALLOWED_PARAMETERS", "'safe', 'combat'"))
+    return
   end
-  display(msg)
+  
+  Rolls.roll_heal(combat_state, tonumber(modifier))
 end)

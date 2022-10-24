@@ -5,4 +5,5 @@
   <Script file="rolling.lua"/>
   <Script file="statblock.lua"/>
   <Script file="sheet.lua"/>
+  <Script file="rolls.lua"/>
 </Ui>

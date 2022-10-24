@@ -8,7 +8,8 @@ M = {}
 local insert = table.insert
 local remove = table.remove
 
-local SB = CS.Mechanics.Statblock
+local Savedata = CS.Core.Savedata
+local SB       = CS.Mechanics.Statblock
 
 local enum_to_string = CS.Core.Util.enum_to_string
 local register_event = CS.Core.Event.register_event
@@ -133,6 +134,14 @@ function M.initialize_character_sheet()
     pet       = nil,
     resources = {},
   }
+end
+
+--- Gets the character sheet from the currently active profile.
+-- @treturn Sheet
+function M.get_active_sheet()
+  local data = Savedata.get_profile_data()
+  data.sheet = data.sheet or M.initialize_character_sheet()
+  return data.sheet
 end
 
 --- Clamps the HP values in a character sheet in case the maximum HP has
