@@ -11,10 +11,15 @@ and this project adheres to
 - Command descriptions given by `/cs help` are now formatted slightly
 differently to improve readability.
 - Command descriptions can now be localized.
+- Command names now use `kebab-case` instead of `nocase`, for example the
+command `/cs addresource` has been changed to `/cs add-resource`.
+- Some commands have been renamed to be more indicative of what they do, for
+example the command `/cs setpetatk` has been renamed to `/cs set-pet-attribute`.
 - One now has to create or select a profile when first using the addon on a new
 character.
 - The default character sheet is now the one described in the system
 specification (all 13s), rather than all 10s.
+- You can now have multiple named resources simultaneously.
 - The code has gotten a complete rewrite.
 
 ### Added
@@ -26,7 +31,8 @@ still be intact.
 - The addon's API is now fully documented.
 
 ### Removed
-- Command `/cs validate`.
+- Command `/cs validate`. It's not necessary because it should not be possible
+to create invalid character sheets.
 
 ## [0.6.1][] - 2022-09-04
 ### Changed
