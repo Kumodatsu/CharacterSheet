@@ -9,7 +9,6 @@ local max   = math.max
 
 local enum_to_string = CS.Core.Util.enum_to_string
 local string_to_enum = CS.Core.Util.string_to_enum
-local translate      = CS.Core.Locale.translate
 
 --- The minimum value an attribute is allowed to have.
 M.MIN_ATTRIBUTE_VALUE = 5
@@ -58,14 +57,14 @@ M.power_level_to_string = enum_to_string(M.PowerLevel)
 -- @function string_to_attribute
 -- @tparam string s
 -- @treturn ?Attribute
-M.string_to_attribute   = string_to_enum(M.Attribute)
+M.string_to_attribute = string_to_enum(M.Attribute)
 
 --- Converts an attribute to its abbreviation as a string.
 -- This function returns nil if the conversion isn't possible.
 -- @function attribute_to_string
 -- @tparam Attribute attribute
 -- @treturn ?string
-M.attribute_to_string   = enum_to_string(M.Attribute)
+M.attribute_to_string = enum_to_string(M.Attribute)
 
 --- Initializes a new statblock.
 -- @treturn Statblock
@@ -86,68 +85,6 @@ function M.initialize_default_statblock()
     },
     power_level = M.PowerLevel.APPRENTICE,
   }
-end
-
---- Sets an attribute in a statblock to a value.
--- This function only actually performs the operation if the statblock would
--- still be valid after the change.
--- @tparam Statblock statblock
--- @tparam Attribute attribute
--- @tparam number value
--- @treturn boolean
--- true if the change was valid (and thus the statblock has been changed), false
--- otherwise.
--- @treturn ?string
--- If the operation was invalid, a localized string describing what went wrong.
-function M.set_attribute(statblock, attribute, value)
-  if value < M.MIN_ATTRIBUTE_VALUE or value > M.MAX_ATTRIBUTE_VALUE then
-    return false,
-      translate("MSG_RANGE", M.MIN_ATTRIBUTE_VALUE, M.MAX_ATTRIBUTE_VALUE)
-  end
-  local current_value = statblock.attributes[attribute]
-  local difference    = value - current_value
-  local remaining_sp  = M.get_remaining_available_sp(statblock) - difference
-  if remaining_sp < 0 then
-    return false, translate("MSG_TOO_MANY_SP", -remaining_sp)
-  end
-  statblock.attributes[attribute] = value
-  return true
-end
-
---- Sets the power level in a statblock.
--- If the change causes the total number of allowed SP to be fewer than the
--- number actually spent, points will be taken out of the attributes until the
--- statblock becomes valid again.
--- @tparam Statblock statblock
--- @tparam PowerLevel power_level
--- @treturn boolean
--- true if the power level was set without any changes to the attributes,
--- false if the power level was set and attribute values have been changed.
-function M.set_power_level(statblock, power_level)
-  local are_attributes_changed = false
-  if power_level < statblock.power_level then
-    local remaining_sp  = M.get_remaining_available_sp(statblock)
-    local max_sp_change = M.get_potential_sp(power_level) -
-      M.get_potential_sp(statblock.power_level)
-    remaining_sp = remaining_sp + max_sp_change
-    for _, attribute in ipairs {
-      M.Attribute.STR,
-      M.Attribute.DEX,
-      M.Attribute.CON,
-      M.Attribute.INT,
-      M.Attribute.WIS,
-      M.Attribute.CHA,
-    } do
-      while statblock.attributes[attribute] > M.MIN_ATTRIBUTE_VALUE and
-          remaining_sp < 0 do
-        statblock.attributes[attribute] = statblock.attributes[attribute] - 1
-        remaining_sp                    = remaining_sp + 1
-        are_attributes_changed          = true
-      end
-    end
-  end
-  statblock.power_level = power_level
-  return are_attributes_changed
 end
 
 --- Gets the SP (skill points) bonus available to a character with a specific

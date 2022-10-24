@@ -10,6 +10,11 @@ local Rolling   = CS.Mechanics.Rolling
 
 local Attribute = Statblock.Attribute
 
+local attribute_to_string   = Statblock.attribute_to_string
+local string_to_attribute   = Statblock.string_to_attribute
+local power_level_to_string = Statblock.power_level_to_string
+local string_to_power_level = Statblock.string_to_power_level
+
 local display         = CS.Core.Util.display
 local register_cmd    = CS.Core.Command.register_cmd
 local subscribe_event = CS.Core.Event.subscribe_event
@@ -78,7 +83,7 @@ register_cmd("set", "CMD_DESC_SET", function(attribute_name, value)
     display(translate "MSG_REQUIRE_VALID_ATTRIBUTE")
     return
   end
-  local attribute = Statblock.string_to_attribute(attribute_name)
+  local attribute = string_to_attribute(attribute_name)
   if not attribute then
     display(translate("MSG_INVALID_STAT", attribute_name))
     return
@@ -90,26 +95,22 @@ register_cmd("set", "CMD_DESC_SET", function(attribute_name, value)
   end
 
   local sheet        = get_active_sheet()
-  local success, msg = Statblock.set_attribute(
-    sheet.statblock, attribute, value
-  )
+  local success, msg = Sheet.set_attribute(sheet, attribute, value)
   display(
     success and translate("MSG_STAT_SET", attribute_name:upper(), value) or msg
   )
 end)
 
 register_cmd("level", "CMD_DESC_LEVEL", function(power_level_name)
-  level = Statblock.string_to_power_level(power_level_name)
+  level = string_to_power_level(power_level_name)
   if not level then
     display(translate("MSG_INVALID_POWER_LEVEL", power_level_name))
     return
   end
 
   local sheet   = get_active_sheet()
-  local success = Statblock.set_power_level(sheet.statblock, level)
-  display(
-    translate("MSG_POWER_LEVEL_SET", Statblock.power_level_to_string(level))
-  )
+  local success = Sheet.set_power_level(sheet, level)
+  display(translate("MSG_POWER_LEVEL_SET", power_level_to_string(level)))
 end)
 
 register_cmd("hp", "CMD_DESC_HP", function(value)
@@ -133,7 +134,7 @@ register_cmd("roll", "CMD_DESC_ROLL", function(attribute_name, modifier)
     display(translate "MSG_REQUIRE_VALID_ATTRIBUTE")
     return
   end
-  local attribute = Statblock.string_to_attribute(attribute_name)
+  local attribute = string_to_attribute(attribute_name)
   if not attribute then
     display(translate("MSG_INVALID_STAT", attribute_name))
     return
@@ -143,6 +144,50 @@ register_cmd("roll", "CMD_DESC_ROLL", function(attribute_name, modifier)
     attribute = attribute,
     modifier  = tonumber(modifier),
   })
+end)
+
+register_cmd("heal", "CMD_DESC_HEAL", function(combat_state)
+end)
+
+register_cmd("stats", "CMD_DESC_STATS", function()
+  local sheet = get_active_sheet()
+  local stats = sheet.statblock.attributes
+  for _, attribute in ipairs {
+    Attribute.STR,
+    Attribute.DEX,
+    Attribute.CON,
+    Attribute.INT,
+    Attribute.WIS,
+    Attribute.CHA,
+  } do
+    display(
+      "%1$s: %2$d",
+      translate(attribute_to_string(attribute)),
+      stats[attribute]
+    )
+  end
+  display(
+    "%1$s: %2$d/%3$d",
+    translate "HP",
+    sheet.hp,
+    Statblock.get_max_hp(sheet.statblock)
+  )
+  if sheet.pet then
+    display(
+      "%1$s: %2$d/%3$d",
+      translate "PET",
+      sheet.pet.hp,
+      Statblock.get_max_pet_hp(sheet.statblock)
+    )
+  end
+  for _, resource in ipairs(sheet.resources) do
+     display(
+      "%1$s: %2$d/%3$d",
+      resource.name,
+      resource.value,
+      resource.max_value
+    )
+  end
 end)
 
 subscribe_event("CS.Rolled", function(tag, raw_roll, lower_bound, upper_bound)
@@ -157,7 +202,7 @@ subscribe_event("CS.Rolled", function(tag, raw_roll, lower_bound, upper_bound)
     if tag.modifier then
       roll = roll + tag.modifier
     end
-    msg = tostring(roll) .. " " .. Statblock.attribute_to_string(tag.attribute)
+    msg = tostring(roll) .. " " .. attribute_to_string(tag.attribute)
   end
   if raw_roll == upper_bound then
     msg = msg .. " (" .. translate("NATURAL", upper_bound) .. ")"
