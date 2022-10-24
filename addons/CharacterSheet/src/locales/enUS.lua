@@ -91,13 +91,14 @@ CS.Core.Locale.add_translation_table("enUS", {
   -- 1: resource name
   MSG_RESOURCE_DOESNT_EXIST       = "You do not have a resource named \"%1$s\".",
   -- 1: resource name, 2: min, 3: max
-  MSG_RESOURCE_ALLOWED_VALUES     = "The resource %1$s must be in the range [%2$d, %3$d].",
+  MSG_RESOURCE_ALLOWED_VALUES     = "The resource \"%1$s\" must be in the range [%2$d, %3$d].",
   MSG_REQUIRE_RESOURCE_NAME       = "You must specify a resource name.",
   -- 1: resource name, 2: value
   MSG_RESOURCE_SET                = "%1$s set to %2$d.",
   -- 1: resource name
   MSG_RESOURCE_ADDED              = "Resource \"%1$s\" added.",
-  MSG_RESOURCE_REMOVED            = "Resource removed.",
+  -- 1: resource name
+  MSG_RESOURCE_REMOVED            = "Resource \"%1$s\" removed.",
   MSG_INVALID_COLOR               = "You must specify a valid color.",
   MSG_NO_RESOURCE                 = "You do not have a resource.",
   -- 1: profile name

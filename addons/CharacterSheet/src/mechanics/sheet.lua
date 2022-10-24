@@ -397,40 +397,39 @@ function M.add_resource(sheet, name, value, min_value, max_value)
 end
 
 --- Removes the resource with the given name from a character sheet.
--- This function errors if and only if no resource with that name exists in the
--- sheet.
 -- @tparam Sheet sheet
 -- @tparam string name
+-- @treturn boolean
+-- true if the resource was removed, false if there is no resource with the
+-- given name.
+-- @treturn ?string
+-- In case of an invalid operation, a message describing the error.
 function M.remove_resource(sheet, name)
   if not sheet.resources[name] then
-    error(string.format(
-      "Attempt to remove non-existent resource '%s'.",
-      name
-    ))
+    return false, translate("MSG_RESOURCE_DOESNT_EXIST", name)
   end
   sheet.resources[name] = nil
   on_resource_removed(sheet, name)
+  return true
 end
 
 --- Sets the value of a resource in a sheet.
 -- The value is only set if it is within the resource's allowed range.
--- This function errors if and only if the requested resource doesn't exist in
--- the sheet.
 -- @tparam Sheet sheet
 -- @tparam string name
 -- @tparam number value
 -- @treturn boolean
 -- false if the specified value is outside the allowed range, true otherwise.
+-- @treturn ?string
+-- In case of an invalid operation, a message describing the error.
 function M.set_resource_value(sheet, name, value)
   local resource = sheet.resources[name]
   if not resource then
-    error(string.format(
-      "Attempt to access non-existent resource '%s'.",
-      name
-    ))
+    return false, translate("MSG_RESOURCE_DOESNT_EXIST", name)
   end
   if value < resource.min_value or value > resource.max_value then
-    return false
+    return false, translate("MSG_RESOURCE_ALLOWED_VALUES", name,
+      resource.min_value, resource.max_value)
   end
   resource.value = value
   on_resource_changed(sheet, name, resource)
@@ -440,20 +439,17 @@ end
 --- Changes the value of a resource in a sheet by some amount.
 -- The resource's value is only changed if the resulting value is within the
 -- resource's allowed range.
--- This function errors if and only if the requested resource doesn't exist in
--- the sheet.
 -- @tparam Sheet sheet
 -- @tparam string name
 -- @tparam number amount
 -- @treturn boolean
 -- false if the resulting value is outside the allowed range, true otherwise.
+-- @treturn ?string
+-- In case of an invalid operation, a message describing the error.
 function M.change_resource_value(sheet, name, amount)
   local resource = sheet.resources[name]
   if not resource then
-    error(string.format(
-      "Attempt to access non-existent resource '%s'.",
-      name
-    ))
+    return false, translate("MSG_RESOURCE_DOESNT_EXIST", name)
   end
   return M.set_resource_value(sheet, name, resource.value + amount)
 end

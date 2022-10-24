@@ -152,7 +152,7 @@ register_cmd("stats", "CMD_DESC_STATS", function()
       Statblock.get_max_pet_hp(sheet.statblock)
     )
   end
-  for _, resource in ipairs(sheet.resources) do
+  for _, resource in pairs(sheet.resources) do
      display(
       "%1$s: %2$d/%3$d",
       resource.name,
@@ -259,4 +259,53 @@ register_cmd("set-pet-attribute", "CMD_DESC_SET_PET_ATTRIBUTE",
 
   Sheet.set_pet_attack_attribute(sheet, attribute)
   display(translate("MSG_PET_ATTRIBUTE_SET", attribute_to_string(attribute)))
+end)
+
+register_cmd("add-resource", "CMD_DESC_ADD_RESOURCE",
+    function(name, min_value, max_value)
+  local sheet = get_active_sheet()
+  if not sheet then
+    return display(translate "MSG_NO_ACTIVE_PROFILE")
+  end
+  if not name then
+    return display(translate "MSG_REQUIRE_RESOURCE_NAME")
+  end
+  min_value = tonumber(min_value)
+  max_value = tonumber(max_value)
+  if not min_value or not max_value then
+    return display(translate "MSG_INTEGER")
+  end
+
+  Sheet.add_resource(sheet, name, max_value, min_value, max_value)
+  display(translate("MSG_RESOURCE_ADDED", name))
+end)
+
+register_cmd("remove-resource", "CMD_DESC_REMOVE_RESOURCE", function(name)
+  local sheet = get_active_sheet()
+  if not sheet then
+    return display(translate "MSG_NO_ACTIVE_PROFILE")
+  end
+  if not name then
+    return display(translate "MSG_REQUIRE_RESOURCE_NAME")
+  end
+
+  local success, msg = Sheet.remove_resource(sheet, name)
+  display(success and translate("MSG_RESOURCE_REMOVED", name) or msg)
+end)
+
+register_cmd("set-resource", "CMD_DESC_SET_RESOURCE", function(name, value)
+  local sheet = get_active_sheet()
+  if not sheet then
+    return display(translate "MSG_NO_ACTIVE_PROFILE")
+  end
+  if not name then
+    return display(translate "MSG_REQUIRE_RESOURCE_NAME")
+  end
+  value = tonumber(value)
+  if not value then
+    return display(translate "MSG_INTEGER")
+  end
+
+  local success, msg = Sheet.set_resource_value(sheet, name, value)
+  display(success and translate("MSG_RESOURCE_SET", name, value) or msg)
 end)
