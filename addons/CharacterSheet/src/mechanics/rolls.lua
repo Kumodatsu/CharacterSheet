@@ -3,6 +3,8 @@
 local _, CS = ...
 local M = {}
 
+local ceil = math.ceil
+
 local SB = CS.Mechanics.Statblock
 
 local attribute_to_string = SB.attribute_to_string
@@ -28,10 +30,16 @@ M.CombatState = {
 M.string_to_combat_state = string_to_enum(M.CombatState)
 M.combat_state_to_string = enum_to_string(M.CombatState)
 
+M.RollType = {
+  Attribute = "CS.Attribute",
+  Heal      = "CS.Heal",
+  PetAttack = "CS.PetAttack",
+}
+
 function M.roll_attribute(attribute, modifier)
   modifier = modifier or 0
   roll(1, 20, {
-    type      = "attribute",
+    type      = M.RollType.Attribute,
     attribute = attribute,
     modifier  = modifier,
   })  
@@ -47,7 +55,15 @@ function M.roll_heal(combat_state, modifier)
     die = M.COMBAT_HEAL_DIE
   end
   roll(1, die, {
-    type     = "heal",
+    type     = M.RollType.Heal,
+    modifier = modifier,
+  })
+end
+
+function M.roll_pet_attack(modifier)
+  modifier = modifier or 0
+  roll(1, 20, {
+    type     = M.RollType.PetAttack,
     modifier = modifier,
   })
 end
@@ -67,7 +83,7 @@ end
 
 local function handle_attribute(sheet, data, raw_roll, lower_bound, upper_bound)
   local roll = raw_roll + sheet.statblock.attributes[data.attribute] +
-    (data.modifier or 0)
+    data.modifier
   display_roll_output(iformat(
     "%1$d %2$s %3$s",
     roll,
@@ -78,7 +94,22 @@ end
 
 local function handle_heal(sheet, data, raw_roll, lower_bound, upper_bound)
   local roll = raw_roll + SB.get_heal_modifier(sheet.statblock) +
-    (data.modifier or 0)
+    data.modifier
+  display_roll_output(iformat(
+    "%1$d %2$s",
+    roll,
+    format_natural_extreme_roll(raw_roll, lower_bound, upper_bound) or ""
+  ))
+end
+
+local function handle_pet_attack(sheet, data, raw_roll, lower_bound,
+    upper_bound)
+  local pet = sheet.pet
+  if not pet then return end
+
+  local roll =
+    ceil((raw_roll + sheet.statblock.attributes[pet.attribute]) / 2) +
+    data.modifier
   display_roll_output(iformat(
     "%1$d %2$s",
     roll,
@@ -95,10 +126,12 @@ subscribe_event("CS.Rolled", function(data, raw_roll, lower_bound, upper_bound)
     return
   end 
 
-  if data.type == "attribute" then
+  if data.type == M.RollType.Attribute then
     handle_attribute(sheet, data, raw_roll, lower_bound, upper_bound)
-  elseif data.type == "heal" then
+  elseif data.type == M.RollType.Heal then
     handle_heal(sheet, data, raw_roll, lower_bound, upper_bound)
+  elseif data.type == M.RollType.PetAttack then
+    handle_pet_attack(sheet, data, raw_roll, lower_bound, upper_bound)
   end
 end)
 

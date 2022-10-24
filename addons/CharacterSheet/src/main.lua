@@ -186,3 +186,77 @@ register_cmd("heal", "CMD_DESC_HEAL", function(combat_state, modifier)
   
   Rolls.roll_heal(combat_state, tonumber(modifier))
 end)
+
+register_cmd("pet", "CMD_DESC_PET", function()
+  local sheet = get_active_sheet()
+  if not sheet then
+    display(translate "MSG_NO_ACTIVE_PROFILE")
+    return
+  end
+
+  local pet_active = Sheet.toggle_pet(sheet)
+  display(translate(
+    pet_active and "MSG_ACTIVE_PET_SET" or "MSG_ACTIVE_PET_UNSET"
+  ))
+end)
+
+register_cmd("pet-hp", "CMD_DESC_PET_HP", function(value)
+  local sheet = get_active_sheet()
+  if not sheet then
+    display(translate "MSG_NO_ACTIVE_PROFILE")
+    return
+  elseif not sheet.pet then
+    display(translate "MSG_NO_PETS")
+    return
+  end
+  if value == "max" then
+    value = Statblock.get_max_pet_hp(sheet.statblock)
+  else
+    value = tonumber(value)
+  end
+  if not value then
+    display(translate "MSG_SET_HP_ALLOWED_ARGUMENTS")
+    return
+  end
+
+  local success, msg = Sheet.set_pet_hp(sheet, value)
+  display(success and translate("MSG_PET_HP_SET", value) or msg)
+end)
+
+
+register_cmd("pet-attack", "CMD_DESC_PET_ATTACK", function(modifier)
+  local sheet = get_active_sheet()
+  if not sheet then
+    display(translate "MSG_NO_ACTIVE_PROFILE")
+    return
+  elseif not sheet.pet then
+    display(translate "MSG_NO_PETS")
+    return
+  end
+
+  Rolls.roll_pet_attack(tonumber(modifier))
+end)
+
+register_cmd("set-pet-attribute", "CMD_DESC_SET_PET_ATTRIBUTE",
+    function(attribute_name)
+  local sheet = get_active_sheet()
+  if not sheet then
+    display(translate "MSG_NO_ACTIVE_PROFILE")
+    return
+  elseif not sheet.pet then
+    display(translate "MSG_NO_PETS")
+    return
+  end
+  if not attribute_name then
+    display(translate "MSG_REQUIRE_VALID_ATTRIBUTE")
+    return
+  end
+  local attribute = string_to_attribute(attribute_name)
+  if not attribute then
+    display(translate("MSG_INVALID_STAT", attribute_name))
+    return
+  end
+
+  Sheet.set_pet_attack_attribute(sheet, attribute)
+  display(translate("MSG_PET_ATTRIBUTE_SET", attribute_to_string(attribute)))
+end)

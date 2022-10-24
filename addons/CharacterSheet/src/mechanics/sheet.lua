@@ -287,7 +287,7 @@ end
 function M.set_hp(sheet, value)
   local max_hp = SB.get_max_hp(sheet.statblock)
   if value < M.KNOCK_OUT_HP or value > max_hp then
-    return false, translate("MSG_SET_HP_ALLOWED_VALUES")
+    return false, translate "MSG_SET_HP_ALLOWED_VALUES"
   end
   sheet.hp = value
   on_hp_changed(sheet, value)
@@ -307,6 +307,8 @@ end
 --- Toggles the presence of a pet on a sheet.
 -- Note that toggling the pet twice will reset it completely.
 -- @tparam Sheet sheet
+-- @treturn boolean
+-- true if the pet is now active, false if the pet is now inactive.
 function M.toggle_pet(sheet)
   if sheet.pet then
     sheet.pet = nil
@@ -317,6 +319,7 @@ function M.toggle_pet(sheet)
     }
   end
   on_pet_toggled(sheet, sheet.pet)
+  return sheet.pet ~= nil
 end
 
 --- Sets the pet's HP on a sheet to a specified value.
@@ -326,13 +329,15 @@ end
 -- @treturn boolean
 -- false if there is no pet or if the value is outside of the allowed range,
 -- true otherwise.
+-- @treturn ?string
+-- In case the operation was invalid, a message describing the erorr.
 function M.set_pet_hp(sheet, value)
   if not sheet.pet then
-    return false
+    return false, translate "MSG_NO_PETS"
   end
   local max_pet_hp = SB.get_max_pet_hp(sheet.statblock)
   if value < M.PET_KNOCK_OUT_HP or value > max_pet_hp then
-    return false
+    return false, translate "MSG_SET_HP_ALLOWED_VALUES"
   end
   sheet.pet.hp = value
   on_pet_hp_changed(sheet, value)

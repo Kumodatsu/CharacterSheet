@@ -68,11 +68,12 @@ CS.Core.Locale.add_translation_table("enUS", {
   MSG_PET_REMOVED                 = "Removed pet %1$s.",
   MSG_NO_PETS                     = "You do not have any pets.",
   MSG_SET_PET_HP_ALLOWED_VALUES   = "The given value must be a positive integer and may not exceed your pet's max HP.",
-  -- 1: name, 2: HP
-  MSG_PET_HP_SET                  = "%1$s's HP set to %2$d.",
-  -- 1: name
-  MSG_ACTIVE_PET_SET              = "%1$s is now your active pet.",
+  -- 1: HP
+  MSG_PET_HP_SET                  = "Pet's HP set to %1$d.",
+  MSG_ACTIVE_PET_SET              = "You now have an active pet.",
   MSG_ACTIVE_PET_UNSET            = "You no longer have an active pet.",
+  -- 1: attribute name
+  MSG_PET_ATTRIBUTE_SET           = "Your pet's attack attribute has been set to %1$s.",
   MSG_INVALID_NUMBER              = "You must specify a valid number.",
   -- 1: attribute, 2: min, 3: max
   MSG_ATTRIB_RANGE                = "The attribute %1$s must be in the range [%2$d, %3$d].",
@@ -108,6 +109,7 @@ CS.Core.Locale.add_translation_table("enUS", {
   -- 1: profile name
   MSG_ACTIVE_PROFILE_SET          = "'%1$s' is now the active profile.",
   MSG_INVALID_PROFILE_NAME        = "The given profile name is invalid.",
+  MSG_NO_ACTIVE_PROFILE           = "There is no active profile.",
 
   MSG_TRP_STATS_ARGS              = "The argument must be one of: off, cur, ooc",
   MSG_TRP_STATS_NONE              = "Your stats will now not appear in your TRP.",
@@ -161,13 +163,17 @@ CS.Core.Locale.add_translation_table("enUS", {
   -- 1: author, 2: title, 3: version
   ADDON_INFO                     = "%1$s's %2$s, version %3$s",
 
-  CMD_DESC_HELP           = "'/cs help' shows the list of available commands.\n'/cs help <command>' shows an explanation of the specified command.",
-  CMD_DESC_VERSION        = "'/cs version' shows the addon's current version number.",
-  CMD_DESC_CREATE_PROFILE = "'/cs create-profile <name>' creates a profile with the given name.",
-  CMD_DESC_USE_PROFILE    = "'/cs use-profile <name> [index]' sets the active profile to the one with the given name. If there are multiple profiles with the same name, you can add an index to specify which one to select.",
-  CMD_DESC_SET            = "'/cs set <attribute> <value>' sets the given attribute to a value, if you have enough skill points to do so.",
-  CMD_DESC_LEVEL          = "'/cs level <power-level>' sets your power level. If the new power level results in your skill point distribution becoming invalid, points are automatically deducted from your attributes until it becomes valid again.",
-  CMD_DESC_HP             = "'/cs hp max' sets your HP to its maximum value.\n'/cs hp <value>' sets your HP to the given value.",
-  CMD_DESC_ROLL           = "'/cs roll <attribute> [modifier]' rolls with the given attribute. If a bonus modifier is provided, this value is added to the roll's result. This modifier can also be negative.",
-  CMD_DESC_HEAL           = "'/cs heal [combat-state] [modifier]' rolls a healing roll. If no combat state is provided, defaults to a safe heal roll. If a bonus modifier is provided, this value is added to the roll's result. This modifier can also be negative.",
+  CMD_DESC_HELP              = "'/cs help' shows the list of available commands.\n'/cs help <command>' shows an explanation of the specified command.",
+  CMD_DESC_VERSION           = "'/cs version' shows the addon's current version number.",
+  CMD_DESC_CREATE_PROFILE    = "'/cs create-profile <name>' creates a profile with the given name.",
+  CMD_DESC_USE_PROFILE       = "'/cs use-profile <name> [index]' sets the active profile to the one with the given name. If there are multiple profiles with the same name, you can add an index to specify which one to select.",
+  CMD_DESC_SET               = "'/cs set <attribute> <value>' sets the given attribute to a value, if you have enough skill points to do so.",
+  CMD_DESC_LEVEL             = "'/cs level <power-level>' sets your power level. If the new power level results in your skill point distribution becoming invalid, points are automatically deducted from your attributes until it becomes valid again.",
+  CMD_DESC_HP                = "'/cs hp max' sets your HP to its maximum value.\n'/cs hp <value>' sets your HP to the given value.",
+  CMD_DESC_ROLL              = "'/cs roll <attribute> [modifier]' rolls with the given attribute. If a bonus modifier is provided, this value is added to the roll's result. This modifier can also be negative.",
+  CMD_DESC_HEAL              = "'/cs heal [combat-state] [modifier]' rolls a healing roll. If no combat state is provided, defaults to a safe heal roll. If a bonus modifier is provided, this value is added to the roll's result. This modifier can also be negative.",
+  CMD_DESC_PET               = "'/cs pet' toggles your pet.",
+  CMD_DESC_PET_ATTACK        = "'/cs pet-attack [modifier]' performs a pet attack roll and displays the final damage number. If a bonus modifier is provided, this value is added to the roll's result. This modifier can also be negative.",
+  CMD_DESC_SET_PET_ATTRIBUTE = "'/cs set-pet-attribute <attribute>' sets your pet's attack attribute. Note that you should not change this from the default (Charisma) without the game master's permission.",
+  CMD_DESC_PET_HP            = "'/cs pet-hp max' sets your pet's HP to it's maximum value.\n'/cs pet-hp <value>' sets your pet's HP to the given value.",
 })
