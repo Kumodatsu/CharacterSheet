@@ -5,5 +5,8 @@
 ## Dependecies:    CharacterSheet
 ## SavedVariables: CS_UI_DEV_DB
 ## Version:        0.7.0
+## IconTexture:    Interface/Icons/inv_inscription_scroll
 
 src\ui.lua
+src\stats.lua
+src\compartment.lua

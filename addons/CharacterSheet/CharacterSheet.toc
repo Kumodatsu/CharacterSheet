@@ -4,6 +4,7 @@
 ## Author:         Kumodatsu
 ## SavedVariables: CS_DEV_DB
 ## Version:        0.7.0
+## IconTexture:    Interface/Icons/inv_inscription_scroll
 
 src\core\core.xml
 src\locales\locales.xml
