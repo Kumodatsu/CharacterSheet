@@ -119,17 +119,24 @@ end
 -- The identifier associated with the desired profile.
 -- If unspecified, the data for the current player character's active profile
 -- will be selected.
--- @treturn table
--- The table representing the data stored in the selected data profile.
+-- @treturn ?table
+-- The table representing the data stored in the selected data profile, or
+-- nil if `profile_id` was not specified and there is no active profile.
 function M.get_profile_data(profile_id)
-  profile_id = profile_id or M.get_profile_id()
   if not profile_id then
+    profile_id = M.get_profile_id()
+    if not profile_id then
+      return nil
+    end
+  end
+  local savedata = get_savedata()
+  local profile  = savedata.profiles[profile_id]
+  if not profile then
     error(string.format(
       "Attempt to get the data for non-existent profile with ID '%s'.",
       profile_id
     ))
   end
-  local savedata = get_savedata()
   return savedata.profiles[profile_id].data
 end
 

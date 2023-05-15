@@ -86,7 +86,11 @@ register_cmd("set", "CMD_DESC_SET", function(attribute_name, value)
     return
   end
 
-  local sheet        = get_active_sheet()
+  local sheet = get_active_sheet()
+  if not sheet then
+    display(translate "MSG_NO_ACTIVE_PROFILE")
+    return
+  end
   local success, msg = Sheet.set_attribute(sheet, attribute, value)
   display(
     success and translate("MSG_STAT_SET", attribute_name:upper(), value) or msg
@@ -99,14 +103,21 @@ register_cmd("level", "CMD_DESC_LEVEL", function(power_level_name)
     display(translate("MSG_INVALID_POWER_LEVEL", power_level_name))
     return
   end
-
-  local sheet   = get_active_sheet()
+  local sheet = get_active_sheet()
+  if not sheet then
+    display(translate "MSG_NO_ACTIVE_PROFILE")
+    return
+  end
   local success = Sheet.set_power_level(sheet, level)
   display(translate("MSG_POWER_LEVEL_SET", power_level_to_string(level)))
 end)
 
 register_cmd("hp", "CMD_DESC_HP", function(value)
   local sheet = get_active_sheet()
+  if not sheet then
+    display(translate "MSG_NO_ACTIVE_PROFILE")
+    return
+  end
   if value == "max" then
     value = Statblock.get_max_hp(sheet.statblock)
   else
@@ -123,6 +134,11 @@ end)
 
 register_cmd("stats", "CMD_DESC_STATS", function()
   local sheet = get_active_sheet()
+  local sheet = get_active_sheet()
+  if not sheet then
+    display(translate "MSG_NO_ACTIVE_PROFILE")
+    return
+  end
   local stats = sheet.statblock.attributes
   for _, attribute in ipairs {
     Attribute.STR,

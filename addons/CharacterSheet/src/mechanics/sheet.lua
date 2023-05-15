@@ -137,9 +137,13 @@ function M.initialize_character_sheet()
 end
 
 --- Gets the character sheet from the currently active profile.
--- @treturn Sheet
+-- @treturn ?Sheet
+-- The active sheet if there is an active profile, nil otherwise.
 function M.get_active_sheet()
   local data = Savedata.get_profile_data()
+  if not data then
+    return nil
+  end
   data.sheet = data.sheet or M.initialize_character_sheet()
   return data.sheet
 end
