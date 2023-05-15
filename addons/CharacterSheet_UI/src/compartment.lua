@@ -20,14 +20,14 @@ local menu = {{
 }, {
   text    = translate "MINIMAP_MENU_STATS_FRAME",
   func    = function()
-    if main_frame:IsVisible() then
-      main_frame:Hide()
+    if CS_UI_StatsFrame:IsVisible() then
+      CS_UI_StatsFrame:Hide()
     else
-      main_frame:Show()
+      CS_UI_StatsFrame:Show()
     end
   end,
   checked = function()
-    return main_frame:IsVisible()
+    return CS_UI_StatsFrame:IsVisible()
   end,
 }, {
   text    = translate "MINIMAP_MENU_EDIT_FRAME",

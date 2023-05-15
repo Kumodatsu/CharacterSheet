@@ -42,70 +42,44 @@ local ATTRIBUTE_TEXTURES = {
 
 -- Frame definition
 
-local frame = CreateFrame(
-  "Frame",
-  "CS_UI_StatsFrame",
-  UIParent,
-  "BackdropTemplate"
-)
+local frame = UI.create_frame("CS_UI_StatsFrame", UIParent, {
+  width    = ICON_WIDTH + BUTTON_WIDTH + 2 * BORDER_SIZE;
+  height   = 6 * BUTTON_HEIGHT + HEALTH_HEIGHT + 2 * BORDER_SIZE;
+  x        = 0;
+  y        = 0;
+  movable  = true;
+  backdrop = BACKDROP_TUTORIAL_16_16;
+})
 
-UI.set_movable(frame, true)
-frame:SetBackdrop(BACKDROP_TUTORIAL_16_16)
-frame:SetWidth(ICON_WIDTH + BUTTON_WIDTH + 2 * BORDER_SIZE)
-frame:SetHeight((6 * BUTTON_HEIGHT + HEALTH_HEIGHT) + 2 * BORDER_SIZE)
-frame:SetClampedToScreen(true)
-frame:SetPoint("CENTER", 0, 0)
+frame.decrement_health_button = UI.create_icon_button(frame, {
+  width     = INCDEC_WIDTH;
+  height    = INCDEC_HEIGHT;
+  x         = BORDER_SIZE;
+  y         = -BORDER_SIZE;
+  texcoords = DEC_TEXCOORDS;
+  texture   = DEC_TEXTURE;
+})
 
-do
-  local button = CreateFrame("Button", nil, frame)
-  button:SetSize(INCDEC_WIDTH, INCDEC_HEIGHT)
-  button:SetPoint("TOPLEFT", frame, "TOPLEFT", BORDER_SIZE, -BORDER_SIZE)
-  button.texture = button:CreateTexture()
-  button.texture:SetPoint("CENTER", button, "CENTER", 0, 0)
-  button.texture:SetWidth(INCDEC_WIDTH)
-  button.texture:SetHeight(INCDEC_HEIGHT)
-  button.texture:SetTexCoord(unpack(DEC_TEXCOORDS))
-  button.texture:SetTexture(DEC_TEXTURE)
-  frame.decrement_health_button = button
-end
+frame.health_bar = UI.create_status_bar(frame, {
+  width      = HEALTH_WIDTH;
+  height     = HEALTH_HEIGHT;
+  x          = BORDER_SIZE + INCDEC_WIDTH;
+  y          = -BORDER_SIZE;
+  texture    = HEALTH_TEXTURE;
+  color      = {0.1, 0.9,  0.3};
+  bg_color   = {0.0, 0.35, 0.0};
+  text_color = {0.0, 1.0,  0.0};
+  font_size  = 16;
+})
 
-do
-  local health_bar = CreateFrame("StatusBar", nil, frame)
-  health_bar:SetOrientation "HORIZONTAL"
-  health_bar:SetWidth(HEALTH_WIDTH)
-  health_bar:SetHeight(HEALTH_HEIGHT)
-  health_bar:SetPoint("TOPLEFT", frame, "TOPLEFT",
-    BORDER_SIZE + INCDEC_WIDTH, -BORDER_SIZE)
-  health_bar:SetStatusBarTexture(HEALTH_TEXTURE)
-  health_bar:SetStatusBarColor(0.1, 0.9, 0.3, 1.0)
-  health_bar.background = health_bar:CreateTexture(nil, "BACKGROUND")
-  health_bar.background:SetTexture(HEALTH_TEXTURE)
-  health_bar.background:SetVertexColor(0.0, 0.35, 0.0)
-  health_bar.background:SetAllPoints(true)
-  health_bar.text = health_bar:CreateFontString(nil, "OVERLAY")
-  health_bar.text:SetPoint("CENTER", health_bar, "CENTER", 0, 0)
-  health_bar.text:SetFont("Fonts\\FRIZQT__.TTF", 16, "OUTLINE")
-  health_bar.text:SetJustifyH "CENTER"
-  health_bar.text:SetShadowOffset(1, -1)
-  health_bar.text:SetTextColor(0.0, 1.0, 0.0)
-  health_bar:Show()
-
-  frame.health_bar = health_bar
-end
-
-do
-  local button = CreateFrame("Button", nil, frame)
-  button:SetSize(INCDEC_WIDTH, INCDEC_HEIGHT)
-  button:SetPoint("TOPLEFT", frame, "TOPLEFT",
-    BORDER_SIZE + INCDEC_WIDTH + HEALTH_WIDTH, -BORDER_SIZE)
-  button.texture = button:CreateTexture()
-  button.texture:SetPoint("CENTER", button, "CENTER", 0, 0)
-  button.texture:SetWidth(INCDEC_WIDTH)
-  button.texture:SetHeight(INCDEC_HEIGHT)
-  button.texture:SetTexCoord(unpack(INC_TEXCOORDS))
-  button.texture:SetTexture(INC_TEXTURE)
-  frame.increment_health_button = button
-end
+frame.increment_health_button = UI.create_icon_button(frame, {
+  width     = INCDEC_WIDTH;
+  height    = INCDEC_HEIGHT;
+  x         = BORDER_SIZE + INCDEC_WIDTH + HEALTH_WIDTH;
+  y         = -BORDER_SIZE;
+  texcoords = INC_TEXCOORDS;
+  texture   = INC_TEXTURE;
+})
 
 frame.attribute_widgets = {}
 for i, attribute in ipairs {
@@ -118,27 +92,21 @@ for i, attribute in ipairs {
 } do
   local y_offset = -BORDER_SIZE - HEALTH_HEIGHT - (i - 1) * BUTTON_HEIGHT
 
-  local icon = CreateFrame("Frame", nil, frame)
-  icon:SetSize(ICON_WIDTH, ICON_HEIGHT)
-  icon:SetPoint("TOPLEFT", frame, "TOPLEFT", BORDER_SIZE, y_offset)
-  icon.texture = icon:CreateTexture(nil, "BACKGROUND")
-  icon.texture:SetPoint("TOPLEFT", icon, "TOPLEFT", 0, 0)
-  icon.texture:SetWidth(ICON_WIDTH)
-  icon.texture:SetHeight(ICON_HEIGHT)
-  icon.texture:SetTexture(ATTRIBUTE_TEXTURES[attribute])
-  icon:Show()
-
-  local button = CreateFrame("Button", nil, frame)
-  button:SetWidth(BUTTON_WIDTH)
-  button:SetHeight(BUTTON_HEIGHT)
-  button:SetPoint("TOPLEFT", frame, "TOPLEFT", BORDER_SIZE + ICON_WIDTH,
-    y_offset)
-  button:SetNormalFontObject "GameFontNormal"
+  local icon = UI.create_icon(frame, {
+    width   = ICON_WIDTH;
+    height  = ICON_HEIGHT;
+    x       = BORDER_SIZE;
+    y       = y_offset;
+    texture = ATTRIBUTE_TEXTURES[attribute];
+  })
+  local button = UI.create_text_button(frame, {
+    width  = BUTTON_WIDTH;
+    height = BUTTON_HEIGHT;
+    x      = BORDER_SIZE + ICON_WIDTH;
+    y      = y_offset;
+  })
   button:SetText(attribute_to_string(attribute))
-  button:GetFontString():SetPoint("CENTER", button, "CENTER", 0, 0)
-  button:SetScript("OnClick", function() roll_attribute(attribute) end)
-  button:Show()
-
+  UI.on_click(button, function() roll_attribute(attribute) end)
   frame.attribute_widgets[attribute] = {
     icon   = icon,
     button = button,
@@ -169,13 +137,13 @@ subscribe_event("CS.MaxHPChanged", function(sheet, value)
   update_health_bar(sheet.hp, value)
 end)
 
-frame.decrement_health_button:SetScript("OnClick", function(self)
+UI.on_click(frame.decrement_health_button, function()
   local sheet = Sheet.get_active_sheet()
   Sheet.change_hp(sheet, -1)
   update_health_bar(sheet.hp, Statblock.get_max_hp(sheet.statblock))
 end)
 
-frame.increment_health_button:SetScript("OnClick", function(self)
+UI.on_click(frame.increment_health_button, function()
   local sheet = Sheet.get_active_sheet()
   Sheet.change_hp(sheet, 1)
   update_health_bar(sheet.hp, Statblock.get_max_hp(sheet.statblock))
