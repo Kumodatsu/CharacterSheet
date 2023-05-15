@@ -1,0 +1,9 @@
+## Interface:      100100
+## Title:          Character Sheet UI
+## Notes:          UI for the Character Sheet addon.
+## Author:         Kumodatsu
+## Dependecies:    CharacterSheet
+## SavedVariables: CS_UI_DEV_DB
+## Version:        0.7.0
+
+src\ui.lua

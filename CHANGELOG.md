@@ -20,6 +20,8 @@ character.
 - The default character sheet is now the one described in the system
 specification (all 13s), rather than all 10s.
 - You can now have multiple named resources simultaneously.
+- The core addon now only handles the logic and slash commands, and the UI has
+become a separate addon.
 - The code has gotten a complete rewrite.
 
 ### Added
