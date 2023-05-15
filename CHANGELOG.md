@@ -7,7 +7,7 @@ and this project adheres to
 
 ## Unreleased
 ### Changed
-- Updated for World of Warcraft 10.0.0.
+- Updated for World of Warcraft 10.1.0.
 - Command descriptions given by `/cs help` are now formatted slightly
 differently to improve readability.
 - Command descriptions can now be localized.
