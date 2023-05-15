@@ -31,6 +31,19 @@ function M.create_frame(name, parent, info)
 end
 
 -- info:
+-- { width, height, x, y, font, font_size }
+function M.create_label(parent, info)
+  local item = CreateFrame("Frame", nil, parent)
+  item:SetSize(info.width, info.height)
+  item:SetPoint("TOPLEFT", parent, "TOPLEFT", info.x, info.y)
+  item.text = item:CreateFontString(nil, "ARTWORK")
+  item.text:SetFont(info.font, info.font_size, "OUTLINE")
+  item.text:SetPoint("CENTER", 0, 0)
+  item.text:SetText " "
+  return item
+end
+
+-- info:
 -- { width, height, x, y, texcoords?, texture }
 function M.create_icon(parent, info)
   local item = CreateFrame("Frame", nil, parent)
@@ -46,6 +59,38 @@ function M.create_icon(parent, info)
     item.texture:SetTexCoord(0, 1, 0, 1)
   end
   item.texture:SetTexture(info.texture)
+  return item
+end
+
+-- info:
+-- { width, x, y, get, set, entries: { text, value } }
+function M.create_dropdown(name, parent, info)
+  local item = CreateFrame("Frame", name, parent, "UIDropDownMenuTemplate")
+  item:SetPoint("TOPLEFT", parent, "TOPLEFT", info.x, info.y)
+  item.SetText = UIDropDownMenu_SetText
+  item:SetText " "
+  UIDropDownMenu_SetWidth(item, info.width)
+  UIDropDownMenu_Initialize(item, function(self, level, menuList)
+    local data = UIDropDownMenu_CreateInfo()
+    
+    data.func    = function(self, value, text)
+      item:SetText(text)
+      return info.set(value)
+    end
+    for _, entry in ipairs(info.entries) do
+      data.text    = entry.text
+      data.arg1    = entry.value
+      data.arg2    = entry.text
+      data.checked = function()
+        return info.get() == entry.value
+      end
+      if data.checked() then
+        item:SetText(data.text)
+      end
+      UIDropDownMenu_AddButton(data, 1)
+    end
+  end)
+
   return item
 end
 

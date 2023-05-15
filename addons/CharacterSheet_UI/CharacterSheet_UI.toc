@@ -9,4 +9,5 @@
 
 src\ui.lua
 src\stats.lua
+src\edit.lua
 src\compartment.lua

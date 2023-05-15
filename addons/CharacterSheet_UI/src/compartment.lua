@@ -32,10 +32,14 @@ local menu = {{
 }, {
   text    = translate "MINIMAP_MENU_EDIT_FRAME",
   func    = function()
-    -- CS.Interface.Toggle(CS_EditFrame)
+    if CS_UI_EditFrame:IsVisible() then
+      CS_UI_EditFrame:Hide()
+    else
+      CS_UI_EditFrame:Show()
+    end
   end,
   checked = function()
-    return false -- return CS_EditFrame:IsVisible()
+    return CS_UI_EditFrame:IsVisible()
   end,
 }, {
   text    = translate "MINIMAP_MENU_TOGGLE_PET",

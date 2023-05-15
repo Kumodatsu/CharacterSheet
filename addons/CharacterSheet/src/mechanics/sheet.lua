@@ -225,6 +225,22 @@ function M.set_attribute(sheet, attribute, value)
   return true
 end
 
+--- Change an attribute in a character sheet's stat block by some amount.
+-- This function only actually performs the operation if the statblock would
+-- still be valid after the change.
+-- @tparam Sheet sheet
+-- @tparam Attribute attribute
+-- @tparam number amount
+-- @treturn boolean
+-- true if the change was valid (and thus the statblock has been changed), false
+-- otherwise.
+-- @treturn ?string
+-- If the operation was invalid, a localized string describing what went wrong.
+function M.change_attribute(sheet, attribute, amount)
+  return M.set_attribute(sheet, attribute,
+    sheet.statblock.attributes[attribute] + amount)
+end
+
 --- Sets the power level in a character sheet's statblock.
 -- If the change causes the total number of allowed SP to be fewer than the
 -- number actually spent, points will be taken out of the attributes until the
