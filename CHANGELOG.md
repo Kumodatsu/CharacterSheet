@@ -8,8 +8,12 @@ and this project adheres to
 ## [0.6.2][] - 2023-12-04
 ### Changed
 - Updated for World of Warcraft 10.2.0.
+- Updated dependencies.
 - The minimap button has been replaced by a new button that integrates with
 Blizzard's own addon compartment UI.
+
+### Fixed
+- The resource frame works again.
 
 ## [0.6.1][] - 2022-09-04
 ### Changed
