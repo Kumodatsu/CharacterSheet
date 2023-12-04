@@ -40,6 +40,7 @@ ui\interface.lua
 ui\stats_frame.lua
 ui\edit_frame.lua
 ui\resource_menu.lua
+ui\compartment.lua
 
 src\extensions\extensions.lua
 src\extensions\totalRP3.lua

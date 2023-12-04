@@ -34,11 +34,6 @@ local Ace = {
     ConfigDialog = LibStub "AceConfigDialog-3.0",
 }
 
-local Lib = {
-  DataBroker   = LibStub "LibDataBroker-1.1",
-  DBIcon       = LibStub "LibDBIcon-1.0",
-}
-
 local mixins = {}
 
 CS_ADDON = Ace.Addon
@@ -97,66 +92,8 @@ if trp3 then
     }
 end
 
-local data_broker = Lib.DataBroker:NewDataObject("CharacterSheet", {
-  type = "data source",
-  text = "CharacterSheet",
-  icon = "Interface/Icons/inv_inscription_scroll",
-  OnClick = function()
-    local menu = {
-      { text = "Options",
-        notCheckable = true,
-        func = function()
-          local title = GetAddOnMetadata(addon_name, "title")
-          -- Have to call this function twice because of an API-side bug.
-          InterfaceOptionsFrame_OpenToCategory(title)
-          InterfaceOptionsFrame_OpenToCategory(title)
-        end,
-      },
-      { text = T.MINIMAP_MENU_UI_FRAMES, isTitle = true },
-      { text = T.MINIMAP_MENU_STATS_FRAME,
-        func = function()
-          CS.Interface.Toggle(CS_StatsFrame)
-        end,
-        checked = function()
-          return CS_StatsFrame:IsVisible()
-        end,
-      },
-      { text = T.MINIMAP_MENU_EDIT_FRAME,
-        func = function()
-          CS.Interface.Toggle(CS_EditFrame)
-        end,
-        checked = function()
-          return CS_EditFrame:IsVisible()
-        end,
-      },
-      { text = T.MINIMAP_MENU_TOGGLE_PET,
-        func = function()
-          CS.Mechanics.Sheet:toggle_pet()
-        end,
-        checked = function()
-          return CS.Mechanics.Sheet.PetActive
-        end,
-      },
-      { text = T.MINIMAP_MENU_RESOURCE,
-        func = function()
-          CS.Interface.ResourceMenu.open()
-        end,
-        notCheckable = true,
-      },
-    }
-    EasyMenu(menu, CreateFrame("FRAME", "CS_MinimapMenu"), "cursor", 0, 0, nil)
-  end,
-  OnTooltipShow = function(self)
-    local title = GetAddOnMetadata(addon_name, "title")
-    self:AddLine(title)
-    self:AddLine(("|cFFFFFFFF%s|r"):format(T.MINIMAP_BUTTON_TOOLTIP))
-  end,
-})
-
 CS_ADDON.OnInitialize = function(self)
   Ace.Config:RegisterOptionsTable(addon_name, options)
   self.options_frame = Ace.ConfigDialog
     : AddToBlizOptions(addon_name, GetAddOnMetadata(addon_name, "title"))
-  CS_MinimapState = CS_MinimapState or {}
-  Lib.DBIcon:Register("CharacterSheet", data_broker, CS_MinimapState)
 end

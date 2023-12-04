@@ -8,6 +8,8 @@ and this project adheres to
 ## [0.6.2][] - 2023-12-04
 ### Changed
 - Updated for World of Warcraft 10.2.0.
+- The minimap button has been replaced by a new button that integrates with
+Blizzard's own addon compartment UI.
 
 ## [0.6.1][] - 2022-09-04
 ### Changed
