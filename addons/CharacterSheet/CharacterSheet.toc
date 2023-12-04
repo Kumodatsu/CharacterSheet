@@ -1,11 +1,11 @@
-## Interface: 90207
+## Interface: 100200
 ## Title: Character Sheet
 ## Notes: Management and automation for an RP character sheet system.
 ## Author: Kumodatsu
 ## OptionalDeps: TotalRP3, Ace3
 ## X-Embeds: Ace3
 ## SavedVariables: CS_DB, CS_MinimapState
-## Version: 0.6.1
+## Version: 0.6.2
 
 lib\LibStub\LibStub.lua
 lib\AceAddon-3.0\AceAddon-3.0.xml
