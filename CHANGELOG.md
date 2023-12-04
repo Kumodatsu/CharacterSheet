@@ -6,6 +6,7 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.6.2][] - 2023-12-04
+### Changed
 - Updated for World of Warcraft 10.2.0.
 
 ## [0.6.1][] - 2022-09-04
@@ -336,7 +337,7 @@ when attempting to set a stat to something nonsensical such as
 commands.
 - (Code) Table utilities. Includes functions to operate on tables.
 
-[0.6.1]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.2>
+[0.6.2]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.2>
 [0.6.1]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.1>
 [0.6.0]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.0>
 [0.5.11]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.5.11>
