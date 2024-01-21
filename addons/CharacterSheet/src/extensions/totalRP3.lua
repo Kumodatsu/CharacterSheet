@@ -33,7 +33,8 @@ M.set_ooc = function(content)
     if changed then
         local context = TRP3_API.navigation.page.getCurrentContext()
         if context and context.isPlayer then
-            TRP3_RegisterMiscViewCurrentlyOOCScrollText:SetText(character.CO)
+            TRP3_RegisterMiscViewCurrentlyOOC.ScrollFrame.ScrollBox.EditBox
+                :ApplyText(character.CO)
         end
         character.v = TRP3_API.utils.math.incrementNumber(character.v or 1, 2)
         TRP3_Addon:TriggerEvent(
@@ -59,7 +60,8 @@ M.set_cur = function(content)
     if changed then
         local context = TRP3_API.navigation.page.getCurrentContext()
         if context and context.isPlayer then
-            TRP3_RegisterMiscViewCurrentlyICScrollText:SetText(character.CU)
+            TRP3_RegisterMiscViewCurrentlyIC.ScrollFrame.ScrollBox.EditBox
+                :ApplyText(character.CU)
         end
         character.v = TRP3_API.utils.math.incrementNumber(character.v or 1, 2)
         TRP3_Addon:TriggerEvent(
