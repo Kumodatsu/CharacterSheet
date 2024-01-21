@@ -47,7 +47,7 @@ end
 
 M.get_ooc = function()
     local character = TRP3_API.profile.getData "player/character"
-    return character.CO
+    return character.CO or ""
 end
 
 M.set_cur = function(content)
@@ -73,7 +73,7 @@ end
 
 M.get_cur = function()
     local character = TRP3_API.profile.getData "player/character"
-    return character.CU
+    return character.CU or ""
 end
 
 M.set = function(content_type, content)
