@@ -5,6 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.3][] - 2024-01-22
+### Changed
+- Updated for World of Warcraft 10.2.5.
+
+### Fixed
+- Colors picked in the resource frame will now update the resource immediately,
+instead of when other settings change.
+- The addon now displays the correct icon in the addon list.
+- Fixed Lua errors when stats change with the TRP stats setting on.
+
 ## [0.6.2][] - 2023-12-04
 ### Changed
 - Updated for World of Warcraft 10.2.0.
@@ -343,6 +353,7 @@ when attempting to set a stat to something nonsensical such as
 commands.
 - (Code) Table utilities. Includes functions to operate on tables.
 
+[0.6.3]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.3>
 [0.6.2]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.2>
 [0.6.1]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.1>
 [0.6.0]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.0>
