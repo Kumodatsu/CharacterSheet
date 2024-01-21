@@ -36,8 +36,8 @@ M.set_ooc = function(content)
             TRP3_RegisterMiscViewCurrentlyOOCScrollText:SetText(character.CO)
         end
         character.v = TRP3_API.utils.math.incrementNumber(character.v or 1, 2)
-        TRP3_API.events.fireEvent(
-            TRP3_API.events.REGISTER_DATA_UPDATED,
+        TRP3_Addon:TriggerEvent(
+            TRP3_Addon.Events.REGISTER_DATA_UPDATED,
             TRP3_API.globals.player_id,
             TRP3_API.profile.getPlayerCurrentProfileID(),
             "character"
@@ -62,8 +62,8 @@ M.set_cur = function(content)
             TRP3_RegisterMiscViewCurrentlyICScrollText:SetText(character.CU)
         end
         character.v = TRP3_API.utils.math.incrementNumber(character.v or 1, 2)
-        TRP3_API.events.fireEvent(
-            TRP3_API.events.REGISTER_DATA_UPDATED,
+        TRP3_Addon:TriggerEvent(
+            TRP3_Addon.Events.REGISTER_DATA_UPDATED,
             TRP3_API.globals.player_id,
             TRP3_API.profile.getPlayerCurrentProfileID(),
             "character"
