@@ -11,9 +11,7 @@ AddonCompartmentFrame:RegisterAddon {
       root:CreateTitle "Character Sheet"
       root:CreateButton("Options", function()
         local title = GetAddOnMetadata(addon_name, "title")
-        -- Have to call this function twice because of a WoW API-side bug.
-        InterfaceOptionsFrame_OpenToCategory(title)
-        InterfaceOptionsFrame_OpenToCategory(title)
+        Settings.OpenToCategory(title)
       end)
       root:CreateTitle(T.MINIMAP_MENU_UI_FRAMES)
       root:CreateCheckbox(

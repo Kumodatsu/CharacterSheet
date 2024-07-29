@@ -12,6 +12,8 @@ and this project adheres to
 ### Fixed
 - When the pet is toggled, TRP stats are now immediately updated to reflect the
 change.
+- Fixed a Lua error when trying to open the options menu from the addon
+compartment.
 
 ## [0.6.5][] - 2024-05-09
 ### Changed
