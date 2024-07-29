@@ -9,6 +9,10 @@ and this project adheres to
 ### Changed
 - Updated for World of Warcraft 11.0.0.
 
+### Fixed
+- When the pet is toggled, TRP stats are now immediately updated to reflect the
+change.
+
 ## [0.6.5][] - 2024-05-09
 ### Changed
 - Updated for World of Warcraft 10.2.7.

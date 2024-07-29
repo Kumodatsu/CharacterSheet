@@ -162,6 +162,7 @@ end
 CS.CharacterSheet.OnStatsChanged:add(update_trp_stats)
 CS.CharacterSheet.OnHPChanged:add(update_trp_stats)
 CS.CharacterSheet.OnPetChanged:add(update_trp_stats)
+CS.CharacterSheet.OnPetToggled:add(update_trp_stats)
 CS.CharacterSheet.OnResourceChanged:add(update_trp_stats)
 
 local set_ooc_packed = function(packed_content)
