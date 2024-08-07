@@ -108,7 +108,7 @@ local on_system_message = function(message)
     end
     tf = tf or CS.id
     roll_str = string.format(
-        "%d%s.",
+        "%d%s",
         tf(roll + mod),
         roll_str
     )
