@@ -82,7 +82,7 @@ if trp3 then
             return trp3.UpdateTRPWithStats
         end,
         set    = function(info, value)
-            trp3.UpdateTRPWithStats = value
+            trp3.set_stat_update_state(value)
         end,
         values = {
             [StatUpdateState.None]      = T.SETTING_TRP_STATS_DISABLED,

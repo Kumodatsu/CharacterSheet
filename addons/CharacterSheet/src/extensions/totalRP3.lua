@@ -124,39 +124,46 @@ local replace_stats = function(content, stats)
     return stats .. "\n\n" .. content
 end
 
-local clear_stats = function()
-    for _, content_type in
-            ipairs { M.StatUpdateState.Currently, M.StatUpdateState.OOC } do
-        local content = M.get(content_type)
-        content = content_without_stats(content)
-        M.set(content_type, content)
-    end
+local clear_stats = function(content_type)
+  local content = M.get(content_type)
+  content = content_without_stats(content)
+  M.set(content_type, content)
+end
+
+local clear_all_stats = function()
+  for _, content_type in ipairs {
+    M.StatUpdateState.Currently,
+    M.StatUpdateState.OOC,
+  } do
+    clear_stats(content_type)
+  end
 end
 
 local update_trp_stats = function()
-    if M.UpdateTRPWithStats == M.StatUpdateState.None then
-        return
-    end
-    local sheet = CS.Mechanics.Sheet
-    local stats = sheet.Stats
+  if M.UpdateTRPWithStats == M.StatUpdateState.None then
+    return
+  end
 
-    local content = M.get(M.UpdateTRPWithStats)
-    local stats_str = format_stats_string(
-        sheet.HP,
-        stats:get_max_hp(),
-        stats.STR,
-        stats.DEX,
-        stats.CON,
-        stats.INT,
-        stats.WIS,
-        stats.CHA,
-        sheet.PetActive,
-        sheet.PetHP,
-        stats:get_pet_max_hp(),
-        sheet.Resource
-    )
-    local new_content = replace_stats(content, stats_str)
-    M.set(M.UpdateTRPWithStats, new_content)
+  local sheet = CS.Mechanics.Sheet
+  local stats = sheet.Stats
+
+  local content = M.get(M.UpdateTRPWithStats)
+  local stats_str = format_stats_string(
+      sheet.HP,
+      stats:get_max_hp(),
+      stats.STR,
+      stats.DEX,
+      stats.CON,
+      stats.INT,
+      stats.WIS,
+      stats.CHA,
+      sheet.PetActive,
+      sheet.PetHP,
+      stats:get_pet_max_hp(),
+      sheet.Resource
+  )
+  local new_content = replace_stats(content, stats_str)
+  M.set(M.UpdateTRPWithStats, new_content)
 end
 
 CS.CharacterSheet.OnStatsChanged:add(update_trp_stats)
@@ -173,27 +180,50 @@ local set_cur_packed = function(packed_content)
     M.set_cur(packed_content and table.concat(packed_content, " ") or "")
 end
 
-local set_stat_update = function(value)
-    value = value and value:lower() or ""
-    local state = switch(value) {
-        ["off"] = M.StatUpdateState.None,
-        ["cur"] = M.StatUpdateState.Currently,
-        ["ooc"] = M.StatUpdateState.OOC,
+local update_trp_stats_based_on_setting = function()
+  switchf(M.UpdateTRPWithStats) {
+    [M.StatUpdateState.None] = function()
+      clear_all_stats()
+    end,
+    [M.StatUpdateState.Currently] = function()
+      clear_stats(M.StatUpdateState.OOC)
+      update_trp_stats()
+    end,
+    [M.StatUpdateState.OOC] = function()
+      clear_stats(M.StatUpdateState.Currently)
+      update_trp_stats()
+    end,
+  }
+end
+
+M.set_stat_update_state = function(state)
+  M.UpdateTRPWithStats = state
+  update_trp_stats_based_on_setting()
+
+  CS.Print(
+    switch(state) {
+        [M.StatUpdateState.None] =
+            T.MSG_TRP_STATS_NONE,
+        [M.StatUpdateState.Currently] =
+            T.MSG_TRP_STATS_CURRENTLY,
+        [M.StatUpdateState.OOC] =
+            T.MSG_TRP_STATS_OOC
     }
-    if not state then
-        return CS.Print(T.MSG_TRP_STATS_ARGS)
-    end
-    M.UpdateTRPWithStats = state
-    CS.Print(
-        switch(state) {
-            [M.StatUpdateState.None] =
-                T.MSG_TRP_STATS_NONE,
-            [M.StatUpdateState.Currently] =
-                T.MSG_TRP_STATS_CURRENTLY,
-            [M.StatUpdateState.OOC] =
-                T.MSG_TRP_STATS_OOC
-        }
-    )
+  )
+end
+
+local set_stat_update = function(value)
+  value = value and value:lower() or ""
+  local state = switch(value) {
+      ["off"] = M.StatUpdateState.None,
+      ["cur"] = M.StatUpdateState.Currently,
+      ["ooc"] = M.StatUpdateState.OOC,
+  }
+  if not state then
+    CS.Print(T.MSG_TRP_STATS_ARGS)
+    return
+  end
+  M.set_stat_update_state(state)
 end
 
 CS.Commands.add_cmd("trpooc", set_ooc_packed, [[
@@ -212,7 +242,7 @@ CS.Commands.add_cmd("trpstats", set_stat_update, [[
 "/cs trpstats off" will make your stats not overwrite any of your TRP information.
 ]])
 
-CS.Commands.add_cmd("trpclearstats", clear_stats, [[
+CS.Commands.add_cmd("trpclearstats", clear_all_stats, [[
 "/cs trpclearstats" removes your stats from your TRP info if they are there, leaving the rest of the contents intact.
 ]])
 

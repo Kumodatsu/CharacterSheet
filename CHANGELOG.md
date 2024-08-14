@@ -12,6 +12,10 @@ and this project adheres to
 
 ### Fixed
 - Bug where most of the interface would be broken due to a WoW API change.
+- Stats are now immediately added to the TRP Currently/OOC information when the
+TRP stats setting is set, rather than only after a stat update.
+- Stats are now removed from the TRP Currently/OOC information when the TRP
+stats setting is turned off.
 
 ## [0.6.6][] - 2024-07-29
 ### Changed
