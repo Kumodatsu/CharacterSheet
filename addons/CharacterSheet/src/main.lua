@@ -17,9 +17,9 @@ BINDING_NAME_TOGGLE_EDIT_FRAME  = T.KEYBIND_TOGGLE_EDIT_FRAME
 
 -- Version command
 local show_version = function()
-    local author  = GetAddOnMetadata(addon_name, "author")
-    local title   = GetAddOnMetadata(addon_name, "title")
-    local version = GetAddOnMetadata(addon_name, "version")
+    local author  = C_AddOns.GetAddOnMetadata(addon_name, "author")
+    local title   = C_AddOns.GetAddOnMetadata(addon_name, "title")
+    local version = C_AddOns.GetAddOnMetadata(addon_name, "version")
     CS.Print(T.ADDON_INFO(author, title, version))
 end
 
@@ -93,7 +93,8 @@ if trp3 then
 end
 
 CS_ADDON.OnInitialize = function(self)
+  local addon_title = C_AddOns.GetAddOnMetadata(addon_name, "title")
   Ace.Config:RegisterOptionsTable(addon_name, options)
   self.options_frame = Ace.ConfigDialog
-    : AddToBlizOptions(addon_name, GetAddOnMetadata(addon_name, "title"))
+    : AddToBlizOptions(addon_name, addon_title)
 end

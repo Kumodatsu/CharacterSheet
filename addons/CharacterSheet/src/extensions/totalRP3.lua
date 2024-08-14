@@ -217,10 +217,10 @@ CS.Commands.add_cmd("trpclearstats", clear_stats, [[
 ]])
 
 TRP3_API.module.registerModule({
-    name        = GetAddOnMetadata(addon_name, "Title"),
-    description = GetAddOnMetadata(addon_name, "Notes"),
+    name        = C_AddOns.GetAddOnMetadata(addon_name, "Title"),
+    description = C_AddOns.GetAddOnMetadata(addon_name, "Notes"),
     version     = tonumber(
-        GetAddOnMetadata(addon_name, "Version"):match("^%d+%.%d+")
+      C_AddOns.GetAddOnMetadata(addon_name, "Version"):match("^%d+%.%d+")
     ),
     id          = "trp3_character_sheet",
     onStart     = function() end,

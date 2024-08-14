@@ -28,7 +28,7 @@ local format_changes = {
 -- Preprocesses the save data to ensure it is in the latest expected format.
 M.preprocess_data = function()
     CS_DB = CS_DB or {}
-    local current_version = GetAddOnMetadata(addon_name, "Version")
+    local current_version = C_AddOns.GetAddOnMetadata(addon_name, "Version")
     -- There is no compatability with saves made before version 0.4.8.
     if not CS_DB.Version or CS.Version.compare(CS_DB.Version, "0.4.8") < 0 then
         CS_DB = { Version = "0.0.0" }
@@ -90,7 +90,7 @@ M.save_data = function()
     if not do_save then return end
 
     -- Version
-    CS_DB.Version = GetAddOnMetadata(addon_name, "Version")
+    CS_DB.Version = C_AddOns.GetAddOnMetadata(addon_name, "Version")
 
     -- Global settings
     CS_DB.GlobalSettings.RaidRollsEnabled = CS.Roll.RaidRollsEnabled

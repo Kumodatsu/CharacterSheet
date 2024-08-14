@@ -9,6 +9,9 @@ and this project adheres to
 ### Changed
 - Roll messages no longer end with a period.
 
+### Fixed
+- Bug where most of the interface would be broken due to a WoW API change.
+
 ## [0.6.6][] - 2024-07-29
 ### Changed
 - Updated for World of Warcraft 11.0.0.
