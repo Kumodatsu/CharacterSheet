@@ -9,9 +9,11 @@ and this project adheres to
 ### Changed
 - Updated for World of Warcraft 11.0.2.
 - Roll messages no longer end with a period.
+- The power level dropdown menu now actually looks like a dropdown menu.
 
 ### Fixed
 - Bug where most of the interface would be broken due to a WoW API change.
+- The power level dropdown works as intended again.
 - Stats are now immediately added to the TRP Currently/OOC information when the
 TRP stats setting is set, rather than only after a stat update.
 - Stats are now removed from the TRP Currently/OOC information when the TRP

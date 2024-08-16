@@ -258,27 +258,30 @@ CS.Interface.Text = function(info)
 end
 
 CS.Interface.Dropdown = function(info)
-    local dropdown = CreateFrame("Button", info.Global, nil)
+  local dropdown =
+    CreateFrame("DropdownButton", info.Global, nil, "WowStyle1DropdownTemplate")
+
+  if info.Width then
     dropdown:SetWidth(info.Width)
+  end
+  if info.Height then
     dropdown:SetHeight(info.Height)
-    dropdown:SetNormalFontObject "GameFontNormal"
-    dropdown:SetText(info.Text or "undefined")
-    dropdown:GetFontString():SetPoint("LEFT", dropdown, "LEFT", 0, 0)
-    dropdown:GetFontString():SetPoint("RIGHT", dropdown, "RIGHT", 0, 0)
+  end
 
-    dropdown.select = CreateFrame("Frame", info.Global .. "Select", dropdown)
-    dropdown.select:SetPoint("TOP", dropdown, "TOP", 0, 0)
-    dropdown.select:SetWidth(info.Width)
-    dropdown.select:SetHeight(info.Height)
+  dropdown:SetDefaultText "Unknown"
 
-    dropdown:SetScript("OnClick", function(self, button, down)
-        if button == "LeftButton" then
-            EasyMenu(info.Menu, dropdown.select, dropdown.select, 0, 0)
-        end
-    end)
+  dropdown:SetupMenu(function(dropdown, root)
+    for i = 2, #info.Menu do
+      local entry = info.Menu[i]
+      root:CreateButton(entry.text, function(...)
+        entry.func(dropdown, ...)
+      end)
+    end
+  end)
 
-    register_all(dropdown, info)
-    return dropdown
+  register_all(dropdown, info)
+  
+  return dropdown
 end
 
 CS.Interface.Toggle = function(frame, visible)
@@ -321,4 +324,3 @@ CS.Commands.add_cmd("toggle", toggle_frame, [[
 "/cs toggle <frame>" toggles the specified UI frame on or off.
 <frame> must be one of: stats, edit
 ]])
-

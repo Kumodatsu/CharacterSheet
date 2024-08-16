@@ -41,7 +41,9 @@ local power_menu = {
 }
 
 local update_power = function(self)
-    self:SetText(CS.Stats.PowerLevel.to_string(CS.Mechanics.Sheet.Stats.Level))
+  self:OverrideText(
+    CS.Stats.PowerLevel.to_string(CS.Mechanics.Sheet.Stats.Level)
+  )
 end
 
 local update_derived = function(self)
@@ -88,7 +90,6 @@ CS.Interface.Frame {
         CS.Interface.Dropdown {
             Global = "CS_Power",
             Width  = 180,
-            Height = 32,
             Menu   = power_menu,
             Events = {
                 [CS.OnAddonLoaded]                 = { update_power },
