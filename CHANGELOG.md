@@ -5,11 +5,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.6.8][]
+## [0.6.9][] - 2025-02-26
+### Changed
+- Updated for World of Warcraft 11.1.0.
+- The addon is now listed under the "Roleplay" category in the addon menu.
+
+## [0.6.8][] - 2024-10-25
 ### Changed
 - Updated for World of Warcraft 11.0.5.
 
-## [0.6.7][]
+## [0.6.7][] - 2024-08-16
 ### Changed
 - Updated for World of Warcraft 11.0.2.
 - Roll messages no longer end with a period.
