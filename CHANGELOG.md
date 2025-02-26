@@ -8,6 +8,7 @@ and this project adheres to
 ## [0.6.9][] - 2025-02-26
 ### Changed
 - Updated for World of Warcraft 11.1.0.
+- The addon is now listed under the "Roleplay" category in the addon menu.
 
 ## [0.6.8][] - 2024-10-25
 ### Changed
