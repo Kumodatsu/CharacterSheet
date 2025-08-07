@@ -5,7 +5,7 @@
 ## Author: Kumodatsu
 ## IconTexture: Interface\Icons\inv_inscription_scroll
 ## SavedVariables: CS_DB, CS_MinimapState
-## Version: 0.6.9
+## Version: 0.6.10
 
 # Tongues is listed as an optional dependency to force it to load before this addon if it is
 # present. This resolves an incompatibility issue because Tongues overwrites the `SendChatMessage`
