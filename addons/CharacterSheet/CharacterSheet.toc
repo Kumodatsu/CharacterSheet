@@ -1,13 +1,18 @@
-## Interface: 110100
+## Interface: 110200
 ## Title: Character Sheet
 ## Category: Roleplay
 ## Notes: Management and automation for an RP character sheet system.
 ## Author: Kumodatsu
 ## IconTexture: Interface\Icons\inv_inscription_scroll
-## OptionalDeps: TotalRP3, Ace3
-## X-Embeds: Ace3
 ## SavedVariables: CS_DB, CS_MinimapState
-## Version: 0.6.9
+## Version: 0.6.10
+
+# Tongues is listed as an optional dependency to force it to load before this addon if it is
+# present. This resolves an incompatibility issue because Tongues overwrites the `SendChatMessage`
+# API.
+
+## OptionalDeps: TotalRP3, Tongues, Ace3
+## X-Embeds: Ace3
 
 # The following category translations are taken from:
 # https://warcraft.wiki.gg/wiki/Addon_Categories#Roleplay
