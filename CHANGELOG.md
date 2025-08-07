@@ -9,6 +9,9 @@ and this project adheres to
 ### Changed
 - Updated for World of Warcraft 11.2.0.
 
+### Fixed
+- Applied a hack to resolve an incompatibility issue with the Tongues addon.
+
 ## [0.6.9][] - 2025-02-26
 ### Changed
 - Updated for World of Warcraft 11.1.0.
