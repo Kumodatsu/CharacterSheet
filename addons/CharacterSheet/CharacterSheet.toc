@@ -1,4 +1,4 @@
-## Interface: 110100
+## Interface: 110200
 ## Title: Character Sheet
 ## Category: Roleplay
 ## Notes: Management and automation for an RP character sheet system.
