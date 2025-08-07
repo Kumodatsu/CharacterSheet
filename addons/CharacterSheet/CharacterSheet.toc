@@ -4,7 +4,7 @@
 ## Notes: Management and automation for an RP character sheet system.
 ## Author: Kumodatsu
 ## IconTexture: Interface\Icons\inv_inscription_scroll
-## OptionalDeps: TotalRP3, Ace3
+## OptionalDeps: TotalRP3, Tongues, Ace3
 ## X-Embeds: Ace3
 ## SavedVariables: CS_DB, CS_MinimapState
 ## Version: 0.6.9
