@@ -10,8 +10,7 @@ AddonCompartmentFrame:RegisterAddon {
     MenuUtil.CreateContextMenu(nil, function(parent, root)
       root:CreateTitle "Character Sheet"
       root:CreateButton("Options", function()
-        local title = C_AddOns.GetAddOnMetadata(addon_name, "title")
-        Settings.OpenToCategory(title)
+        Settings.OpenToCategory(CS_ADDON.options_category_id)
       end)
       root:CreateTitle(T.MINIMAP_MENU_UI_FRAMES)
       root:CreateCheckbox(

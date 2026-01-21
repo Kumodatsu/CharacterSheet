@@ -95,6 +95,6 @@ end
 CS_ADDON.OnInitialize = function(self)
   local addon_title = C_AddOns.GetAddOnMetadata(addon_name, "title")
   Ace.Config:RegisterOptionsTable(addon_name, options)
-  self.options_frame = Ace.ConfigDialog
+  self.options_frame, self.options_category_id = Ace.ConfigDialog
     : AddToBlizOptions(addon_name, addon_title)
 end

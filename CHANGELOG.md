@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.11][] - 2026-01-21
+### Fixed
+- Updated for World of Warcraft 12.0.0.
+- Fixed a Lua error when trying to open the options menu from the addon
+compartment.
+
 ## [0.6.10][] - 2025-08-07
 ### Changed
 - Updated for World of Warcraft 11.2.0.
@@ -401,6 +407,7 @@ when attempting to set a stat to something nonsensical such as
 commands.
 - (Code) Table utilities. Includes functions to operate on tables.
 
+[0.6.11]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.11>
 [0.6.10]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.10>
 [0.6.9]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.9>
 [0.6.8]: <https://github.com/Kumodatsu/CharacterSheet/releases/tag/v0.6.8>
