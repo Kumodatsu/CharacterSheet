@@ -8,6 +8,8 @@ and this project adheres to
 ## Unreleased
 ### Fixed
 - Updated for World of Warcraft 12.0.0.
+- Fixed a Lua error when trying to open the options menu from the addon
+compartment.
 
 ## [0.6.10][] - 2025-08-07
 ### Changed
